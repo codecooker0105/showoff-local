@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 10, 2021 at 06:35 AM
--- Server version: 5.6.51-cll-lve
--- PHP Version: 7.3.6
+-- Host: 127.0.0.1
+-- Generation Time: Jul 10, 2021 at 04:39 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.1.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,8 +40,8 @@ CREATE TABLE `ads` (
   `banner_height` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `location` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `status` text COLLATE utf8mb4_unicode_ci COMMENT '1=active; 2=blocked, 3=Expired, 4=Pending',
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '1=active; 2=blocked, 3=Expired, 4=Pending',
   `merchant_id` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -111,8 +111,7 @@ INSERT INTO `blocked_users` (`id`, `block_by_id`, `blocked_id`, `created_at`, `u
 (8, 261, 255, '2020-04-19 18:22:12', '2020-04-19 18:22:12'),
 (9, 259, 262, '2020-04-19 18:22:54', '2020-04-19 18:22:54'),
 (10, 261, 265, '2020-04-19 18:30:12', '2020-04-19 18:30:12'),
-(14, 255, 256, '2020-04-20 17:58:09', '2020-04-20 17:58:09'),
-(15, 274, 254, '2021-07-05 14:30:06', '2021-07-05 14:30:06');
+(14, 255, 256, '2020-04-20 17:58:09', '2020-04-20 17:58:09');
 
 -- --------------------------------------------------------
 
@@ -158,9 +157,7 @@ INSERT INTO `channels` (`id`, `channel_name`, `user_id_1`, `user_id_2`, `created
 (24, 'channel_225267', 225, 267, '2020-04-22 15:16:10', '2020-04-22 15:16:10'),
 (25, 'channel_255272', 272, 255, '2020-04-26 08:31:44', '2020-04-26 08:31:44'),
 (26, 'channel_258265', 265, 258, '2020-05-02 23:31:33', '2020-05-02 23:31:33'),
-(27, 'channel_255265', 265, 255, '2020-05-03 00:27:19', '2020-05-03 00:27:19'),
-(28, 'channel_255273', 273, 255, '2021-07-04 19:20:22', '2021-07-04 19:20:22'),
-(29, 'channel_273274', 274, 273, '2021-07-06 13:36:43', '2021-07-06 13:36:43');
+(27, 'channel_255265', 265, 255, '2020-05-03 00:27:19', '2020-05-03 00:27:19');
 
 -- --------------------------------------------------------
 
@@ -173,13 +170,13 @@ CREATE TABLE `chattings` (
   `channel_id` int(10) UNSIGNED NOT NULL,
   `sender_id` int(10) UNSIGNED NOT NULL,
   `receiver_id` int(11) NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci,
+  `message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `video` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `thumbnail_url` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attachment` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` tinyint(4) NOT NULL DEFAULT '0',
-  `read_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1="Already Read", 0="Not Read"',
+  `type` tinyint(4) NOT NULL DEFAULT 0,
+  `read_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1="Already Read", 0="Not Read"',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -575,13 +572,7 @@ INSERT INTO `chattings` (`id`, `channel_id`, `sender_id`, `receiver_id`, `messag
 (389, 27, 265, 255, 'Hi', NULL, NULL, NULL, NULL, 1, 0, '2020-05-03 00:27:19', '2020-05-03 00:27:19'),
 (390, 27, 265, 255, 'Hi', NULL, NULL, NULL, NULL, 1, 0, '2020-05-03 00:27:26', '2020-05-03 00:27:26'),
 (391, 26, 258, 265, 'Hi', NULL, NULL, NULL, NULL, 1, 0, '2020-05-03 14:47:38', '2020-05-03 14:47:38'),
-(392, 26, 258, 265, 'Just checking if you are getting my messages', NULL, NULL, NULL, NULL, 1, 0, '2020-05-03 14:47:59', '2020-05-03 14:47:59'),
-(393, 28, 273, 255, 'hei', NULL, NULL, NULL, NULL, 1, 0, '2021-07-04 19:20:22', '2021-07-04 19:20:22'),
-(394, 28, 273, 255, 'Are you there?', NULL, NULL, NULL, NULL, 1, 0, '2021-07-04 19:20:31', '2021-07-04 19:20:31'),
-(395, 29, 274, 273, 'hello', NULL, NULL, NULL, NULL, 1, 1, '2021-07-06 13:36:43', '2021-07-09 13:43:36'),
-(396, 29, 274, 273, 'what\'s up', NULL, NULL, NULL, NULL, 1, 1, '2021-07-06 13:36:47', '2021-07-09 13:43:36'),
-(397, 29, 274, 273, 'how are you 😉🙂', NULL, NULL, NULL, NULL, 1, 1, '2021-07-06 13:37:00', '2021-07-09 13:43:36'),
-(398, 29, 273, 274, 'hey I am good', NULL, NULL, NULL, NULL, 1, 0, '2021-07-06 13:38:05', '2021-07-06 13:38:05');
+(392, 26, 258, 265, 'Just checking if you are getting my messages', NULL, NULL, NULL, NULL, 1, 0, '2020-05-03 14:47:59', '2020-05-03 14:47:59');
 
 -- --------------------------------------------------------
 
@@ -604,11 +595,12 @@ CREATE TABLE `comment_likes` (
 INSERT INTO `comment_likes` (`id`, `comment_id`, `user_id`, `created_at`, `updated_at`) VALUES
 (51, 128, 254, '2020-04-10 17:11:16', '2020-04-10 17:11:16'),
 (57, 138, 259, '2020-04-11 10:28:51', '2020-04-11 10:28:51'),
+(58, 145, 263, '2020-04-11 14:47:48', '2020-04-11 14:47:48'),
+(59, 146, 263, '2020-04-11 14:47:50', '2020-04-11 14:47:50'),
 (61, 156, 265, '2020-04-14 06:16:06', '2020-04-14 06:16:06'),
 (63, 159, 265, '2020-04-14 06:40:56', '2020-04-14 06:40:56'),
 (64, 158, 265, '2020-04-14 06:41:40', '2020-04-14 06:41:40'),
-(66, 157, 259, '2020-04-19 09:32:49', '2020-04-19 09:32:49'),
-(67, 284, 273, '2021-07-07 07:18:59', '2021-07-07 07:18:59');
+(66, 157, 259, '2020-04-19 09:32:49', '2020-04-19 09:32:49');
 
 -- --------------------------------------------------------
 
@@ -618,12 +610,12 @@ INSERT INTO `comment_likes` (`id`, `comment_id`, `user_id`, `created_at`, `updat
 
 CREATE TABLE `common_settings` (
   `id` int(11) NOT NULL,
-  `about_us` longtext,
-  `terms_conditions` longtext,
-  `privacy_policy` longtext,
+  `about_us` longtext DEFAULT NULL,
+  `terms_conditions` longtext DEFAULT NULL,
+  `privacy_policy` longtext DEFAULT NULL,
   `version` varchar(120) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -631,7 +623,7 @@ CREATE TABLE `common_settings` (
 --
 
 INSERT INTO `common_settings` (`id`, `about_us`, `terms_conditions`, `privacy_policy`, `version`, `created_at`, `updated_at`) VALUES
-(1, '<h4>Information About Show Offf</h4><p>Show Offf is an Entertainment App dedicated to allowing you show off your talents or even to match everyone elses through the following categories:<ul><li>Acting</li><li>Singing</li><li>Dancing</li><li>Poems</li><li>Comedy</li><li>Instruments</li><li>Concerts</li></ul>', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '<h4>1. Introduction</h4><p style=\"text-align: justify;\">Welcome to Show Offf LLC (“Company”, “we”, “our”, “us”)! </p><p style=\"text-align: justify;\">These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at <a href=\"https://showofff.io/\">https://showofff.io/</a> (together or individually “Service”) operated by Show Offf LLC. </p><p style=\"text-align: justify;\">Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. </p><p style=\"text-align: justify;\">Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them. </p><p style=\"text-align: justify;\">If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at info@showofff.io so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service. </p><h4>2. Communications</h4><p style=\"text-align: justify;\">By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at info@showofff.io. </p><h4>3. Contests, Sweepstakes and Promotions</h4><p style=\"text-align: justify;\">Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available through Service may be governed by rules that are separate from these Terms of Service. If you participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply. </p><h4>4. Content</h4><p style=\"text-align: justify;\">Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material (“Content”). You are responsible for Content that you post on or through Service, including its legality, reliability, and appropriateness.</p><p style=\"text-align: justify;\">By posting Content on or through Service, You represent and warrant that: (i) Content is yours (you own it) and/or you have the right to use it and the right to grant us the rights and license as provided in these Terms, and (ii) that the posting of your Content on or through Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person or entity. We reserve the right to terminate the account of anyone found to be infringing on a copyright. </p><p style=\"text-align: justify;\">You retain any and all of your rights to any Content you submit, post or display on or through Service and you are responsible for protecting those rights. We take no responsibility and assume no liability for Content you or any third party posts on or through Service. However, by posting Content using Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through Service. You agree that this license includes the right for us to make your Content available to other users of Service, who may also use your Content subject to these Terms. </p><p style=\"text-align: justify;\">Show Offf LLC has the right but not the obligation to monitor and edit all Content provided by users. </p><p style=\"text-align: justify;\">In addition, Content found on or through this Service are the property of Show Offf LLC or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.</p><h4>5. Prohibited Uses</h4><p style=\"text-align: justify;\">You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service: </p><p style=\"text-align: justify;\">0.1. In any way that violates any applicable national or international law or regulation. </p><p style=\"text-align: justify;\">0.2. For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way by exposing them to inappropriate content or otherwise. </p><p style=\"text-align: justify;\">0.3. To transmit, or procure the sending of, any advertising or promotional material, including any “junk mail”, “chain letter,” “spam,” or any other similar solicitation. </p><p style=\"text-align: justify;\">0.4. To impersonate or attempt to impersonate Company, a Company employee, another user, or any other person or entity. </p><p style=\"text-align: justify;\">0.5. In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity. </p><p style=\"text-align: justify;\">0.6. To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of Service, or which, as determined by us, may harm or offend Company or users of Service or expose them to liability. </p><p>Additionally, you agree not to: </p><p style=\"text-align: justify;\">0.1. Use Service in any manner that could disable, overburden, damage, or impair Service or interfere with any other party’s use of Service, including their ability to engage in real time activities through Service. </p><p style=\"text-align: justify;\">0.2. Use any robot, spider, or other automatic device, process, or means to access Service for any purpose, including monitoring or copying any of the material on Service. </p><p style=\"text-align: justify;\">0.3. Use any manual process to monitor or copy any of the material on Service or for any other unauthorized purpose without our prior written consent. </p><p style=\"text-align: justify;\">0.4. Use any device, software, or routine that interferes with the proper working of Service. </p><p style=\"text-align: justify;\">0.5. Introduce any viruses, trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful. </p><p style=\"text-align: justify;\">0.6. Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of Service, the server on which Service is stored, or any server, computer, or database connected to Service. </p><p style=\"text-align: justify;\">0.7. Attack Service via a denial-of-service attack or a distributed denial-of-service attack. </p><p style=\"text-align: justify;\">0.8. Take any action that may damage or falsify Company rating. </p><p style=\"text-align: justify;\">0.9. Otherwise attempt to interfere with the proper working of Service.</p><h4>6. Analytics</h4><p style=\"text-align: justify;\">We may use third-party Service Providers to monitor and analyze the use of our Service. </p><h4>7. No Use By Minors</h4><p style=\"text-align: justify;\">Service is intended only for access and use by individuals at least thirteen (13) years old. By accessing or using Service, you warrant and represent that you are at least thirteen (13) years of age and with the full authority, right, and capacity to enter into this agreement and abide by all of the terms and conditions of Terms. If you are not at least thirteen (13) years old, you are prohibited from both the access and usage of Service. </p><h4>8. Accounts</h4><p style=\"text-align: justify;\">When you create an account with us, you guarantee that you are above the age of 13, and that the information you provide us is accurate, complete, and current at all times. Inaccurate, incomplete, or obsolete information may result in the immediate termination of your account on Service. </p><p style=\"text-align: justify;\">You are responsible for maintaining the confidentiality of your account and password, including but not limited to the restriction of access to your computer and/or account. You agree to accept responsibility for any and all activities or actions that occur under your account and/or password, whether your password is with our Service or a third-party service. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account. </p><p style=\"text-align: justify;\">You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trademark that is subject to any rights of another person or entity other than you, without appropriate authorization. You may not use as a username any name that is offensive, vulgar or obscene. </p><p style=\"text-align: justify;\">We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion. </p><h4>9. Intellectual Property</h4><p style=\"text-align: justify;\">Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of Show Offf LLC and its licensors. Service is protected by copyright, trademark, and other laws of and foreign countries. Our trademarks may not be used in connection with any product or service without the prior written consent of Show Offf LLC. </p><h4>10. Copyright Policy</h4><p style=\"text-align: justify;\">We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity. </p><p style=\"text-align: justify;\">If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to info@showofff.io, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims” </p><p style=\"text-align: justify;\">You may be held accountable for damages (including costs and attorneys’ fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright. </p><h4>11. DMCA Notice and Procedure for Copyright Infringement Claims</h4><p style=\"text-align: justify;\">You may submit a notification pursuant to the Digital Millennium Copyright Act (DMCA) by providing our Copyright Agent with the following information in writing (see 17 U.S.C 512(c)(3) for further detail): </p><p style=\"text-align: justify;\">0.1. an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright’s interest; </p><p style=\"text-align: justify;\">0.2. a description of the copyrighted work that you claim has been infringed, including the URL (i.e., web page address) of the location where the copyrighted work exists or a copy of the copyrighted work; </p><p style=\"text-align: justify;\">0.3. identification of the URL or other specific location on Service where the material that you claim is infringing is located; </p><p style=\"text-align: justify;\">0.4. your address, telephone number, and email address; </p><p style=\"text-align: justify;\">0.5. a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; </p><p style=\"text-align: justify;\">0.6. a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf. </p><p style=\"text-align: justify;\">You can contact our Copyright Agent via email at info@showofff.io. </p><h4>12. Error Reporting and Feedback</h4><p style=\"text-align: justify;\">You may provide us either directly at info@showofff.io or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose. </p><h4>13. Links To Other Web Sites</h4><p style=\"text-align: justify;\">Our Service may contain links to third party web sites or services that are not owned or controlled by Show Offf LLC. </p><p style=\"text-align: justify;\">Show Offf LLC has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites. </p><p style=\"text-align: justify;\">For example, the outlined Terms of Service have been created using PolicyMaker.io, a free web application for generating high-quality legal documents. PolicyMaker’s free Terms and Conditions generator is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app. </p><p style=\"text-align: justify;\">YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES. </p><p style=\"text-align: justify;\">WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT. </p><h4>14. Disclaimer Of Warranty</h4><p style=\"text-align: justify;\">THESE SERVICES ARE PROVIDED BY COMPANY ON AN “AS IS” AND “AS AVAILABLE” BASIS. COMPANY MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF THEIR SERVICES, OR THE INFORMATION, CONTENT OR MATERIALS INCLUDED THEREIN. YOU EXPRESSLY AGREE THAT YOUR USE OF THESE SERVICES, THEIR CONTENT, AND ANY SERVICES OR ITEMS OBTAINED FROM US IS AT YOUR SOLE RISK. </p><p style=\"text-align: justify;\">NEITHER COMPANY NOR ANY PERSON ASSOCIATED WITH COMPANY MAKES ANY WARRANTY OR REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY, QUALITY, ACCURACY, OR AVAILABILITY OF THE SERVICES. WITHOUT LIMITING THE FOREGOING, NEITHER COMPANY NOR ANYONE ASSOCIATED WITH COMPANY REPRESENTS OR WARRANTS THAT THE SERVICES, THEIR CONTENT, OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED, THAT DEFECTS WILL BE CORRECTED, THAT THE SERVICES OR THE SERVER THAT MAKES IT AVAILABLE ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS OR THAT THE SERVICES OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS. </p><p style=\"text-align: justify;\">COMPANY HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE. </p><p style=\"text-align: justify;\">THE FOREGOING DOES NOT AFFECT ANY WARRANTIES WHICH CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW. </p><h4>15. Limitation Of Liability</h4><p style=\"text-align: justify;\">EXCEPT AS PROHIBITED BY LAW, YOU WILL HOLD US AND OUR OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGE, HOWEVER IT ARISES (INCLUDING ATTORNEYS’ FEES AND ALL RELATED COSTS AND EXPENSES OF LITIGATION AND ARBITRATION, OR AT TRIAL OR ON APPEAL, IF ANY, WHETHER OR NOT LITIGATION OR ARBITRATION IS INSTITUTED), WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR PERSONAL INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY YOU OF ANY FEDERAL, STATE, OR LOCAL LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF COMPANY HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. EXCEPT AS PROHIBITED BY LAW, IF THERE IS LIABILITY FOUND ON THE PART OF COMPANY, IT WILL BE LIMITED TO THE AMOUNT PAID FOR THE PRODUCTS AND/OR SERVICES, AND UNDER NO CIRCUMSTANCES WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES. SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE PRIOR LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU. </p><h4>16. Termination</h4><p style=\"text-align: justify;\">We may terminate or suspend your account and bar access to Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of Terms. </p><p style=\"text-align: justify;\">If you wish to terminate your account, you may simply discontinue using Service. </p><p style=\"text-align: justify;\">All provisions of Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability. </p><h4>17. Governing Law</h4><p style=\"text-align: justify;\">These Terms shall be governed and construed in accordance with the laws of United States of America(USA), which governing law applies to agreement without regard to its conflict of law provisions. </p><p style=\"text-align: justify;\">Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service and supersede and replace any prior agreements we might have had between us regarding Service. </p><h4>18. Changes To Service</h4><p style=\"text-align: justify;\">We reserve the right to withdraw or amend our Service, and any service or material we provide via Service, in our sole discretion without notice. We will not be liable if for any reason all or any part of Service is unavailable at any time or for any period. From time to time, we may restrict access to some parts of Service, or the entire Service, to users, including registered users. </p><h4>19. Amendments To Terms</h4><p style=\"text-align: justify;\">We may amend Terms at any time by posting the amended terms on this site. It is your responsibility to review these Terms periodically. </p><p style=\"text-align: justify;\">Your continued use of the Platform following the posting of revised Terms means that you accept and agree to the changes. You are expected to check this page frequently so you are aware of any changes, as they are binding on you. </p><p style=\"text-align: justify;\">By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use Service. </p><h4>20. Waiver And Severability</h4><p style=\"text-align: justify;\">No waiver by Company of any term or condition set forth in Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any failure of Company to assert a right or provision under Terms shall not constitute a waiver of such right or provision. </p><p style=\"text-align: justify;\">If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of Terms will continue in full force and effect. </p><h4>21. Acknowledgement</h4><p style=\"text-align: justify;\">BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM. </p><h4>22. Contact Us</h4><p style=\"text-align: justify;\">Please send your feedback, comments, requests for technical support by email: <a href=\"mailto:info@showofff.io.\">info@showofff.io.</a></p>', '1.0.0', '2020-04-04 06:19:08', '2021-07-04 21:19:46');
+(1, '<h4>Information About Show Offf</h4><p>Show Offf is an Entertainment App dedicated to allowing you show off your talents or even to match everyone elses through the following categories:<ul><li>Acting</li><li>Singing</li><li>Dancing</li><li>Poems</li><li>Comedy</li><li>Instruments</li><li>Concerts</li></ul>', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '<h4>1. Introduction</h4><p style=\"text-align: justify;\">Welcome to Show Offf LLC (“Company”, “we”, “our”, “us”)! </p><p style=\"text-align: justify;\">These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at <a href=\"https://showofff.io/\">https://showofff.io/</a> (together or individually “Service”) operated by Show Offf LLC. </p><p style=\"text-align: justify;\">Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. </p><p style=\"text-align: justify;\">Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them. </p><p style=\"text-align: justify;\">If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at info@showofff.io so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service. </p><h4>2. Communications</h4><p style=\"text-align: justify;\">By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at info@showofff.io. </p><h4>3. Contests, Sweepstakes and Promotions</h4><p style=\"text-align: justify;\">Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available through Service may be governed by rules that are separate from these Terms of Service. If you participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply. </p><h4>4. Content</h4><p style=\"text-align: justify;\">Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material (“Content”). You are responsible for Content that you post on or through Service, including its legality, reliability, and appropriateness.</p><p style=\"text-align: justify;\">By posting Content on or through Service, You represent and warrant that: (i) Content is yours (you own it) and/or you have the right to use it and the right to grant us the rights and license as provided in these Terms, and (ii) that the posting of your Content on or through Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person or entity. We reserve the right to terminate the account of anyone found to be infringing on a copyright. </p><p style=\"text-align: justify;\">You retain any and all of your rights to any Content you submit, post or display on or through Service and you are responsible for protecting those rights. We take no responsibility and assume no liability for Content you or any third party posts on or through Service. However, by posting Content using Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through Service. You agree that this license includes the right for us to make your Content available to other users of Service, who may also use your Content subject to these Terms. </p><p style=\"text-align: justify;\">Show Offf LLC has the right but not the obligation to monitor and edit all Content provided by users. </p><p style=\"text-align: justify;\">In addition, Content found on or through this Service are the property of Show Offf LLC or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.</p><h4>5. Prohibited Uses</h4><p style=\"text-align: justify;\">You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service: </p><p style=\"text-align: justify;\">0.1. In any way that violates any applicable national or international law or regulation. </p><p style=\"text-align: justify;\">0.2. For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way by exposing them to inappropriate content or otherwise. </p><p style=\"text-align: justify;\">0.3. To transmit, or procure the sending of, any advertising or promotional material, including any “junk mail”, “chain letter,” “spam,” or any other similar solicitation. </p><p style=\"text-align: justify;\">0.4. To impersonate or attempt to impersonate Company, a Company employee, another user, or any other person or entity. </p><p style=\"text-align: justify;\">0.5. In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity. </p><p style=\"text-align: justify;\">0.6. To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of Service, or which, as determined by us, may harm or offend Company or users of Service or expose them to liability. </p><p>Additionally, you agree not to: </p><p style=\"text-align: justify;\">0.1. Use Service in any manner that could disable, overburden, damage, or impair Service or interfere with any other party’s use of Service, including their ability to engage in real time activities through Service. </p><p style=\"text-align: justify;\">0.2. Use any robot, spider, or other automatic device, process, or means to access Service for any purpose, including monitoring or copying any of the material on Service. </p><p style=\"text-align: justify;\">0.3. Use any manual process to monitor or copy any of the material on Service or for any other unauthorized purpose without our prior written consent. </p><p style=\"text-align: justify;\">0.4. Use any device, software, or routine that interferes with the proper working of Service. </p><p style=\"text-align: justify;\">0.5. Introduce any viruses, trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful. </p><p style=\"text-align: justify;\">0.6. Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of Service, the server on which Service is stored, or any server, computer, or database connected to Service. </p><p style=\"text-align: justify;\">0.7. Attack Service via a denial-of-service attack or a distributed denial-of-service attack. </p><p style=\"text-align: justify;\">0.8. Take any action that may damage or falsify Company rating. </p><p style=\"text-align: justify;\">0.9. Otherwise attempt to interfere with the proper working of Service.</p><h4>6. Analytics</h4><p style=\"text-align: justify;\">We may use third-party Service Providers to monitor and analyze the use of our Service. </p><h4>7. No Use By Minors</h4><p style=\"text-align: justify;\">Service is intended only for access and use by individuals at least thirteen (13) years old. By accessing or using Service, you warrant and represent that you are at least thirteen (13) years of age and with the full authority, right, and capacity to enter into this agreement and abide by all of the terms and conditions of Terms. If you are not at least thirteen (13) years old, you are prohibited from both the access and usage of Service. </p><h4>8. Accounts</h4><p style=\"text-align: justify;\">When you create an account with us, you guarantee that you are above the age of 13, and that the information you provide us is accurate, complete, and current at all times. Inaccurate, incomplete, or obsolete information may result in the immediate termination of your account on Service. </p><p style=\"text-align: justify;\">You are responsible for maintaining the confidentiality of your account and password, including but not limited to the restriction of access to your computer and/or account. You agree to accept responsibility for any and all activities or actions that occur under your account and/or password, whether your password is with our Service or a third-party service. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account. </p><p style=\"text-align: justify;\">You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trademark that is subject to any rights of another person or entity other than you, without appropriate authorization. You may not use as a username any name that is offensive, vulgar or obscene. </p><p style=\"text-align: justify;\">We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion. </p><h4>9. Intellectual Property</h4><p style=\"text-align: justify;\">Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of Show Offf LLC and its licensors. Service is protected by copyright, trademark, and other laws of and foreign countries. Our trademarks may not be used in connection with any product or service without the prior written consent of Show Offf LLC. </p><h4>10. Copyright Policy</h4><p style=\"text-align: justify;\">We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity. </p><p style=\"text-align: justify;\">If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to info@showofff.io, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims” </p><p style=\"text-align: justify;\">You may be held accountable for damages (including costs and attorneys’ fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright. </p><h4>11. DMCA Notice and Procedure for Copyright Infringement Claims</h4><p style=\"text-align: justify;\">You may submit a notification pursuant to the Digital Millennium Copyright Act (DMCA) by providing our Copyright Agent with the following information in writing (see 17 U.S.C 512(c)(3) for further detail): </p><p style=\"text-align: justify;\">0.1. an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright’s interest; </p><p style=\"text-align: justify;\">0.2. a description of the copyrighted work that you claim has been infringed, including the URL (i.e., web page address) of the location where the copyrighted work exists or a copy of the copyrighted work; </p><p style=\"text-align: justify;\">0.3. identification of the URL or other specific location on Service where the material that you claim is infringing is located; </p><p style=\"text-align: justify;\">0.4. your address, telephone number, and email address; </p><p style=\"text-align: justify;\">0.5. a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; </p><p style=\"text-align: justify;\">0.6. a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf. </p><p style=\"text-align: justify;\">You can contact our Copyright Agent via email at info@showofff.io. </p><h4>12. Error Reporting and Feedback</h4><p style=\"text-align: justify;\">You may provide us either directly at info@showofff.io or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose. </p><h4>13. Links To Other Web Sites</h4><p style=\"text-align: justify;\">Our Service may contain links to third party web sites or services that are not owned or controlled by Show Offf LLC. </p><p style=\"text-align: justify;\">Show Offf LLC has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites. </p><p style=\"text-align: justify;\">For example, the outlined Terms of Service have been created using PolicyMaker.io, a free web application for generating high-quality legal documents. PolicyMaker’s free Terms and Conditions generator is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app. </p><p style=\"text-align: justify;\">YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES. </p><p style=\"text-align: justify;\">WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT. </p><h4>14. Disclaimer Of Warranty</h4><p style=\"text-align: justify;\">THESE SERVICES ARE PROVIDED BY COMPANY ON AN “AS IS” AND “AS AVAILABLE” BASIS. COMPANY MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF THEIR SERVICES, OR THE INFORMATION, CONTENT OR MATERIALS INCLUDED THEREIN. YOU EXPRESSLY AGREE THAT YOUR USE OF THESE SERVICES, THEIR CONTENT, AND ANY SERVICES OR ITEMS OBTAINED FROM US IS AT YOUR SOLE RISK. </p><p style=\"text-align: justify;\">NEITHER COMPANY NOR ANY PERSON ASSOCIATED WITH COMPANY MAKES ANY WARRANTY OR REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY, QUALITY, ACCURACY, OR AVAILABILITY OF THE SERVICES. WITHOUT LIMITING THE FOREGOING, NEITHER COMPANY NOR ANYONE ASSOCIATED WITH COMPANY REPRESENTS OR WARRANTS THAT THE SERVICES, THEIR CONTENT, OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED, THAT DEFECTS WILL BE CORRECTED, THAT THE SERVICES OR THE SERVER THAT MAKES IT AVAILABLE ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS OR THAT THE SERVICES OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS. </p><p style=\"text-align: justify;\">COMPANY HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE. </p><p style=\"text-align: justify;\">THE FOREGOING DOES NOT AFFECT ANY WARRANTIES WHICH CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW. </p><h4>15. Limitation Of Liability</h4><p style=\"text-align: justify;\">EXCEPT AS PROHIBITED BY LAW, YOU WILL HOLD US AND OUR OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGE, HOWEVER IT ARISES (INCLUDING ATTORNEYS’ FEES AND ALL RELATED COSTS AND EXPENSES OF LITIGATION AND ARBITRATION, OR AT TRIAL OR ON APPEAL, IF ANY, WHETHER OR NOT LITIGATION OR ARBITRATION IS INSTITUTED), WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR PERSONAL INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY YOU OF ANY FEDERAL, STATE, OR LOCAL LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF COMPANY HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. EXCEPT AS PROHIBITED BY LAW, IF THERE IS LIABILITY FOUND ON THE PART OF COMPANY, IT WILL BE LIMITED TO THE AMOUNT PAID FOR THE PRODUCTS AND/OR SERVICES, AND UNDER NO CIRCUMSTANCES WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES. SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE PRIOR LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU. </p><h4>16. Termination</h4><p style=\"text-align: justify;\">We may terminate or suspend your account and bar access to Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of Terms. </p><p style=\"text-align: justify;\">If you wish to terminate your account, you may simply discontinue using Service. </p><p style=\"text-align: justify;\">All provisions of Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability. </p><h4>17. Governing Law</h4><p style=\"text-align: justify;\">These Terms shall be governed and construed in accordance with the laws of United States of America(USA), which governing law applies to agreement without regard to its conflict of law provisions. </p><p style=\"text-align: justify;\">Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service and supersede and replace any prior agreements we might have had between us regarding Service. </p><h4>18. Changes To Service</h4><p style=\"text-align: justify;\">We reserve the right to withdraw or amend our Service, and any service or material we provide via Service, in our sole discretion without notice. We will not be liable if for any reason all or any part of Service is unavailable at any time or for any period. From time to time, we may restrict access to some parts of Service, or the entire Service, to users, including registered users. </p><h4>19. Amendments To Terms</h4><p style=\"text-align: justify;\">We may amend Terms at any time by posting the amended terms on this site. It is your responsibility to review these Terms periodically. </p><p style=\"text-align: justify;\">Your continued use of the Platform following the posting of revised Terms means that you accept and agree to the changes. You are expected to check this page frequently so you are aware of any changes, as they are binding on you. </p><p style=\"text-align: justify;\">By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use Service. </p><h4>20. Waiver And Severability</h4><p style=\"text-align: justify;\">No waiver by Company of any term or condition set forth in Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any failure of Company to assert a right or provision under Terms shall not constitute a waiver of such right or provision. </p><p style=\"text-align: justify;\">If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of Terms will continue in full force and effect. </p><h4>21. Acknowledgement</h4><p style=\"text-align: justify;\">BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM. </p><h4>22. Contact Us</h4><p style=\"text-align: justify;\">Please send your feedback, comments, requests for technical support by email: <a href=\"mailto:info@showofff.io.\">info@showofff.io.</a></p>', '1.0.0', '2020-04-04 06:19:08', '2021-07-04 21:07:11');
 
 -- --------------------------------------------------------
 
@@ -642,18 +634,11 @@ INSERT INTO `common_settings` (`id`, `about_us`, `terms_conditions`, `privacy_po
 CREATE TABLE `contact_uses` (
   `id` int(10) UNSIGNED NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `contact_uses`
---
-
-INSERT INTO `contact_uses` (`id`, `email`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'aa1@bb.com', 'test', 274, '2021-07-05 14:05:24', '2021-07-05 14:05:24');
 
 -- --------------------------------------------------------
 
@@ -665,11 +650,11 @@ CREATE TABLE `devices` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `device_id` varchar(255) DEFAULT NULL,
-  `fcm_token` text,
-  `is_logged_in` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0="No", 1="Yes"',
-  `online` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1="Yes", 2="No"',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `fcm_token` text DEFAULT NULL,
+  `is_logged_in` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0="No", 1="Yes"',
+  `online` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1="Yes", 2="No"',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -710,13 +695,7 @@ INSERT INTO `devices` (`id`, `user_id`, `device_id`, `fcm_token`, `is_logged_in`
 (38, 272, 'ae71bcc30900d071', 'eVH18u6sRPChjXEjOTrPoR:APA91bEx9Zqyc1gGWLa2V4QvFjsqgn82EVKQ-A1ucdOfvc0yU_1f2clNthNddNSxHWLsssb_W5EKj1FwbdZF1EP7lY6tX8QEh95Geq2lOX-vNGv1kRyhA2ocU5oTbsLTRqd5gIlbsjFT', 0, 1, '2020-04-26 16:38:09', '2020-04-26 16:38:09'),
 (39, 255, 'CF2772E9-516F-4751-8ECB-D8E00E2983F1', 'efGtR9mVLZE:APA91bGCeeOjSRHOiwMOvrfOn1iYttixG4hgm-SUNP6ewxnWvfoN79henPoT2KAMA5nSAvaxo3-Korgg2eC6faw8mQ3VXjFeQ_sVBf0L10a5IDGKr5RN0fsBll_1zQ_of-apvkH7noKL', 0, 1, '2020-05-02 23:47:13', '2020-05-02 23:47:13'),
 (40, 258, 'CC11C0D5-F3D3-43DF-92D3-10CF4A72055A', 'eQ8LyzMHasg:APA91bF4M9u9_1AEG6Ed4gemNuzw0gdxAGv1JzIM_6yHtE68tfhQTVdOitMuAQq_tv1iO-YgL5seztP80ogMBWBNRZDBcgMHN4Zd4xrkWUK88wKTCxNit70PD4ShERbX5CsNV6QWk-13', 0, 1, '2020-05-03 02:01:37', '2020-05-03 02:01:37'),
-(41, 265, 'C465A98F-677B-4ACD-BC8E-48DE8CBBF087', 'd20AgDp1i2o:APA91bH34rQmjIRmjrTUzYrQ-u1jONCGtemHERkaiqNSbT5m-gyWu5riHPsg511zFX8thQftQImCveeodGedduKssgx0rv50yk2-xalls55Zwv-87-E-B8lGd5cC5neIuYZyJXQa_h6T', 0, 1, '2020-05-03 05:18:49', '2020-05-03 05:18:49'),
-(42, 273, '5bb8a9aa68edee07', 'dwiz5yanRLeCrP3CjBb1nt:APA91bERcNYH9t1JsvNfkDIXfznKtFIcRlQXsaqKINW82tNYHomjq4xh8lC3TNp5Nl-KguQ9biOCy5tRCtdOFYDbvVEjCJSY6Gunbtc2okFV6NvxYiIIDTKFpMRU-jiDnTh24YRc_U-k', 0, 1, '2021-07-03 00:01:44', '2021-07-03 00:01:44'),
-(43, 273, '93496550-D9B2-4463-BBCC-8BC26C8F39D7', 'c2bxvSJGzgA:APA91bG-xUUUUgnAJaFskhCXq2xqURAVInCpxaHpP0dntpoaWBvENEaRkbUnPG7zYA-ZpVSnebrzhhu_DyyDc9Xri8u0IBzh_ARewLSfKCc1yqa_gnNRZtSFpfuF_1hOwoZFMkWvdd0v', 0, 1, '2021-07-03 07:13:55', '2021-07-03 07:13:55'),
-(44, 273, '1231629269383b83', 'cqNlYWLvTQ-rRBd3VtbnS3:APA91bHKN8eyFLFco2ak_mSEaX40RjrRcEH868aTed-2yA3pe55jR_Fj40YL2Q2SxoIFYXhD-AAvZO1VODo0p8ybWnRfC4VWr8ZJGun3WeN8UUtLhn5_A7Pe1sNd1pJWCIDfsxZqKpgp', 0, 1, '2021-07-05 13:37:38', '2021-07-05 13:37:38'),
-(45, 273, '1231629269383b83', 'fT3zKP35S7qAR4lnHzSGB6:APA91bGK5GaOsfTn3SIsiQJ1ywzs9hNEuxXNgeDb8Ohlz6DWb0N7i7FL-SZHfAr7T4VIbHayeXPVoJN-yID8cIuypKzVya2VCQGalGQG4z5zSPGZNwi7Wwi71H9HsMkZS9EMV3dWmiTQ', 0, 1, '2021-07-05 23:34:06', '2021-07-05 23:34:06'),
-(46, 274, '1231629269383b83', 'fT3zKP35S7qAR4lnHzSGB6:APA91bGK5GaOsfTn3SIsiQJ1ywzs9hNEuxXNgeDb8Ohlz6DWb0N7i7FL-SZHfAr7T4VIbHayeXPVoJN-yID8cIuypKzVya2VCQGalGQG4z5zSPGZNwi7Wwi71H9HsMkZS9EMV3dWmiTQ', 0, 1, '2021-07-06 15:07:00', '2021-07-06 15:07:00'),
-(47, 273, '3dbb97248ae0747d', 'e7Q19_I8QGik31yrEJyOfg:APA91bFN9PQ4XjCI7oOXXjOiJr5DciSXxDz0mICmZM9XyZzUX9xMEDP81pzPNvRPvM0gx6SDT4MtERI9tLYM_JoJ_JrAGwoMErykOY5dIm_XnlyrxWpKTcCvrHA7ir-OrGnOxkNnkQmV', 0, 1, '2021-07-07 06:18:46', '2021-07-07 06:18:46');
+(41, 265, 'C465A98F-677B-4ACD-BC8E-48DE8CBBF087', 'd20AgDp1i2o:APA91bH34rQmjIRmjrTUzYrQ-u1jONCGtemHERkaiqNSbT5m-gyWu5riHPsg511zFX8thQftQImCveeodGedduKssgx0rv50yk2-xalls55Zwv-87-E-B8lGd5cC5neIuYZyJXQa_h6T', 0, 1, '2020-05-03 05:18:49', '2020-05-03 05:18:49');
 
 -- --------------------------------------------------------
 
@@ -727,7 +706,7 @@ INSERT INTO `devices` (`id`, `user_id`, `device_id`, `fcm_token`, `is_logged_in`
 CREATE TABLE `feedbacks` (
   `id` int(10) UNSIGNED NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -741,27 +720,20 @@ CREATE TABLE `feedbacks` (
 
 CREATE TABLE `filter_settings` (
   `id` int(10) UNSIGNED NOT NULL,
-  `most_recent` tinyint(4) DEFAULT '0',
-  `following` tinyint(4) DEFAULT '0',
-  `nearest` tinyint(4) DEFAULT '0',
-  `liked` tinyint(4) DEFAULT '0',
-  `comments` tinyint(4) DEFAULT '0',
-  `crowded` tinyint(4) DEFAULT '0',
-  `quiet` tinyint(4) DEFAULT '0',
-  `fun_limit` tinyint(4) DEFAULT '0',
-  `last_twenty_four` tinyint(4) DEFAULT '0',
-  `last_forty_eight` tinyint(4) DEFAULT '0',
+  `most_recent` tinyint(4) DEFAULT 0,
+  `following` tinyint(4) DEFAULT 0,
+  `nearest` tinyint(4) DEFAULT 0,
+  `liked` tinyint(4) DEFAULT 0,
+  `comments` tinyint(4) DEFAULT 0,
+  `crowded` tinyint(4) DEFAULT 0,
+  `quiet` tinyint(4) DEFAULT 0,
+  `fun_limit` tinyint(4) DEFAULT 0,
+  `last_twenty_four` tinyint(4) DEFAULT 0,
+  `last_forty_eight` tinyint(4) DEFAULT 0,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `filter_settings`
---
-
-INSERT INTO `filter_settings` (`id`, `most_recent`, `following`, `nearest`, `liked`, `comments`, `crowded`, `quiet`, `fun_limit`, `last_twenty_four`, `last_forty_eight`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 259, '2021-07-05 10:04:19', '2021-07-05 10:04:19');
 
 -- --------------------------------------------------------
 
@@ -829,10 +801,7 @@ INSERT INTO `followers` (`id`, `user_id`, `follower_id`, `created_at`, `updated_
 (206, 272, 267, '2020-04-26 08:37:03', '2020-04-26 08:37:03'),
 (209, 265, 255, '2020-05-02 23:30:01', '2020-05-02 23:30:01'),
 (210, 265, 267, '2020-05-02 23:54:37', '2020-05-02 23:54:37'),
-(211, 265, 260, '2020-05-03 00:26:22', '2020-05-03 00:26:22'),
-(212, 273, 225, '2021-07-02 21:19:05', '2021-07-02 21:19:05'),
-(213, 273, 255, '2021-07-02 21:19:05', '2021-07-02 21:19:05'),
-(215, 273, 274, '2021-07-07 08:11:01', '2021-07-07 08:11:01');
+(211, 265, 260, '2020-05-03 00:26:22', '2020-05-03 00:26:22');
 
 -- --------------------------------------------------------
 
@@ -855,10 +824,29 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
-(1, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:96;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625502981, 1625416581),
-(2, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:97;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625555803, 1625469403),
-(3, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:98;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625586930, 1625500530),
-(4, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:99;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625672743, 1625586343);
+(1, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:96;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625491915, 1625405515),
+(2, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:104;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494129, 1625407729),
+(3, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:108;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494291, 1625407891),
+(4, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:109;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494356, 1625407956),
+(5, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:110;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494378, 1625407978),
+(6, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:111;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494792, 1625408392),
+(7, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:112;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625494819, 1625408419),
+(8, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:113;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625528501, 1625442101),
+(9, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:114;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625528597, 1625442197),
+(10, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:115;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625532834, 1625446434),
+(11, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:119;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625534139, 1625447739),
+(12, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:120;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625535052, 1625448652),
+(13, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:132;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625550753, 1625464353),
+(14, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:133;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625550788, 1625464388),
+(15, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:134;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625551289, 1625464889),
+(16, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:138;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625551529, 1625465129),
+(17, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:139;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625551551, 1625465151),
+(18, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:141;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625551822, 1625465422),
+(19, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:143;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625551894, 1625465494),
+(20, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:145;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625552245, 1625465845),
+(21, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:146;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625552267, 1625465867),
+(22, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:147;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625552289, 1625465889),
+(23, 'default', '{\"displayName\":\"App\\\\Jobs\\\\ExpireStory\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\ExpireStory\",\"command\":\"O:20:\\\"App\\\\Jobs\\\\ExpireStory\\\":8:{s:7:\\\"payload\\\";a:1:{s:8:\\\"story_id\\\";i:148;}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";i:86400;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1625584732, 1625498332);
 
 -- --------------------------------------------------------
 
@@ -913,8 +901,8 @@ CREATE TABLE `notifications` (
   `user_id` int(11) DEFAULT NULL,
   `action_taken_by` int(11) NOT NULL,
   `type` tinyint(4) DEFAULT NULL COMMENT '1="Comment on against a post", 2="Reply on against a comment", 3="Following",  4="Post Liked", ',
-  `notification_obj` longtext COLLATE utf8mb4_unicode_ci,
-  `read_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '''1=Already read, 0 = Not read''',
+  `notification_obj` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `read_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '''1=Already read, 0 = Not read''',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1234,27 +1222,27 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (314, 261, 261, 2, '{\"post_id\":\"147\",\"message\":\"user_name replied to your comment.\",\"comment_id\":178,\"parent_id\":\"176\",\"comment\":\"Awesome Dj\",\"comment_file\":null}', 0, '2020-04-18 11:21:10', '2020-04-18 11:21:10'),
 (315, 261, 261, 2, '{\"post_id\":\"147\",\"message\":\"user_name replied to your comment.\",\"comment_id\":179,\"parent_id\":\"178\",\"comment\":\"Awesome Dj\",\"comment_file\":null}', 0, '2020-04-18 11:21:19', '2020-04-18 11:21:19'),
 (316, 261, 261, 2, '{\"post_id\":\"147\",\"message\":\"user_name replied to your comment.\",\"comment_id\":180,\"parent_id\":\"178\",\"comment\":\"Awesome Dj\",\"comment_file\":null}', 0, '2020-04-18 12:57:12', '2020-04-18 12:57:12'),
-(317, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":184,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 10:26:21', '2021-07-05 10:06:17'),
-(318, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":185,\"comment\":\"test\",\"comment_file\":null}', 1, '2020-04-19 10:33:25', '2021-07-05 10:06:17'),
-(319, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":186,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 10:38:37', '2021-07-05 10:06:17'),
-(320, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":187,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 10:42:28', '2021-07-05 10:06:17'),
-(321, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":188,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 10:46:27', '2021-07-05 10:06:17'),
-(322, 259, 259, 4, '{\"post_id\":\"150\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/259\\/1586773680picture_1586773660.jpg\"]}', 1, '2020-04-19 10:50:57', '2021-07-05 10:06:17'),
-(323, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":189,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 11:03:46', '2021-07-05 10:06:17'),
-(324, 259, 270, 1, '{\"post_id\":\"147\",\"message\":\"user_name commented on your post.\",\"comment_id\":190,\"comment\":\"hello!\",\"comment_file\":null}', 1, '2020-04-19 11:23:23', '2021-07-05 10:06:17'),
-(325, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":191,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 18:57:06', '2021-07-05 10:06:17'),
-(326, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":192,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 18:57:25', '2021-07-05 10:06:17'),
-(327, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":193,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 19:01:30', '2021-07-05 10:06:17'),
-(328, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":194,\"comment\":\"test\",\"comment_file\":null}', 1, '2020-04-19 19:04:51', '2021-07-05 10:06:17'),
-(329, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":195,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 20:17:24', '2021-07-05 10:06:17'),
-(330, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":196,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 20:39:28', '2021-07-05 10:06:17'),
-(331, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":197,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 20:40:23', '2021-07-05 10:06:17'),
-(332, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":198,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 20:59:32', '2021-07-05 10:06:17'),
-(333, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":199,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 21:00:01', '2021-07-05 10:06:17'),
-(334, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":200,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 21:00:22', '2021-07-05 10:06:17'),
-(335, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":201,\"comment\":\"hi\",\"comment_file\":null}', 1, '2020-04-19 21:00:58', '2021-07-05 10:06:17'),
-(336, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":202,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 21:01:21', '2021-07-05 10:06:17'),
-(337, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":203,\"comment\":\"hi faysal\",\"comment_file\":null}', 1, '2020-04-19 21:01:56', '2021-07-05 10:06:17'),
+(317, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":184,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 10:26:21', '2020-04-19 10:26:21'),
+(318, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":185,\"comment\":\"test\",\"comment_file\":null}', 0, '2020-04-19 10:33:25', '2020-04-19 10:33:25'),
+(319, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":186,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 10:38:37', '2020-04-19 10:38:37'),
+(320, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":187,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 10:42:28', '2020-04-19 10:42:28'),
+(321, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":188,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 10:46:27', '2020-04-19 10:46:27'),
+(322, 259, 259, 4, '{\"post_id\":\"150\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/259\\/1586773680picture_1586773660.jpg\"]}', 0, '2020-04-19 10:50:57', '2020-04-19 10:50:57'),
+(323, 259, 259, 1, '{\"post_id\":\"150\",\"message\":\"user_name commented on your post.\",\"comment_id\":189,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 11:03:46', '2020-04-19 11:03:46'),
+(324, 259, 270, 1, '{\"post_id\":\"147\",\"message\":\"user_name commented on your post.\",\"comment_id\":190,\"comment\":\"hello!\",\"comment_file\":null}', 0, '2020-04-19 11:23:23', '2020-04-19 11:23:23'),
+(325, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":191,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 18:57:06', '2020-04-19 18:57:06'),
+(326, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":192,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 18:57:25', '2020-04-19 18:57:25'),
+(327, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":193,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 19:01:30', '2020-04-19 19:01:30'),
+(328, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":194,\"comment\":\"test\",\"comment_file\":null}', 0, '2020-04-19 19:04:51', '2020-04-19 19:04:51'),
+(329, 259, 259, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":195,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 20:17:24', '2020-04-19 20:17:24'),
+(330, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":196,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 20:39:28', '2020-04-19 20:39:28'),
+(331, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":197,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 20:40:23', '2020-04-19 20:40:23'),
+(332, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":198,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 20:59:32', '2020-04-19 20:59:32'),
+(333, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":199,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 21:00:01', '2020-04-19 21:00:01'),
+(334, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":200,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 21:00:22', '2020-04-19 21:00:22'),
+(335, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":201,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 21:00:58', '2020-04-19 21:00:58'),
+(336, 259, 259, 1, '{\"post_id\":\"135\",\"message\":\"user_name commented on your post.\",\"comment_id\":202,\"comment\":\"hello\",\"comment_file\":null}', 0, '2020-04-19 21:01:21', '2020-04-19 21:01:21'),
+(337, 259, 259, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":203,\"comment\":\"hi faysal\",\"comment_file\":null}', 0, '2020-04-19 21:01:56', '2020-04-19 21:01:56'),
 (338, 259, 270, 1, '{\"post_id\":\"134\",\"message\":\"user_name commented on your post.\",\"comment_id\":204,\"comment\":\"hello\",\"comment_file\":null}', 1, '2020-04-19 21:02:21', '2020-04-23 19:37:10'),
 (339, 260, 259, 1, '{\"post_id\":\"138\",\"message\":\"user_name commented on your post.\",\"comment_id\":205,\"comment\":\"hi\",\"comment_file\":null}', 0, '2020-04-19 21:05:43', '2020-04-19 21:05:43'),
 (340, 225, 225, 4, '{\"post_id\":\"157\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/225\\/1587114234_document0.jpeg\"]}', 1, '2020-04-20 08:22:44', '2020-04-22 06:25:41'),
@@ -1265,8 +1253,8 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (345, 257, 257, 2, '{\"post_id\":\"158\",\"message\":\"user_name replied to your comment.\",\"comment_id\":210,\"parent_id\":\"208\",\"comment\":\"valo .. tor ki obostha ?\",\"comment_file\":null}', 0, '2020-04-20 11:17:36', '2020-04-20 11:17:36'),
 (346, 263, 225, 2, '{\"post_id\":\"133\",\"message\":\"user_name replied to your comment.\",\"comment_id\":211,\"parent_id\":\"154\",\"comment\":\"hy hy 3\",\"comment_file\":null}', 0, '2020-04-20 15:17:44', '2020-04-20 15:17:44'),
 (347, 254, 225, 1, '{\"post_id\":\"132\",\"message\":\"user_name commented on your post.\",\"comment_id\":212,\"comment\":\"testing\",\"comment_file\":null}', 0, '2020-04-20 15:19:01', '2020-04-20 15:19:01'),
-(348, 259, 225, 2, '{\"post_id\":\"132\",\"message\":\"user_name replied to your comment.\",\"comment_id\":213,\"parent_id\":\"140\",\"comment\":\"test2\",\"comment_file\":null}', 1, '2020-04-20 15:19:29', '2021-07-05 10:06:17'),
-(349, 259, 225, 2, '{\"post_id\":\"132\",\"message\":\"user_name replied to your comment.\",\"comment_id\":214,\"parent_id\":\"140\",\"comment\":null,\"comment_file\":\"http:\\/\\/parallaxlogicit.com\\/showoff\\/assets\\/comments_images\\/1587396013swift_file2.jpeg\"}', 1, '2020-04-20 15:20:13', '2021-07-05 10:06:17'),
+(348, 259, 225, 2, '{\"post_id\":\"132\",\"message\":\"user_name replied to your comment.\",\"comment_id\":213,\"parent_id\":\"140\",\"comment\":\"test2\",\"comment_file\":null}', 0, '2020-04-20 15:19:29', '2020-04-20 15:19:29'),
+(349, 259, 225, 2, '{\"post_id\":\"132\",\"message\":\"user_name replied to your comment.\",\"comment_id\":214,\"parent_id\":\"140\",\"comment\":null,\"comment_file\":\"http:\\/\\/parallaxlogicit.com\\/showoff\\/assets\\/comments_images\\/1587396013swift_file2.jpeg\"}', 0, '2020-04-20 15:20:13', '2020-04-20 15:20:13'),
 (350, 225, 225, 1, '{\"post_id\":\"95\",\"message\":\"user_name commented on your post.\",\"comment_id\":215,\"comment\":\"this is a long comment test... this is a long comment test... this is a long comment test... this is a long comment test...\",\"comment_file\":null}', 1, '2020-04-20 15:31:21', '2020-04-22 06:25:48'),
 (351, 225, 225, 4, '{\"post_id\":\"95\",\"message\":\"user_name liked your 4 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/225\\/1586086339_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/225\\/1586086340_document1.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/225\\/1586086340_document2.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/225\\/1586086340_document3.jpeg\"]}', 1, '2020-04-20 15:32:58', '2020-04-22 06:24:37'),
 (352, 257, 261, 1, '{\"post_id\":\"146\",\"message\":\"user_name commented on your post.\",\"comment_id\":217,\"comment\":\"Awesome Dj\",\"comment_file\":null}', 0, '2020-04-20 16:13:10', '2020-04-20 16:13:10'),
@@ -1286,7 +1274,7 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (366, 255, 255, 1, '{\"post_id\":\"164\",\"message\":\"user_name commented on your post.\",\"comment_id\":225,\"comment\":\"test\",\"comment_file\":null}', 0, '2020-04-21 07:04:38', '2020-04-21 07:04:38'),
 (367, 255, 261, 1, '{\"post_id\":\"164\",\"message\":\"user_name commented on your post.\",\"comment_id\":226,\"comment\":\"Testing\",\"comment_file\":null}', 1, '2020-04-21 07:20:59', '2020-04-22 05:31:51'),
 (368, 261, 261, 2, '{\"post_id\":\"164\",\"message\":\"user_name replied to your comment.\",\"comment_id\":227,\"parent_id\":\"226\",\"comment\":\"Testing\",\"comment_file\":null}', 0, '2020-04-21 07:21:26', '2020-04-21 07:21:26'),
-(369, 259, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":228,\"parent_id\":\"193\",\"comment\":\"Testing\",\"comment_file\":null}', 1, '2020-04-21 12:05:56', '2021-07-05 10:06:17'),
+(369, 259, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":228,\"parent_id\":\"193\",\"comment\":\"Testing\",\"comment_file\":null}', 0, '2020-04-21 12:05:56', '2020-04-21 12:05:56'),
 (370, 261, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":229,\"parent_id\":\"228\",\"comment\":\"Another Testing\",\"comment_file\":null}', 0, '2020-04-21 12:08:18', '2020-04-21 12:08:18'),
 (371, 225, 225, 4, '{\"post_id\":\"74\",\"post_type\":\"2\",\"message\":\"user_name  liked your post.\"}', 0, '2020-04-21 12:14:02', '2020-04-21 12:14:02'),
 (372, 225, 225, 4, '{\"post_id\":\"74\",\"post_type\":\"2\",\"message\":\"user_name  liked your post.\"}', 0, '2020-04-21 12:14:35', '2020-04-21 12:14:35'),
@@ -1309,8 +1297,8 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (389, 225, 225, 4, '{\"post_id\":\"124\",\"post_type\":\"2\",\"message\":\"user_name  liked your post.\"}', 0, '2020-04-21 12:31:24', '2020-04-21 12:31:24'),
 (390, 256, 225, 4, '{\"post_id\":\"118\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/256\\/1586515731picture_1586515690.jpg\"]}', 0, '2020-04-21 12:31:41', '2020-04-21 12:31:41'),
 (391, 255, 225, 3, '{\"message\":\"user_name started following you.\"}', 1, '2020-04-21 12:32:02', '2020-04-22 05:31:45'),
-(392, 259, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":230,\"parent_id\":\"195\",\"comment\":\"Nested Testing\",\"comment_file\":null}', 1, '2020-04-21 12:58:55', '2021-07-05 10:06:17'),
-(393, 259, 261, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":231,\"comment\":\"Nested Testing\",\"comment_file\":null}', 1, '2020-04-21 13:21:35', '2021-07-05 10:06:17'),
+(392, 259, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":230,\"parent_id\":\"195\",\"comment\":\"Nested Testing\",\"comment_file\":null}', 0, '2020-04-21 12:58:55', '2020-04-21 12:58:55'),
+(393, 259, 261, 1, '{\"post_id\":\"143\",\"message\":\"user_name commented on your post.\",\"comment_id\":231,\"comment\":\"Nested Testing\",\"comment_file\":null}', 0, '2020-04-21 13:21:35', '2020-04-21 13:21:35'),
 (394, 261, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":232,\"parent_id\":\"231\",\"comment\":\"Nested Testing\",\"comment_file\":null}', 0, '2020-04-21 13:21:56', '2020-04-21 13:21:56'),
 (395, 261, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":233,\"parent_id\":\"232\",\"comment\":\"Nested Testing\",\"comment_file\":null}', 0, '2020-04-21 13:37:42', '2020-04-21 13:37:42'),
 (396, 261, 261, 2, '{\"post_id\":\"143\",\"message\":\"user_name replied to your comment.\",\"comment_id\":234,\"parent_id\":\"233\",\"comment\":null,\"comment_file\":\"http:\\/\\/parallaxlogicit.com\\/showoff\\/assets\\/comments_images\\/1587476363fp_wmg_brawlstars.png\"}', 0, '2020-04-21 13:39:23', '2020-04-21 13:39:23'),
@@ -1345,7 +1333,7 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (425, 225, 263, 1, '{\"post_id\":\"168\",\"message\":\"user_name commented on your post.\",\"comment_id\":256,\"comment\":\"ok\",\"comment_file\":null}', 0, '2020-04-22 12:14:11', '2020-04-22 12:14:11'),
 (426, 255, 259, 3, '{\"message\":\"user_name started following you.\"}', 0, '2020-04-22 14:29:28', '2020-04-22 14:29:28'),
 (427, 255, 259, 4, '{\"post_id\":\"169\",\"message\":\"user_name liked your 2 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document1.jpeg\"]}', 0, '2020-04-22 14:29:33', '2020-04-22 14:29:33'),
-(428, 259, 259, 2, '{\"post_id\":\"135\",\"message\":\"user_name replied to your comment.\",\"comment_id\":257,\"parent_id\":\"197\",\"comment\":\"test\",\"comment_file\":null}', 1, '2020-04-22 19:42:36', '2021-07-05 10:06:17'),
+(428, 259, 259, 2, '{\"post_id\":\"135\",\"message\":\"user_name replied to your comment.\",\"comment_id\":257,\"parent_id\":\"197\",\"comment\":\"test\",\"comment_file\":null}', 0, '2020-04-22 19:42:36', '2020-04-22 19:42:36'),
 (429, 255, 255, 4, '{\"post_id\":\"170\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556871c908cc3c-feea-4063-bb7a-773ccf638802.png\"]}', 0, '2020-04-23 04:27:41', '2020-04-23 04:27:41'),
 (430, 255, 255, 4, '{\"post_id\":\"169\",\"message\":\"user_name liked your 2 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document1.jpeg\"]}', 0, '2020-04-23 04:28:00', '2020-04-23 04:28:00'),
 (431, 225, 261, 3, '{\"message\":\"user_name started following you.\"}', 0, '2020-04-23 06:30:03', '2020-04-23 06:30:03'),
@@ -1410,19 +1398,7 @@ INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notifi
 (490, 255, 265, 4, '{\"post_id\":\"170\",\"message\":\"user_name liked your 1 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556871c908cc3c-feea-4063-bb7a-773ccf638802.png\"]}', 0, '2020-05-03 00:27:54', '2020-05-03 00:27:54');
 INSERT INTO `notifications` (`id`, `user_id`, `action_taken_by`, `type`, `notification_obj`, `read_status`, `created_at`, `updated_at`) VALUES
 (491, 255, 265, 4, '{\"post_id\":\"169\",\"message\":\"user_name liked your 2 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1587556396_document1.jpeg\"]}', 0, '2020-05-03 00:27:59', '2020-05-03 00:27:59'),
-(492, 255, 265, 4, '{\"post_id\":\"194\",\"message\":\"user_name liked your 3 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document1.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document2.jpeg\"]}', 0, '2020-05-03 00:59:48', '2020-05-03 00:59:48'),
-(493, 225, 273, 3, '{\"message\":\"user_name started following you.\"}', 0, '2021-07-02 21:19:04', '2021-07-02 21:19:04'),
-(494, 255, 273, 3, '{\"message\":\"user_name started following you.\"}', 0, '2021-07-02 21:19:05', '2021-07-02 21:19:05'),
-(495, 265, 273, 2, '{\"post_id\":\"193\",\"message\":\"user_name replied to your comment.\",\"comment_id\":280,\"parent_id\":\"270\",\"comment\":\"hey can\'t sse video, what\'s wrong?\",\"comment_file\":null}', 0, '2021-07-02 21:33:11', '2021-07-02 21:33:11'),
-(496, 255, 274, 4, '{\"post_id\":\"110\",\"message\":\"user_name liked your 4 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1586513906_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1586513906_document1.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1586513906_document2.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1586513906_document3.jpeg\"]}', 0, '2021-07-05 13:52:07', '2021-07-05 13:52:07'),
-(497, 255, 274, 3, '{\"message\":\"user_name started following you.\"}', 0, '2021-07-05 14:09:14', '2021-07-05 14:09:14'),
-(498, 273, 273, 1, '{\"post_id\":\"203\",\"message\":\"user_name commented on your post.\",\"comment_id\":281,\"comment\":\"hello \\ud83e\\udd29\",\"comment_file\":null}', 0, '2021-07-05 17:43:07', '2021-07-05 17:43:07'),
-(499, 273, 273, 1, '{\"post_id\":\"203\",\"message\":\"user_name commented on your post.\",\"comment_id\":282,\"comment\":\"funny video\",\"comment_file\":null}', 0, '2021-07-05 17:43:40', '2021-07-05 17:43:40'),
-(500, 273, 273, 2, '{\"post_id\":\"203\",\"message\":\"user_name replied to your comment.\",\"comment_id\":283,\"parent_id\":\"281\",\"comment\":\"when did you make\",\"comment_file\":null}', 0, '2021-07-05 17:43:54', '2021-07-05 17:43:54'),
-(501, 274, 273, 1, '{\"post_id\":\"242\",\"message\":\"user_name commented on your post.\",\"comment_id\":284,\"comment\":\"Hi today will be a test to see if you make it to work on the house I will be there in a few minutes\",\"comment_file\":null}', 0, '2021-07-07 07:18:49', '2021-07-07 07:18:49'),
-(502, 274, 273, 4, '{\"post_id\":\"242\",\"post_type\":\"2\",\"message\":\"user_name  liked your post.\"}', 0, '2021-07-07 07:18:59', '2021-07-07 07:18:59'),
-(503, 274, 273, 3, '{\"message\":\"user_name started following you.\"}', 0, '2021-07-07 07:19:49', '2021-07-07 07:19:49'),
-(504, 274, 273, 3, '{\"message\":\"user_name started following you.\"}', 0, '2021-07-07 08:11:01', '2021-07-07 08:11:01');
+(492, 255, 265, 4, '{\"post_id\":\"194\",\"message\":\"user_name liked your 3 photos post.\",\"post_type\":\"1\",\"post_images\":[\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document0.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document1.jpeg\",\"https:\\/\\/plx-world.s3-us-west-2.amazonaws.com\\/assets\\/post_resource\\/255\\/1588441782_document2.jpeg\"]}', 0, '2020-05-03 00:59:48', '2020-05-03 00:59:48');
 
 -- --------------------------------------------------------
 
@@ -1435,7 +1411,7 @@ CREATE TABLE `oauth_access_tokens` (
   `user_id` int(11) DEFAULT NULL,
   `client_id` int(11) NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1451,19 +1427,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('00edc86de5cc185461fffa456307f90fb58230795972810c3c81bd898f40f162ce82f475f2b37396', 118, 2, NULL, '[]', 1, '2019-06-01 09:16:33', '2019-06-01 09:16:33', '2020-06-01 09:16:33'),
 ('01ba914fda401773a64f9ff4f1a6791e3a54399d3d4da0ea564e835d638f92bd90995c9fd6437530', 255, 1, NULL, '[]', 0, '2020-04-20 18:42:12', '2020-04-20 18:42:12', '2021-04-21 00:42:12'),
 ('01dee25dcba995d9dd761c36c650350f7816d688484226a19c921047dbeb68d927c8990b332d01c2', 1, 1, NULL, '[]', 0, '2019-06-20 08:34:35', '2019-06-20 08:34:35', '2020-06-20 08:34:35'),
-('021cced3ba4934b69c764e64d5d950a4bf41554036d11dfd53131e2d2d2c43b4c59f48cdcd3a4d13', 273, 1, NULL, '[]', 1, '2021-07-02 18:01:43', '2021-07-02 18:01:43', '2022-07-03 00:01:43'),
 ('02838fb99fa84b028af5ebdfc95e2e18c7a1376dcd34526a14d3b5968de78a728876734100173f2e', 124, 2, NULL, '[]', 1, '2019-06-20 07:39:22', '2019-06-20 07:39:22', '2020-06-20 07:39:22'),
 ('02a151e36b42d7fbe4d2811c412559d82d365bc4dad61546425faaae290186fdd9aae5eeafdd2c19', 214, 1, NULL, '[]', 1, '2020-04-05 14:05:19', '2020-04-05 14:05:19', '2021-04-05 20:35:19'),
 ('03366306c0b153e6447b99d9afe5c6161fb5f9dd8a4423ae27b9c232ce2d36906f715e4b18b91075', 214, 1, NULL, '[]', 1, '2020-04-05 13:55:39', '2020-04-05 13:55:39', '2021-04-05 20:25:39'),
 ('04a14a48ffea7b1e861d5cb7fbe12c51b056aceff6cf77156a2adacd9fe0e0c99813cf68fc303438', 259, 1, NULL, '[]', 1, '2020-04-12 11:14:24', '2020-04-12 11:14:24', '2021-04-12 17:14:24'),
-('04d78f8e16dae2bb3f25959ac78dcfdec9e806170b16ffc88520bda53478e1def6ff78cf85984289', 274, 1, NULL, '[]', 0, '2021-07-06 13:15:57', '2021-07-06 13:15:57', '2022-07-06 19:15:57'),
 ('04fba33d574caa53229903eb8b8a6b75af67d4cab28f5bcb312ee3fba337a46c373c7adc829ca2d3', 1, 1, NULL, '[]', 1, '2019-05-23 11:29:37', '2019-05-23 11:29:37', '2020-05-23 11:29:37'),
 ('053b62f8425978b0329ebc31266b3bed16476ed142dfc669441bf9ee6f7a7232d503b6e3321af221', 153, 1, NULL, '[]', 1, '2019-06-22 10:25:52', '2019-06-22 10:25:52', '2020-06-22 16:55:52'),
 ('05790c465e2e8da6ea78116799fb05afee7ce0708c869f1a9e10abd3290f2622150571074a916f61', 217, 1, NULL, '[]', 1, '2020-03-30 13:22:53', '2020-03-30 13:22:53', '2021-03-30 19:52:53'),
-('057c7df434545ff5f1cc87b58290ba940d9db7cd2ddb9f08e3bdfb1783661a6f107a021312a16197', 274, 1, NULL, '[]', 0, '2021-07-06 09:49:59', '2021-07-06 09:49:59', '2022-07-06 15:49:59'),
 ('05b2c00eb3976295092a4e6386a63ab9e37073c9012df70c7136c4181d0c8638c7772fc6956bde4a', 106, 1, NULL, '[]', 0, '2019-05-15 04:43:14', '2019-05-15 04:43:14', '2020-05-15 04:43:14'),
 ('062d3391fa1f2f1bb911e8e22f44763c6481cf1cbffec3575bf995e240fd93dcefbcaf8ca56f213e', 1, 1, NULL, '[]', 1, '2019-05-27 04:53:10', '2019-05-27 04:53:10', '2020-05-27 04:53:10'),
-('064359f6b8b00681291806f16b322d270f6ef4c9ed999603a086f3f9376d8b51260cdf014bcf22af', 273, 1, NULL, '[]', 0, '2021-07-09 14:17:44', '2021-07-09 14:17:44', '2022-07-09 20:17:44'),
 ('069bc7a8d145a97cbe9099d05c6fbb39db059d24cd596a988ba62e5addda886433b8046c3a63ea52', 214, 1, NULL, '[]', 1, '2020-03-31 12:03:54', '2020-03-31 12:03:54', '2021-03-31 18:33:54'),
 ('06a0566621e0ae431bcddbaf3e725ed35f490010d9af9cd071a8334bd1dc6a9e75eb7d87be45f1d5', 7, 1, NULL, '[]', 1, '2019-02-02 04:27:25', '2019-02-02 04:27:25', '2020-02-02 10:27:25'),
 ('06c1b83ba30c44f82f9cd17b6f93639bc8730dc552f65cda81feb6ea9fe27539e48926a6fc23a3f1', 215, 1, NULL, '[]', 1, '2020-03-24 10:07:26', '2020-03-24 10:07:26', '2021-03-24 16:37:26'),
@@ -1481,7 +1453,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('09b1673f61966481532eb667eb3ec70b3addc782fa03d1e816542d19aa1bb113c3c11b6e1b71391c', 250, 1, NULL, '[]', 0, '2020-04-07 14:55:11', '2020-04-07 14:55:11', '2021-04-07 21:25:11'),
 ('09dffd2c630c7f01d9af0d0ec78127797c02d737bd65b81ed6e68a365cdbd08c2b02e30adaae650e', 166, 2, NULL, '[]', 0, '2020-02-25 09:29:20', '2020-02-25 09:29:20', '2021-02-25 15:59:20'),
 ('0a0709fe11c03a7f5841de912a01a5da1cb8b25bc8716678dc0f0b636c397dcb7534dac1eb527b3b', 223, 1, NULL, '[]', 0, '2020-03-31 15:30:21', '2020-03-31 15:30:21', '2021-03-31 22:00:21'),
-('0ade9186c0ce9f329bdeacf2b9966f5646704b803e56ffdf3f118087d87daac3820714cef15e0e88', 274, 1, NULL, '[]', 1, '2021-07-06 13:35:30', '2021-07-06 13:35:30', '2022-07-06 19:35:30'),
 ('0aec419e4c55c4866e47d03cf7274c74250a57939bb518fd097047b1f4245135cd3c1d349a81b33b', 180, 1, NULL, '[]', 0, '2019-08-21 08:41:37', '2019-08-21 08:41:37', '2020-08-21 15:11:37'),
 ('0af4002c0f9946151625a4faddef956b76242470eed58cf7735c018d9b12737643187c4fcd7b563b', 225, 1, NULL, '[]', 0, '2020-04-22 06:23:08', '2020-04-22 06:23:08', '2021-04-22 12:23:08'),
 ('0b21919fe80d0d985a32b8f08f9dceb953e92b3fdca92ec949cd72d0f746303e4246fd9f8cf4bcb3', 178, 2, NULL, '[]', 0, '2019-07-17 12:34:53', '2019-07-17 12:34:53', '2020-07-17 19:04:53'),
@@ -1493,9 +1464,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('0ce639a3e5b5dda8619c457ae9c2f4bfcb89a45bd4531afda0bc45e43d7fa7f99e62b48aed969e21', 139, 2, NULL, '[]', 0, '2019-06-20 05:41:10', '2019-06-20 05:41:10', '2020-06-20 05:41:10'),
 ('0d0d86c37d0bd926c2dadde409672f8e4ec25fb22e380c9bf94d0f402596b7fa944c8dedd050bce3', 165, 1, NULL, '[]', 0, '2019-06-22 13:35:23', '2019-06-22 13:35:23', '2020-06-22 20:05:23'),
 ('0d31150a89f7f0a8b93edc1dff3c15e4e2fe4f3174fd1295137da2068407981c13c34bc2c747a44f', 178, 2, NULL, '[]', 0, '2019-10-28 08:11:44', '2019-10-28 08:11:44', '2020-10-28 14:41:44'),
-('0d42dc50de5af5f0a689950fc86cd604002970d2858e4e5cb47de7058febb7fb1323e08ca9def86b', 274, 1, NULL, '[]', 0, '2021-07-05 12:19:01', '2021-07-05 12:19:01', '2022-07-05 18:19:01'),
 ('0d6fb8ac68882dac58e578a763610110cf6eac5e7c14600f346e98fbfca313e0bbd494d4387bffde', 186, 1, NULL, '[]', 0, '2019-07-10 05:52:57', '2019-07-10 05:52:57', '2020-07-10 12:22:57'),
-('0d858f818808ea09591af901d5702f3ead5bb1fdee327f161d3387bf40cdd9f3942a47257984db4a', 274, 1, NULL, '[]', 0, '2021-07-06 10:09:31', '2021-07-06 10:09:31', '2022-07-06 16:09:31'),
 ('0e14c99ad2b8bd707ee56d274a5b30b93dfbcbf97339225512eeee81270c706308fcb57e943c1b5e', 214, 1, NULL, '[]', 1, '2020-04-05 13:50:48', '2020-04-05 13:50:48', '2021-04-05 20:20:48'),
 ('0e4c2c6d7e104780d837634398b0b21383dc489ae185377e7fceb914d3ad3fbf69912800be7e809f', 226, 1, NULL, '[]', 0, '2020-03-31 18:02:52', '2020-03-31 18:02:52', '2021-04-01 00:32:52'),
 ('0ee19b8edbf39e60ada87077b95013e2ed6fc8763dc710559fe5a6d74f1139379ce4e71d51b49dfa', 124, 2, NULL, '[]', 1, '2019-06-20 07:06:56', '2019-06-20 07:06:56', '2020-06-20 07:06:56'),
@@ -1511,7 +1480,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('113d8e903e42325860ccfefc27db524a230fbad0f43c3f2d1ddef83135d540c9dec17795d9c0613e', 226, 1, NULL, '[]', 1, '2020-04-05 04:46:11', '2020-04-05 04:46:11', '2021-04-05 11:16:11'),
 ('11fe8445251be53a6fbad05b8eb01a6e1985a1a022cb6fd127a1a78cb58eff5147f3d53a7b3ec22a', 148, 1, NULL, '[]', 0, '2019-06-22 06:12:36', '2019-06-22 06:12:36', '2020-06-22 12:42:36'),
 ('12299fa1a6165e9cf62babc7988464f3753fe525860183c9c0898ef78b9b52fa6087c21e4c71657b', 180, 1, NULL, '[]', 0, '2019-09-07 07:34:10', '2019-09-07 07:34:10', '2020-09-07 14:04:10'),
-('127a642f00e82f09fd9e9a932fdabc5bd07c3f198a892edb32905e8eb49f481f811c905863932ec3', 273, 1, NULL, '[]', 1, '2021-07-05 07:37:36', '2021-07-05 07:37:36', '2022-07-05 13:37:36'),
 ('12aaa962ed8babde346e00aa2877ad785288161d0a060f7b57855233f6087545639df1dc65b3191e', 178, 2, NULL, '[]', 0, '2020-02-25 11:15:31', '2020-02-25 11:15:31', '2021-02-25 17:45:31'),
 ('12fe3f987d36288cf90e173612277c08c79b79557ef2dee720694e8918f350fe960587ec5dfa9d9b', 208, 1, NULL, '[]', 1, '2019-12-29 12:40:46', '2019-12-29 12:40:46', '2020-12-29 19:10:46'),
 ('130643f7b2f74e18691e1b86a35ec1037a2e0ee520a5f79a4f5159b2adb4532cd307b6b85641d13b', 152, 1, NULL, '[]', 1, '2019-06-22 09:33:34', '2019-06-22 09:33:34', '2020-06-22 16:03:34'),
@@ -1524,7 +1492,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('15492bca3ea09617e12c9fa75f84365b8652a973fc96992ddfd750622fae63b035011dbbcadd3e44', 211, 1, NULL, '[]', 0, '2020-02-12 05:39:04', '2020-02-12 05:39:04', '2021-02-12 12:09:04'),
 ('15cfce517204fe1af3c3d1177945a2f32ad6a9420944ef2739a222a5720a0724017145eebc0a9fc1', 125, 2, NULL, '[]', 1, '2019-06-02 10:14:16', '2019-06-02 10:14:16', '2020-06-02 10:14:16'),
 ('164ca239ee49b2578f4117b63d662ad5bebeb2a98ff0e937b51e3c6e5dd8034d1a2c681c7ff61d06', 255, 1, NULL, '[]', 0, '2020-04-23 05:23:28', '2020-04-23 05:23:28', '2021-04-23 11:23:28'),
-('1650ea250f4147d05e7f6118bf7e87156ff3d80376b804d93bd8bc97f97971f2da2dd33ab566a6c7', 274, 1, NULL, '[]', 0, '2021-07-06 09:39:12', '2021-07-06 09:39:12', '2022-07-06 15:39:12'),
 ('16a150342b01aac45dc1d91c0a73fd67dd5608402426a522d6ded82a1ae09b611fd03d24b30b434b', 217, 1, NULL, '[]', 0, '2020-03-31 16:00:44', '2020-03-31 16:00:44', '2021-03-31 22:30:44'),
 ('16ba1808860b54f90a067e9239a169c0a838bbb17132d0c8ca0aad86d647c12efe24663f63586180', 178, 2, NULL, '[]', 0, '2019-07-16 13:15:00', '2019-07-16 13:15:00', '2020-07-16 19:45:00'),
 ('16ec2fd1fe9ab23af071d8b8d90556b519d75314dd33b2de91267521f6206961232738d40d798b35', 211, 1, NULL, '[]', 1, '2020-02-12 06:07:59', '2020-02-12 06:07:59', '2021-02-12 12:37:59'),
@@ -1537,10 +1504,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('1990ba2aa3056b718944ac3b7867ff405be9ca7f091b0cd576eff911e4a464301303c97912f760dc', 255, 1, NULL, '[]', 0, '2020-04-14 19:19:53', '2020-04-14 19:19:53', '2021-04-15 01:19:53'),
 ('1a70283a367f26d3e7d24921dd36594484b7e05c65630d02d9e91ce3fe308fc90e3f4bf5d585dcb5', 119, 1, NULL, '[]', 1, '2019-05-31 11:18:08', '2019-05-31 11:18:08', '2020-05-31 11:18:08'),
 ('1ac4f60082998bcc6d70cfd4f3fa0c1c735d19103992e3b23704606410282664b589ca2965176526', 236, 1, NULL, '[]', 0, '2020-04-10 04:45:30', '2020-04-10 04:45:30', '2021-04-10 11:15:30'),
-('1af1e58038e55f79772f89d9dea0d60dd45638beb445a1306b9247596d63c6c175473f89ab7bb7da', 273, 1, NULL, '[]', 0, '2021-07-07 00:18:44', '2021-07-07 00:18:44', '2022-07-07 06:18:44'),
 ('1b9d9b715f5b6aeea07cc10c2575110d61492c2aa6d46e1a5d9837bc573304f61afdf8fe8539b733', 225, 1, NULL, '[]', 0, '2020-03-31 17:56:16', '2020-03-31 17:56:16', '2021-04-01 00:26:16'),
-('1c5b9728a4e5f891aca3bdab5b9e6fd83ba2ea21e4f366f70b13501714b7eaa61d33dd87108cb352', 273, 1, NULL, '[]', 0, '2021-07-07 07:36:53', '2021-07-07 07:36:53', '2022-07-07 13:36:53'),
-('1c7876c1bdf39f35f55ad8756b399d0c20b3eaed32389c4954627eab1f78aa8e3149c5c334a23d94', 273, 1, NULL, '[]', 0, '2021-07-07 07:13:52', '2021-07-07 07:13:52', '2022-07-07 13:13:52'),
 ('1ccf8a7605e5a7541a0c8ee7f4d9118a6c5fc4313445ce311122ecdbd382631e78a1f581ac00b493', 214, 1, NULL, '[]', 1, '2020-04-03 08:45:40', '2020-04-03 08:45:40', '2021-04-03 15:15:40'),
 ('1d36a460ad2e737ec7ccfa3595a508cf47cd58039281e11bcb0002742644a0a7d35fdf69a855f830', 127, 2, NULL, '[]', 0, '2019-09-04 04:36:26', '2019-09-04 04:36:26', '2020-09-04 11:06:26'),
 ('1d447d72325d4bca770776a1c7cab125e7f96e929f2468b418d743a5bd50854d06fade2a03622718', 125, 2, NULL, '[]', 1, '2019-06-19 11:52:00', '2019-06-19 11:52:00', '2020-06-19 11:52:00'),
@@ -1561,14 +1525,11 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('21bf02b316f26f5a1406806fd0331434e6dc45b07895dd612eee4930b6ce62debfec693325f61aea', 7, 1, NULL, '[]', 0, '2019-05-07 04:50:53', '2019-05-07 04:50:53', '2020-05-07 04:50:53'),
 ('222e7f07c573dd2d11155acae7dc9c0c84774db705da15b001b526cfabf3cc6e76ac53f8a4317795', 5, 1, NULL, '[]', 1, '2019-02-01 23:20:38', '2019-02-01 23:20:38', '2020-02-02 05:20:38'),
 ('22417eba7c90d030c46a53ba3faf0719d2e8e1a460c7e2df2bd03bebc1e3e4cbb6ce2b86151fc9b9', 146, 1, NULL, '[]', 0, '2019-06-21 19:21:39', '2019-06-21 19:21:39', '2020-06-22 01:51:39'),
-('227fd39a874de7a903e0a972073f2649e26ccf566b6cf0d1ca0ddcbfc176be1d5875e99025229705', 274, 1, NULL, '[]', 0, '2021-07-06 11:51:30', '2021-07-06 11:51:30', '2022-07-06 17:51:30'),
 ('232c516be6637f1a161cf1a7d4508350d30be7994587b3bfab8095ecd8f324957ad86baea466cd22', 179, 1, NULL, '[]', 1, '2019-06-26 17:30:10', '2019-06-26 17:30:10', '2020-06-27 00:00:10'),
 ('235d5eae0a4f83c4ebaa8bf8287a8e52c4f216059a77babe8e0eede8168cfe4591a426f4fc1801d7', 235, 1, NULL, '[]', 1, '2020-04-06 14:58:04', '2020-04-06 14:58:04', '2021-04-06 21:28:04'),
 ('23a3fc211e6e307fa738407a481e56538233349ecc39683630a905c20fde90db3fb1515b81d228f7', 222, 1, NULL, '[]', 0, '2020-04-05 16:08:42', '2020-04-05 16:08:42', '2021-04-05 22:38:42'),
 ('240cd07a4e6c23f92847caafa48cb1e0d17893812834b36f9f6d3da6404950e24878fcddf1196cfc', 201, 2, NULL, '[]', 0, '2019-09-21 05:56:29', '2019-09-21 05:56:29', '2020-09-21 12:26:29'),
-('2432b76cab1b87e39cf88d000b5a613cb8d6ddd98f6e95c7c51219736557fd659d6f5870215dbaa4', 273, 1, NULL, '[]', 0, '2021-07-08 08:22:48', '2021-07-08 08:22:48', '2022-07-08 14:22:48'),
 ('24e55062fa9d5188bcd92ba3614de42c0b62712b92209df660b372b700a765fab49b8bc1ed2f9990', 248, 1, NULL, '[]', 0, '2020-04-07 13:35:29', '2020-04-07 13:35:29', '2021-04-07 20:05:29'),
-('250e26a4653a4b017fe302275aa8a1d9e3116f29bdc9777e4c9743228eb785f0a401b1e9b01f3f69', 259, 1, NULL, '[]', 1, '2021-07-05 10:28:46', '2021-07-05 10:28:46', '2022-07-05 16:28:46'),
 ('254745e4e68b72a83d54a1658349388ba8de14fbfe1939df1f7d8b4d3d74b1d9e8788f3185082651', 263, 1, NULL, '[]', 0, '2020-04-22 12:08:49', '2020-04-22 12:08:49', '2021-04-22 18:08:49'),
 ('25cd19ff6b2e639e1aca4cad27bc2688da4010d46a485c04824d35cb96863596a8a5c909ce99fdea', 149, 2, NULL, '[]', 1, '2019-06-22 06:28:33', '2019-06-22 06:28:33', '2020-06-22 12:58:33'),
 ('26cb7d07fbe46be3de26cb12a55b6b945baffb71c75a0cf08387ae77c18c7632b40d9986aec854bd', 226, 1, NULL, '[]', 0, '2020-03-31 18:04:38', '2020-03-31 18:04:38', '2021-04-01 00:34:38'),
@@ -1584,20 +1545,17 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('28cb0f4cef85671faf736989e7b2c90237311684baf7a15616c388cab3ae99842500ed97f45e94d8', 1, 1, NULL, '[]', 1, '2019-05-26 07:17:10', '2019-05-26 07:17:10', '2020-05-26 07:17:10'),
 ('290764b7d81e80da098a7ecf65961947be15e2677b353d9cef61156ec8a4ae1c698d3a2ffec116c1', 122, 2, NULL, '[]', 0, '2019-06-17 12:47:35', '2019-06-17 12:47:35', '2020-06-17 12:47:35'),
 ('2920901732fc50bfac812ac8d2612815851ce2fa2f9bee27f07bea3699532b869da364af25819a43', 254, 1, NULL, '[]', 1, '2020-04-10 09:49:12', '2020-04-10 09:49:12', '2021-04-10 16:19:12'),
-('29285e72cebceb57dbc17482eba9b9c4e719daa2a012b8566b6e11b016c002fef3201a28400f460c', 273, 1, NULL, '[]', 0, '2021-07-08 16:01:49', '2021-07-08 16:01:49', '2022-07-08 22:01:49'),
 ('29f96278ee7a0314b47cae21fcbf182486559402f8465dbb3f7870fb60429be3ab8d537ce00c99f2', 125, 2, NULL, '[]', 0, '2019-06-02 10:44:21', '2019-06-02 10:44:21', '2020-06-02 10:44:21'),
 ('2a069a5fb580cd496f7f82859d572c541078822b8d39df14788c7148dd06dbfb4f21455c6b8f27c7', 230, 1, NULL, '[]', 0, '2020-04-04 17:27:53', '2020-04-04 17:27:53', '2021-04-04 23:57:53'),
 ('2a4e9394466651773ab2f08f4955b21f750cae4822011636d82c212cc110c01d2e219c41107a3c61', 193, 2, NULL, '[]', 0, '2020-03-10 12:02:40', '2020-03-10 12:02:40', '2021-03-10 18:32:40'),
 ('2ae54409ecaa20c9d4ef0398bc42cd9a34cecdbbb0440fb1f24247dc1cdc5b43848d134710a9ff54', 139, 2, NULL, '[]', 1, '2019-06-20 05:42:28', '2019-06-20 05:42:28', '2020-06-20 05:42:28'),
 ('2bf64a55bc618d9ae8824912e7524b7f175a75104fc2e84db69ed5d5f6c809ac369bec76d43e1a56', 178, 2, NULL, '[]', 0, '2020-02-22 04:33:32', '2020-02-22 04:33:32', '2021-02-22 11:03:32'),
-('2c9beb785fc3735c735a6ce73b23c4e0d9e976b42d801483c270f66f2fc0ab25c135b1b086242b27', 274, 1, NULL, '[]', 0, '2021-07-06 09:10:58', '2021-07-06 09:10:58', '2022-07-06 15:10:58'),
 ('2cf2d135708c0fab707bd2a17452a8cf6c3e774a305a119e08d797a0b7f91628b4fb7066f2da8ab1', 203, 1, NULL, '[]', 0, '2019-10-19 07:13:50', '2019-10-19 07:13:50', '2020-10-19 13:43:50'),
 ('2dea16174ae1ea3745d5610b84252da292f627373a26b33848fa442e96996f86c28c48df52d0a8f3', 161, 1, NULL, '[]', 0, '2019-06-22 13:21:41', '2019-06-22 13:21:41', '2020-06-22 19:51:41'),
 ('2e5a7cb9382a423f8789b9c99bda7bac364c70c272072b577753d113c783d884a4dcaf67c9977ff6', 144, 1, NULL, '[]', 0, '2019-06-20 11:24:47', '2019-06-20 11:24:47', '2020-06-20 11:24:47'),
 ('2e765d68128db8799a07006425189707e4a46fd3e97a76aa3cfeb4ddf4d46c80cac3788d39b9c799', 160, 1, NULL, '[]', 1, '2019-06-22 13:10:46', '2019-06-22 13:10:46', '2020-06-22 19:40:46'),
 ('2e9d0ebc6e5bededf60bcac4e91c8d937b6dfc392a3a91f76575cd49ded367d69b76798b20b49082', 188, 1, NULL, '[]', 0, '2019-07-10 06:14:36', '2019-07-10 06:14:36', '2020-07-10 12:44:36'),
 ('2f16adf7daa1ec89ca7a5eadcd6a1cdb1ea792d2164272a3959db7730113b9509d927619e801e447', 1, 1, NULL, '[]', 0, '2019-12-22 08:08:52', '2019-12-22 08:08:52', '2020-12-22 14:38:52'),
-('306b3b21d5857af8fe1def12d4b42ec10ebc528c2502e5e55c3e5b4fb2a05d1fbe03cb6839a9bbb5', 274, 1, NULL, '[]', 0, '2021-07-06 09:32:12', '2021-07-06 09:32:12', '2022-07-06 15:32:12'),
 ('306ff2b246417936838576a130334b2ab335b61a9a56320c002c8515b62edde053520ebb29813efd', 128, 1, NULL, '[]', 1, '2019-06-12 09:21:55', '2019-06-12 09:21:55', '2020-06-12 09:21:55'),
 ('318a230ed090f1fc25342e2c32b8d26522e7a9d96480d193cb45db33963f16414218e5876313b29e', 2, 1, NULL, '[]', 0, '2019-01-20 05:30:15', '2019-01-20 05:30:15', '2020-01-20 11:30:15'),
 ('3245b897e07017c37dda09e8733597573a45cc7e8ff22326771ef9ba0c12c5ac15c94134dc72c9e9', 1, 1, NULL, '[]', 0, '2019-05-27 10:34:27', '2019-05-27 10:34:27', '2020-05-27 10:34:27'),
@@ -1616,15 +1574,12 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('36128d4984c4e0b5814256697098001e398577b3ded4d1ea37b8b929c47f635f2ff95bbc8a9de738', 265, 1, NULL, '[]', 0, '2020-04-14 06:08:16', '2020-04-14 06:08:16', '2021-04-14 12:08:16'),
 ('3698f3fc2ba5c1a1825752163d3df2a6687906700abe618574fde62b36ae117383d21a9530c81af1', 220, 1, NULL, '[]', 1, '2020-04-05 11:22:33', '2020-04-05 11:22:33', '2021-04-05 17:52:33'),
 ('36b79c46e26871bcfc28a8fc9591b32a2a30e5ead1f57c8211d532f2be03132a0421f419b4cc324c', 109, 1, NULL, '[]', 0, '2019-05-08 09:41:39', '2019-05-08 09:41:39', '2020-05-08 09:41:39'),
-('36bcbf9afe6d7f857ce789530cc06f3a947e7d46ed1d6c2226e79574eadc9d5406eacc2b7d9aa5fb', 274, 1, NULL, '[]', 0, '2021-07-06 13:11:27', '2021-07-06 13:11:27', '2022-07-06 19:11:27'),
-('3701ada3dbdb221978ae1e766a14ac669f3f015efc418e1d8983a466941d24b533b66e1f9f347929', 274, 1, NULL, '[]', 0, '2021-07-06 10:24:42', '2021-07-06 10:24:42', '2022-07-06 16:24:42'),
 ('374e10b84cfd80fab64c6599b99c85618b2ad4eb4cb0f65cb0f4c7e363c7f4dc6784afb7cd1b541e', 259, 1, NULL, '[]', 1, '2020-04-16 10:19:06', '2020-04-16 10:19:06', '2021-04-16 16:19:06'),
 ('3825c3effbeccead84ed17d9ec7dabde734476dd8005e5f4645c79bc47720557b09b3b7b6b5ae42d', 7, 1, NULL, '[]', 0, '2019-02-02 04:27:49', '2019-02-02 04:27:49', '2020-02-02 10:27:49'),
 ('382d03a874bd72549deb9506c0c017c3245e0322d80af4a11edd9e279bad4af5350b3d0120aa68d3', 236, 1, NULL, '[]', 0, '2020-04-10 04:38:34', '2020-04-10 04:38:34', '2021-04-10 11:08:34'),
 ('38409dc11cc71e6a82241e2586c1bbab0cc7724dd3611acb881f252a9b7d8f48904fd1848373f89b', 166, 2, NULL, '[]', 0, '2019-09-23 09:39:04', '2019-09-23 09:39:04', '2020-09-23 16:09:04'),
 ('3864ba489796da11e20ca221238fd28ccf346001f2ca3669d0b29d06cdc1883025c1d36e768a323b', 259, 1, NULL, '[]', 0, '2020-04-22 15:36:54', '2020-04-22 15:36:54', '2021-04-22 21:36:54'),
 ('3903697caf9e8317aae975338adb75f0b9b4f1c8a6841c1bf2bbc1006ad7e0c35f38a18825113812', 178, 2, NULL, '[]', 1, '2020-02-11 13:15:26', '2020-02-11 13:15:26', '2021-02-11 19:45:26'),
-('39b02520542ddf6fe65f97219013ce08ee3a52700504db7777a15f1f5ffb62ef7ae009792a33f3c3', 273, 1, NULL, '[]', 0, '2021-07-08 07:50:26', '2021-07-08 07:50:26', '2022-07-08 13:50:26'),
 ('39be0888c917c61252ca3d8a39ae72d6f7ed4b3ee522008c359d5fc868106c67367da03de56e2300', 178, 2, NULL, '[]', 0, '2020-02-22 12:43:21', '2020-02-22 12:43:21', '2021-02-22 19:13:21'),
 ('3a9c56070ee9af145acf052a18ace321e1af8dfc20db9508ff5b3f814a775de0eadeae5650601102', 125, 1, NULL, '[]', 1, '2019-06-22 08:18:36', '2019-06-22 08:18:36', '2020-06-22 14:48:36'),
 ('3b602c4987e4cdb27d7b75651eb4283bdf258b14f258c93ced7e6661d47181c9c882ecbb7bd32287', 1, 1, NULL, '[]', 1, '2019-05-26 21:01:07', '2019-05-26 21:01:07', '2020-05-26 21:01:07'),
@@ -1634,7 +1589,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('3c5368edab43388e2ab9081f63eecc030646010d9ce21466dd00f676fa1e68a55cb85009fde33daf', 189, 2, NULL, '[]', 0, '2020-02-24 01:59:40', '2020-02-24 01:59:40', '2021-02-24 08:29:40'),
 ('3cabbda5e681ed1be16b9fc14cca5ee23dd4e981ccffe08a43a11d1137323f9839e10eed0f35f16b', 225, 1, NULL, '[]', 0, '2020-03-31 19:11:51', '2020-03-31 19:11:51', '2021-04-01 01:41:51'),
 ('3cc4441a5acfa68afc51725505c421c4b25ee3b49d8c982101647c21e74354a1c262744900fbda23', 139, 2, NULL, '[]', 0, '2019-09-04 11:24:08', '2019-09-04 11:24:08', '2020-09-04 17:54:08'),
-('3d3d876406a69e378a41d4ea1584f3499ca198d619001b2d4cc61583498c222cffa7bae543c53c06', 273, 1, NULL, '[]', 0, '2021-07-08 06:51:47', '2021-07-08 06:51:47', '2022-07-08 12:51:47'),
 ('3d7359c8d60171d0acbd40b25b9efd154c851272d198b29c202f7cf2eeaba7331989387ef4034251', 112, 1, NULL, '[]', 0, '2019-05-30 09:17:59', '2019-05-30 09:17:59', '2020-05-30 09:17:59'),
 ('3da3d8184c990e728bfb1280d6325f129e1ebc08b59f1b579f6fb88288598be3041c4c7263aa5370', 220, 1, NULL, '[]', 0, '2020-03-30 15:28:54', '2020-03-30 15:28:54', '2021-03-30 21:58:54'),
 ('3dba3b4741d48845b6b4a66cd8e067aa2b286f51c23ae0ce7dcdf5eacddf08b5ab5c6201be798826', 236, 1, NULL, '[]', 1, '2020-04-07 19:34:59', '2020-04-07 19:34:59', '2021-04-08 02:04:59'),
@@ -1642,7 +1596,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('3dfe46973378a4889de6bf5ced4e8215b4b793e4758a274a8563e1b6021fa8b758f8a7d6e49323c1', 166, 2, NULL, '[]', 1, '2019-06-23 06:01:30', '2019-06-23 06:01:30', '2020-06-23 12:31:30'),
 ('3e13480d9b50e1efaaf2a3192a63417a331f23a6c4aa2f91287845a343eb131a3da9e53082f6cc9b', 123, 2, NULL, '[]', 1, '2019-06-02 07:16:11', '2019-06-02 07:16:11', '2020-06-02 07:16:11'),
 ('3e44ef156e9386bd6afd56ac28d3d72b355fbaa4bf7a05ba6ea605ae753d52aa9d0364516bb1a4e5', 225, 1, NULL, '[]', 0, '2020-04-02 09:23:04', '2020-04-02 09:23:04', '2021-04-02 15:53:04'),
-('3e87c094ad79763536b2f3f93b6e2d2019ee31e6b82d56e62989c75d93c2f429b65ddfe2ff124a4a', 273, 1, NULL, '[]', 0, '2021-07-09 15:50:03', '2021-07-09 15:50:03', '2022-07-09 21:50:03'),
 ('3e9653189690c5228e56e14aa7561c1f3db76a7f37b82e23b64d44d745320db5e623291ccb9d5024', 178, 2, NULL, '[]', 1, '2020-03-09 07:48:59', '2020-03-09 07:48:59', '2021-03-09 14:18:59'),
 ('3fab87069b6b6350d9b23185230c13e9a4777e70484816d5980ff43fecae56e50bcbdce96679778e', 218, 1, NULL, '[]', 1, '2020-03-30 15:28:11', '2020-03-30 15:28:11', '2021-03-30 21:58:11'),
 ('402fb71dc7f577c66ac92adbb44f0e35ccfdf610c6deb71b5430bc85f6831c53c571df96f70254cd', 127, 2, NULL, '[]', 0, '2020-02-19 09:41:12', '2020-02-19 09:41:12', '2021-02-19 16:11:12'),
@@ -1653,7 +1606,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('421ac7c812977ade1abc4f4c450c087a2353d863744bdb89537264e1965811a69ab5798e7d126406', 125, 2, NULL, '[]', 0, '2019-11-27 06:07:55', '2019-11-27 06:07:55', '2020-11-27 12:37:55'),
 ('425da42c9516fbd145137415dbb6441924d0c8167be6c285965833b3b055642ea71b66a254625e89', 219, 1, NULL, '[]', 0, '2020-04-03 19:06:03', '2020-04-03 19:06:03', '2021-04-04 01:36:03'),
 ('4332b2f385542c038001e48c69ff1c0d3333f68f2c383cf4d2d69c74bf83fbfaaf9199b43224d7fb', 1, 1, NULL, '[]', 0, '2019-05-23 11:49:06', '2019-05-23 11:49:06', '2020-05-23 11:49:06'),
-('43380b10d8dc1477107611ce03cb024deb6ae375d44363928014d04811f45aa26cbc7a66434d3556', 274, 1, NULL, '[]', 0, '2021-07-05 13:45:47', '2021-07-05 13:45:47', '2022-07-05 19:45:47'),
 ('43b528fef017420221aca3cd1a639c07d63b3d9b6d6a939819dada1b862f1e7716cb563c48fd46b4', 208, 1, NULL, '[]', 0, '2020-02-22 09:06:50', '2020-02-22 09:06:50', '2021-02-22 15:36:50'),
 ('43d2b2001641f7ae6cc269ee28d8566c94f77dd64c316872323e15e3d5b76b5e1ccaa7160d3b15d0', 258, 1, NULL, '[]', 0, '2020-04-14 06:05:02', '2020-04-14 06:05:02', '2021-04-14 12:05:02'),
 ('4447adde0dfe4ad4d9bb9cc54b38ac048192308afa0025b151032a6e78d0ea200ef95723e2a75d3f', 204, 1, NULL, '[]', 0, '2019-11-25 04:22:22', '2019-11-25 04:22:22', '2020-11-25 10:52:22'),
@@ -1663,12 +1615,11 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('44e56420e06479667188eb315c0cbd9517618be1c49e502546cf90fb1f978010fb8c4fb939874e78', 225, 1, NULL, '[]', 0, '2020-04-23 10:49:11', '2020-04-23 10:49:11', '2021-04-23 16:49:11'),
 ('45958935ced9f942487074f6032903d38e69b34436e76dafb56f5b3e8d909ae2502392baefdbadd9', 257, 1, NULL, '[]', 1, '2020-04-11 16:38:14', '2020-04-11 16:38:14', '2021-04-11 23:08:14'),
 ('46570efbf0cc0823f7a035721e961a8112a37a5cff16e018cf4f77b858a619a64be4d034c58fb6b7', 127, 2, NULL, '[]', 0, '2020-02-26 08:11:43', '2020-02-26 08:11:43', '2021-02-26 14:41:43'),
-('469eccd3771dbabf4ca549dc37d7dbe2657df55656de2d85966d51235bb9db52b7186a576874165d', 273, 1, NULL, '[]', 0, '2021-07-07 07:54:25', '2021-07-07 07:54:25', '2022-07-07 13:54:25'),
-('46c3322aca2c13d89bff1db1f56192c3912c9e3d0bc31235240025b3784a8818183e9c6152168810', 274, 1, NULL, '[]', 0, '2021-07-06 10:15:01', '2021-07-06 10:15:01', '2022-07-06 16:15:01'),
 ('46fb1ccede847ae60df7a957d118ea0adcb5b5dcdae8a3fd69aecfd7a2a3bb9d27d1d320eda529fa', 239, 1, NULL, '[]', 0, '2020-04-07 06:18:20', '2020-04-07 06:18:20', '2021-04-07 12:48:20'),
 ('4719f3a6292c6d8783d90edeed9e93b9c01392debd407c28d5c4d606a3ae78def3559a842db55ef5', 208, 1, NULL, '[]', 1, '2020-01-22 17:24:46', '2020-01-22 17:24:46', '2021-01-22 23:54:46'),
 ('4776121daf7e5246680bf77825f2e637f7d8a319d2db26ece3d4dca28a17c473c3b984b67194dace', 166, 2, NULL, '[]', 0, '2019-09-23 06:16:08', '2019-09-23 06:16:08', '2020-09-23 12:46:08'),
 ('482ba86dbb1dc97825e334dda6b596bfcec9d2520a8403da4181e22c820abb6f2715ded353669dd3', 1, 1, NULL, '[]', 0, '2019-05-30 16:59:20', '2019-05-30 16:59:20', '2020-05-30 16:59:20'),
+('48fd62562398adc190c442465187b5c11f41b17a4bfa0060b9417359f599e01d61f2c23f2085d919', 11, 1, NULL, '[]', 0, '2021-07-05 12:47:30', '2021-07-05 12:47:30', '2022-07-05 18:47:30'),
 ('49432f2d4999bae98b99cafed7ac1ef220db71aec506167162768bb039da791f6141363723af21eb', 256, 1, NULL, '[]', 0, '2020-04-10 10:29:27', '2020-04-10 10:29:27', '2021-04-10 16:59:27'),
 ('49a65f0cec23a691c7582c248ff1e2438aa408a7b82e57baf2b0706867b33b77859d5aa5206e9524', 125, 2, NULL, '[]', 1, '2019-06-25 06:04:23', '2019-06-25 06:04:23', '2020-06-25 12:34:23'),
 ('49e6d6189b60646dcf154da866d3fdf6f44f59d1da3542bc7f30785dfb07a396221a73e29096e83e', 142, 1, NULL, '[]', 0, '2019-06-20 11:38:43', '2019-06-20 11:38:43', '2020-06-20 18:08:43'),
@@ -1704,13 +1655,13 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('5170d4214e95aa9dec583bebdf5fc7948c8ce6f9abb8f65aace9e220db51ea817c838f5cc384dd4b', 138, 1, NULL, '[]', 1, '2019-06-20 05:33:06', '2019-06-20 05:33:06', '2020-06-20 05:33:06'),
 ('51b9cfc371cbdff4a72088a5c275af7c9f8dd929099457c6ab4bcfae2acb1903296080d0a8ed8d64', 152, 1, NULL, '[]', 1, '2019-06-22 09:31:08', '2019-06-22 09:31:08', '2020-06-22 16:01:08'),
 ('52b6bb5ee23acc5ec503ea00c2d2864bcef29adf57166a73464d01105f3a6b3c98cf194fe63af680', 207, 1, NULL, '[]', 0, '2019-12-21 11:46:19', '2019-12-21 11:46:19', '2020-12-21 18:16:19'),
+('52cad8b1d03a80fd375f9b930fb89f164dc3991de56a9a65161e07fd5e08242ef178b3eaad6f1f59', 225, 1, NULL, '[]', 0, '2021-07-04 05:38:11', '2021-07-04 05:38:11', '2022-07-04 11:38:11'),
 ('539b9aa759237b513b8b5cc1ef92411080c737cd729ecace359f8bffa518d4e138167e782f4e107e', 108, 1, NULL, '[]', 1, '2019-05-07 11:07:25', '2019-05-07 11:07:25', '2020-05-07 11:07:25'),
 ('541e97c2a7aca652b8fda9e453eb26ddb7fb8a8b501edd5c9d98177cd7c0502708c1f537b20781aa', 214, 1, NULL, '[]', 1, '2020-03-29 10:45:45', '2020-03-29 10:45:45', '2021-03-29 17:15:45'),
 ('544304b9c3a71b1e911587c01c6b16753c858e337d05a7915f4f16f6d1b7e67d5b2b022251557aec', 250, 1, NULL, '[]', 1, '2020-04-07 18:44:32', '2020-04-07 18:44:32', '2021-04-08 01:14:32'),
 ('544678b418b3c229329dfab5b03698251e6fcb1c64087614118b70db63ab24b11c0eb732955844f4', 112, 1, NULL, '[]', 0, '2020-01-27 08:36:32', '2020-01-27 08:36:32', '2021-01-27 15:06:32'),
 ('54da4526e309ad1d80bc0292bf699754f66a74a7b346d7b8c71b4d6b6e2754d212a2609682bbcd0c', 106, 1, NULL, '[]', 0, '2020-01-27 07:42:49', '2020-01-27 07:42:49', '2021-01-27 14:12:49'),
 ('55eadcae5daad12d0aebb6cb011a6469cca68915aadd513e1ba7c0d90df704b196c5ec3616c2c445', 272, 1, NULL, '[]', 0, '2020-04-26 08:30:40', '2020-04-26 08:30:40', '2021-04-26 14:30:40'),
-('5638f4b62c911f32d6568cd151993a151e8d07196b0541bdc289c3dfbc9ffc5b7047bb9bf8c36d8b', 274, 1, NULL, '[]', 0, '2021-07-06 09:31:41', '2021-07-06 09:31:41', '2022-07-06 15:31:41'),
 ('564db9281190b786916c99dd9da834864cb75ac427a3a1e3fb560451d01e9dc94898f19dea1eeb9f', 262, 1, NULL, '[]', 0, '2020-04-14 10:04:17', '2020-04-14 10:04:17', '2021-04-14 16:04:17'),
 ('56bb441cef0e400fd386b83e5bd407e6808eba70ed87def3bb4e21cd448a586ac3dd685dc1e58756', 219, 1, NULL, '[]', 0, '2020-03-30 13:32:24', '2020-03-30 13:32:24', '2021-03-30 20:02:24'),
 ('57be3f0beb1c96b9f72b179f0bfbdaec7564d2d08b0f79401db44d6794764d079f8f59835861c9fb', 128, 1, NULL, '[]', 0, '2019-06-13 06:57:26', '2019-06-13 06:57:26', '2020-06-13 06:57:26'),
@@ -1720,6 +1671,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('59a802781a7186cfeb373af6a6badcbf052998fcc869553fd577724205dff399f1977aeaed2839f1', 112, 1, NULL, '[]', 1, '2020-02-12 06:32:38', '2020-02-12 06:32:38', '2021-02-12 13:02:38'),
 ('59fde91d8312a344279068e743e52e41ca29bb391226289241b31be7fc46e21470dc20a7887d1838', 259, 1, NULL, '[]', 0, '2020-04-22 12:56:36', '2020-04-22 12:56:36', '2021-04-22 18:56:36'),
 ('5a91940dd55a7b0ef3c152558a7203ffd2c7fc976a65db1c656d6f400137b8d0b700a34ebb981328', 1, 1, NULL, '[]', 0, '2019-05-26 21:04:30', '2019-05-26 21:04:30', '2020-05-26 21:04:30'),
+('5add871152b83c863cdbc0f36356edc56a01236546cedfe3fbae33788d489b72fa2d230560d1d415', 225, 1, NULL, '[]', 0, '2021-07-04 07:17:45', '2021-07-04 07:17:45', '2022-07-04 13:17:45'),
 ('5b11b35935e43c964b2a02ef369a216ddad497e4f3e57df660d583f0abe556a0673f6af421c99619', 112, 1, NULL, '[]', 0, '2019-06-02 05:58:41', '2019-06-02 05:58:41', '2020-06-02 05:58:41'),
 ('5b8f3114003889e546aa689fcb7485145fc0168245f9df1c9d3ee53d139c282f882381b36258e40d', 241, 1, NULL, '[]', 1, '2020-04-07 12:32:56', '2020-04-07 12:32:56', '2021-04-07 19:02:56'),
 ('5bc204ed454d4429e4225d6cc380cac667a019fbfe93a9551d6a63fdd1a7413467d6a66af8b3ce5b', 214, 1, NULL, '[]', 1, '2020-04-05 13:50:29', '2020-04-05 13:50:29', '2021-04-05 20:20:29'),
@@ -1727,13 +1679,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('5c22855da92ac2f8de143ef3e35a632c20e3a3a7f0776f540e7f8af34954d9f025a353cbc4a380b2', 2, 1, NULL, '[]', 0, '2019-01-20 23:31:14', '2019-01-20 23:31:14', '2020-01-21 05:31:14'),
 ('5c28c95f00de425307bb9c2c72dcef165f933bc66252e6e499ffd81cc11944b3d6a082e0817f0398', 178, 2, NULL, '[]', 1, '2020-03-08 11:32:06', '2020-03-08 11:32:06', '2021-03-08 18:02:06'),
 ('5d34d95c934b4cd94f3ac75735bd9d684c7952c4df91b784d8b97c8b35094ae8184521be418af484', 257, 1, NULL, '[]', 1, '2020-04-13 15:41:05', '2020-04-13 15:41:05', '2021-04-13 21:41:05'),
-('5d90b7382439fe34abc06b85dd70bbf6918c1abeadb7d8ef9cbf6072f7cd01c3e5dcd43c9a270149', 274, 1, NULL, '[]', 0, '2021-07-06 13:28:39', '2021-07-06 13:28:39', '2022-07-06 19:28:39'),
 ('5e163762e441811a9835696361509e2eb599b2888dcbd4777c96cde379c04dbd7a5b9a363ffc2d24', 124, 2, NULL, '[]', 1, '2019-06-22 12:36:34', '2019-06-22 12:36:34', '2020-06-22 19:06:34'),
-('5eebb2592bc4398e1b286a1cf9228c0c6fd7435429f1318e18e6d4f24f6f2c67ba48362c20551485', 270, 1, NULL, '[]', 0, '2020-04-18 10:30:24', '2020-04-18 10:30:24', '2021-04-18 16:30:24');
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('5eebb2592bc4398e1b286a1cf9228c0c6fd7435429f1318e18e6d4f24f6f2c67ba48362c20551485', 270, 1, NULL, '[]', 0, '2020-04-18 10:30:24', '2020-04-18 10:30:24', '2021-04-18 16:30:24'),
 ('5f0a8447242c9b341c58bb30b462a0902f985bc6d9f199c546a13a066ff2894a435dceb72debef28', 178, 2, NULL, '[]', 1, '2020-03-08 11:33:21', '2020-03-08 11:33:21', '2021-03-08 18:03:21'),
 ('5f753fb5d5de2118208738e94e8b8c5a60b40cdfeae4c5ccc54f745cb1d4b181e52dd8f05a8a74c3', 178, 2, NULL, '[]', 0, '2020-03-07 09:36:49', '2020-03-07 09:36:49', '2021-03-07 16:06:49'),
-('5f913563bd81e1dec1913ad4b534fb715e0a02de63dc2e36bfb3454d88322ace5adaca7c9693c057', 273, 1, NULL, '[]', 0, '2021-07-07 22:03:20', '2021-07-07 22:03:20', '2022-07-08 04:03:20'),
 ('6027d84ed19abeae2b13931fae9722c666591da5d32ad2d263197b20517ab99ff358e30841d895af', 225, 1, NULL, '[]', 0, '2020-04-12 18:30:12', '2020-04-12 18:30:12', '2021-04-13 00:30:12'),
 ('6043272343b3941a161e1fc108aab225bb160ced693bb3117be39ed8fed3e0606051ba0df006ec9f', 193, 2, NULL, '[]', 1, '2019-11-25 07:11:34', '2019-11-25 07:11:34', '2020-11-25 13:41:34'),
 ('60737ee11010e3139d85ae4f9373db42495885293bb654c8bbed864682d76921b40d8cd1c885bf27', 117, 1, NULL, '[]', 1, '2019-05-27 11:14:39', '2019-05-27 11:14:39', '2020-05-27 11:14:39'),
@@ -1741,7 +1690,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('6256c9b3d01b889859e56b70b329ea48a5380045c26d5749e773f24b02c42db00b911a1f3bc7aeaf', 118, 2, NULL, '[]', 1, '2019-06-17 11:53:14', '2019-06-17 11:53:14', '2020-06-17 11:53:14'),
 ('626d694ea224b613cf8fdeca568af20a876a4a27be781ed6e30e013cd4f5ee88a07efa98344d9263', 180, 1, NULL, '[]', 0, '2019-08-22 05:44:06', '2019-08-22 05:44:06', '2020-08-22 12:14:06'),
 ('628378fe0d3dd923cfc5d4e1e1bee360631ad5b9c18f68a9716cbcd653279e2c898523a915af359c', 118, 2, NULL, '[]', 1, '2019-05-29 10:57:43', '2019-05-29 10:57:43', '2020-05-29 10:57:43'),
-('62a1eb55d01e1b22c79716e684c039597b6ae3550d66c9472e095bd29fa3ffe68a6d4bcd7a36f25b', 273, 1, NULL, '[]', 0, '2021-07-07 21:56:23', '2021-07-07 21:56:23', '2022-07-08 03:56:23'),
 ('62c1caec6b1626e5e9a840b1aca3a8e33795406592e652077e83c73e762dc0b8b10a245cc2344f34', 208, 1, NULL, '[]', 1, '2020-03-09 05:52:46', '2020-03-09 05:52:46', '2021-03-09 12:22:46'),
 ('62d817fc9cc756ceeb0c7830dc24569d9b21d53810cb031e6bffcb742c819c51cc8523c03128a7a7', 256, 1, NULL, '[]', 1, '2020-04-10 10:26:11', '2020-04-10 10:26:11', '2021-04-10 16:56:11'),
 ('631131936392989ed6dce080febf0a69e48ac66c19c29fd3c89b65111e903e61d92d221073b8ac05', 178, 2, NULL, '[]', 1, '2020-02-12 05:34:25', '2020-02-12 05:34:25', '2021-02-12 12:04:25'),
@@ -1753,13 +1701,12 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('65549db539f7e4e85c3afe481b551162e4ce8d0647749bdac5ca29394b3ddd7036f926ed072913f3', 112, 1, NULL, '[]', 1, '2020-01-27 07:49:25', '2020-01-27 07:49:25', '2021-01-27 14:19:25'),
 ('657c85449222b52a2e691ce53862d3d26dc3e4f33300a5572fcf2a5864a0d2375fa3f0e43253920b', 259, 1, NULL, '[]', 0, '2020-04-11 20:28:10', '2020-04-11 20:28:10', '2021-04-12 02:58:10'),
 ('65d7dfac6e38b16ec097dc6d014a6b38c1c576604fd34f14e0ff18f113b9d1424810e42a05c01921', 112, 1, NULL, '[]', 1, '2019-05-30 17:11:50', '2019-05-30 17:11:50', '2020-05-30 17:11:50'),
-('65e4c4cc844b4726a6969ca5dda1b3c9095e38ca6936e08f220ba5266305863ee75f18cde34db608', 274, 1, NULL, '[]', 0, '2021-07-06 12:37:21', '2021-07-06 12:37:21', '2022-07-06 18:37:21'),
 ('66036096c5e3c9d32e932624d664e0e91f0d4cb9acd98d71fcfa5d59bb195130e762a7a94f4d6b9d', 118, 2, NULL, '[]', 1, '2019-05-30 06:15:33', '2019-05-30 06:15:33', '2020-05-30 06:15:33'),
 ('66afeb85833acac14c56fcadbaaaa6c81684e4818a38870b55b10407f858a0ed94fe4fed39ee1dc3', 125, 2, NULL, '[]', 0, '2019-06-24 06:40:09', '2019-06-24 06:40:09', '2020-06-24 13:10:09'),
 ('66de43ec8f999fbe9519e1037edfa899c3c7f518126e7633318363e9f5ff5ece59ab180e57eebcab', 109, 1, NULL, '[]', 1, '2019-05-08 09:36:21', '2019-05-08 09:36:21', '2020-05-08 09:36:21'),
-('66f1cbc42eba080cf9b457348f081ac53c601901d72dcba0fa5e1edb68b744097c8df47c6f084935', 273, 1, NULL, '[]', 0, '2021-07-07 07:11:36', '2021-07-07 07:11:36', '2022-07-07 13:11:36'),
 ('670b8063de7fc45d9358d4c9e508aa42899e101d9f4b9cc878ad0945c44fad8d9965587588d03c8b', 225, 1, NULL, '[]', 0, '2020-04-06 08:03:09', '2020-04-06 08:03:09', '2021-04-06 14:33:09'),
-('6737cd6e5571be37283758dbdd6db8819ed1a4160c3ac2adf6d488a9fa9753f87f1d335e4e66aae9', 139, 2, NULL, '[]', 0, '2019-09-05 11:28:30', '2019-09-05 11:28:30', '2020-09-05 17:58:30'),
+('6737cd6e5571be37283758dbdd6db8819ed1a4160c3ac2adf6d488a9fa9753f87f1d335e4e66aae9', 139, 2, NULL, '[]', 0, '2019-09-05 11:28:30', '2019-09-05 11:28:30', '2020-09-05 17:58:30');
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 ('673aad3fe19bbaf86ba79c9ab5ec930cb4c5944cb13d01f3e5a73920daeaf18feeb8d2bebdc0623a', 125, 2, NULL, '[]', 0, '2019-06-24 10:52:03', '2019-06-24 10:52:03', '2020-06-24 17:22:03'),
 ('67cb7fae8fba885ca1db37acc333cb83e10b40cadea16686c872019a5efe3a9e54bf342a01eb65bd', 124, 2, NULL, '[]', 1, '2020-02-15 04:43:39', '2020-02-15 04:43:39', '2021-02-15 11:13:39'),
 ('6846ea0ac8b8ea61a1f4f3cec07fd796ae4842a98c51d172b37a9533c28053b027493bbc637153a9', 178, 2, NULL, '[]', 0, '2019-09-08 12:34:17', '2019-09-08 12:34:17', '2020-09-08 19:04:17'),
@@ -1776,12 +1723,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('6c621c842a99563c6d36b617ba9f455baf6f8038a99ece83f2d68cfc6f1d596ab6bf4aa9c1f2871a', 125, 2, NULL, '[]', 1, '2019-06-02 09:49:52', '2019-06-02 09:49:52', '2020-06-02 09:49:52'),
 ('6cadc2bed6e0986e5244b00e1da0cd6f931df5b663d52b7b510053fdd066ddeef81044a378668960', 169, 1, NULL, '[]', 1, '2019-06-23 13:25:01', '2019-06-23 13:25:01', '2020-06-23 19:55:01'),
 ('6cb12daa0145251a6fe4ef5f0d97b614f37cf0723e5040743fe829ab99e6189090298504bf911843', 118, 2, NULL, '[]', 1, '2019-06-19 12:38:23', '2019-06-19 12:38:23', '2020-06-19 12:38:23'),
-('6e84ef75e93f51b96fa06403cd75077d80347a9602fa316dbbba49a188435d3b6801a16b20c94bec', 274, 1, NULL, '[]', 0, '2021-07-06 13:11:51', '2021-07-06 13:11:51', '2022-07-06 19:11:51'),
 ('6ee02231e40f2417588ada1daa91544f94e05bc2b05c03f53dff1ad473013b279a47471b38b5a927', 209, 1, NULL, '[]', 0, '2019-12-28 07:55:09', '2019-12-28 07:55:09', '2020-12-28 14:25:09'),
 ('6ef9b4cfdaf7ee6c32d5d9b5523e3cc74038999b4bcd471ddfc7994a8f6a8d3cad8b2c184e9592df', 214, 1, NULL, '[]', 1, '2020-03-28 07:31:03', '2020-03-28 07:31:03', '2021-03-28 14:01:03'),
 ('6f3710725b5b1a52664ad0c3c702f2e79c87369043a1de5bbe0fd37213d6079c8367669bc82ed4fc', 1, 1, NULL, '[]', 0, '2019-05-08 05:54:01', '2019-05-08 05:54:01', '2020-05-08 05:54:01'),
 ('6f84f7ec62f5bb380d9f75297c86fd2b722c114445d7054e4af40f4eab5dcd35fcab6f8e075c939c', 1, 1, NULL, '[]', 1, '2019-01-20 04:29:24', '2019-01-20 04:29:24', '2020-01-20 10:29:24'),
-('6fa281216d1cc189c1af790249a59859516bb9143be5dcdce3de8d88a32d3a465b9d7eabcc95f643', 273, 1, NULL, '[]', 0, '2021-07-07 08:00:44', '2021-07-07 08:00:44', '2022-07-07 14:00:44'),
 ('6fdfb9633116cb4c396700b223cbb3325bf143243cda20b3e3b4cf79ae0b8f0b55718d05b6522f7a', 124, 2, NULL, '[]', 1, '2019-06-22 07:04:47', '2019-06-22 07:04:47', '2020-06-22 13:34:47'),
 ('7025cebb7e640d589a1d6e283f2107b2474d9d3925bfaa3e526f286b4c139333f792a227e82b866e', 125, 2, NULL, '[]', 1, '2019-06-22 06:34:04', '2019-06-22 06:34:04', '2020-06-22 13:04:04'),
 ('7045a78ce25e70d4d23981f94965b8e464b37b78e48ccb339a5f3551268832504673b8138955ee87', 126, 2, NULL, '[]', 1, '2019-06-02 09:45:20', '2019-06-02 09:45:20', '2020-06-02 09:45:20'),
@@ -1792,7 +1737,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('72d8fde0166732d0e5ac2d20c9b49416a7fb470d218bcc9284d7ce5fceed45a80705ad1b3fd91308', 4, 1, NULL, '[]', 0, '2019-02-01 23:19:02', '2019-02-01 23:19:02', '2020-02-02 05:19:02'),
 ('733ffc2f9e54d2c4e15373213c1b5830967986ee07c3d45340fa2e20bc4ebef1d7a88cf05a9ba162', 1, 1, NULL, '[]', 0, '2019-12-28 07:33:48', '2019-12-28 07:33:48', '2020-12-28 14:03:48'),
 ('734563297db27ed76ecb84a01c98b765d58c5b0ec94cf4dd13ba4718a47871b06ea8e17f31303f2a', 220, 1, NULL, '[]', 1, '2020-04-05 12:02:50', '2020-04-05 12:02:50', '2021-04-05 18:32:50'),
-('73bf8519be705482f6e3ccd6fc92aa22e28bea7194fd5e3bd2bdba356cac954d180c6db9bf5a2185', 274, 1, NULL, '[]', 0, '2021-07-06 09:42:02', '2021-07-06 09:42:02', '2022-07-06 15:42:02'),
 ('7555e94720fb5ecdb36cd2912b7f87e32af0cd3c2859380cd4ddc9888a63cd80c59dc7edf645f80c', 1, 1, NULL, '[]', 0, '2019-11-25 04:49:19', '2019-11-25 04:49:19', '2020-11-25 11:19:19'),
 ('7574c7b8de1047fbae3201099a5a52304588256d19e329874807b5f725a45e96d974ad0ea13e03d3', 127, 2, NULL, '[]', 0, '2019-10-31 07:18:46', '2019-10-31 07:18:46', '2020-10-31 13:48:46'),
 ('759ceb214aa8f1fa584b898e3f191e3ee201c68e3addb343e81484ebe2b3c710456ea2c2798485b2', 142, 1, NULL, '[]', 1, '2019-06-20 11:20:27', '2019-06-20 11:20:27', '2020-06-20 11:20:27'),
@@ -1809,7 +1753,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('774c3382a881ca8460b36ff3e93459c4ccf09deef01c645762e58eb6755da75c1cbccd19c9d47334', 214, 1, NULL, '[]', 0, '2020-04-07 07:02:43', '2020-04-07 07:02:43', '2021-04-07 13:32:43'),
 ('782d8388f044d9855e5551631f561526792beecefe36df5bf6287ba02a40235937279f7848638347', 186, 1, NULL, '[]', 0, '2019-07-10 05:57:02', '2019-07-10 05:57:02', '2020-07-10 12:27:02'),
 ('783f608ed12f9b1469a43b1d815f1c5122b750ce10b9c252194432b98ccf542e8bd233d7007cf330', 178, 2, NULL, '[]', 1, '2019-12-04 10:55:54', '2019-12-04 10:55:54', '2020-12-04 17:25:54'),
-('789319f9e3502c9b7042189263c8b851185eaaf156ba5563133305d8b5de52a19ea692653370b796', 273, 1, NULL, '[]', 0, '2021-07-05 17:21:48', '2021-07-05 17:21:48', '2022-07-05 23:21:48'),
 ('7913c6cd975d21bf45e4b8b35e13df4c65d8ca3980c52e356c2879c837b5cb9189fd8c8988ae4731', 223, 1, NULL, '[]', 0, '2020-03-31 15:30:12', '2020-03-31 15:30:12', '2021-03-31 22:00:12'),
 ('792ae893d2230227dcd87e5e388cc1cde52cbcb8521bcf59045970918e7c7951e1d563799c149201', 211, 1, NULL, '[]', 1, '2020-02-12 06:14:49', '2020-02-12 06:14:49', '2021-02-12 12:44:49'),
 ('79bf50d55bc578369c4a98724462ebff93b82791ea42e78cfafc36159a7c2fe28db68912faab1cdc', 125, 1, NULL, '[]', 1, '2019-06-22 08:10:55', '2019-06-22 08:10:55', '2020-06-22 14:40:55'),
@@ -1822,11 +1765,9 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('7d7f4519021488c976298400376aa232e03d9d3be5c8585afcffd9b938354b0ba32c7b8dc03f8e1c', 139, 2, NULL, '[]', 1, '2019-09-19 10:00:09', '2019-09-19 10:00:09', '2020-09-19 16:30:09'),
 ('7dff6581ae2b869bb1f1d8e6acdbb3d6a8579c74030f015444a2827933b9e4ea0c8e9a8afeb4e096', 254, 1, NULL, '[]', 0, '2020-04-10 13:06:34', '2020-04-10 13:06:34', '2021-04-10 19:36:34'),
 ('7e0c7dabae700a85d76a3fffa832088b5a08786e519a599584c41f1b532e1190eaa690dd7db9f529', 7, 1, NULL, '[]', 0, '2019-02-01 23:54:03', '2019-02-01 23:54:03', '2020-02-02 05:54:03'),
-('7e49cfa8d230f94f0111f22d223e849853df11f2770e9bd9e0349e1f9198fbb4c124879dbf8595ca', 273, 1, NULL, '[]', 0, '2021-07-08 07:52:18', '2021-07-08 07:52:18', '2022-07-08 13:52:18'),
 ('7e68f65006d6b70384d9a7ed9c706d6c1ada1154e7990b9e176e507d6c1caad3eec595464769d3bf', 182, 1, NULL, '[]', 0, '2019-07-08 07:20:57', '2019-07-08 07:20:57', '2020-07-08 13:50:57'),
 ('7f1e6ce36eb9f3b1cc1d8d28a214e60d566b76f4372db1d55c3cbbaf47e989a3bed783d0426a041d', 227, 1, NULL, '[]', 0, '2020-04-05 03:43:21', '2020-04-05 03:43:21', '2021-04-05 10:13:21'),
 ('7f201debbb5f29d477842e78ac09b02e0776416bb4a1ece20f7e1ea2642d4f6ac4edaaeeae07de6a', 114, 1, NULL, '[]', 1, '2019-05-26 16:49:18', '2019-05-26 16:49:18', '2020-05-26 16:49:18'),
-('7fb85151176bc95e4c496b954815bd0c8c5c62314a66f45fc132a469c72d32b541e94dac6d1a987b', 274, 1, NULL, '[]', 0, '2021-07-06 13:14:11', '2021-07-06 13:14:11', '2022-07-06 19:14:11'),
 ('7fc8bbe52954308d52306b7ab028e626485d2a6f328af5a290e43a364a22f75a951db433ef1db167', 125, 2, NULL, '[]', 1, '2019-06-02 09:20:42', '2019-06-02 09:20:42', '2020-06-02 09:20:42'),
 ('7fde8e8869d6d6972533139d07bfb94bd18f2b1d3ecafea4ffadf9718bad3248cb71ec2cfad651e6', 118, 2, NULL, '[]', 1, '2019-05-30 10:10:09', '2019-05-30 10:10:09', '2020-05-30 10:10:09'),
 ('8015a0e7112ea6166ee568df8b3543df01eb60632355dcd3e379b9080c1bda116a56154f2dcc9e17', 261, 1, NULL, '[]', 0, '2020-04-13 13:53:57', '2020-04-13 13:53:57', '2021-04-13 19:53:57'),
@@ -1838,7 +1779,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('81f898c9cdf81186f5f5476829142b446700b631dd3564e699e1138ee343d2df7c5ada3786a6867c', 194, 1, NULL, '[]', 0, '2019-09-04 07:26:54', '2019-09-04 07:26:54', '2020-09-04 13:56:54'),
 ('820f9fc0eace477556b14bcc302b777681cc2e161d7161f51e709f770a8709cd8ad779449b3df809', 178, 2, NULL, '[]', 1, '2020-02-12 06:07:21', '2020-02-12 06:07:21', '2021-02-12 12:37:21'),
 ('825876f0282c3826b77e1a47e4a4ceb34b377349c4cd42838e13f1891388ad7e272648f9e72ff088', 1, 1, NULL, '[]', 0, '2019-05-25 05:58:45', '2019-05-25 05:58:45', '2020-05-25 05:58:45'),
-('8278dfe63b51acb3ec3dadbde9d8725bb0f66b5052db3a45f8d2196cd1395ca21788020c3be6f01d', 274, 1, NULL, '[]', 0, '2021-07-06 09:25:35', '2021-07-06 09:25:35', '2022-07-06 15:25:35'),
 ('8284052f0c0662c6aa685b478141e94394b24d0335e1c80064ae17558cf330ac1b8427dd8628b184', 166, 2, NULL, '[]', 1, '2020-01-23 07:44:47', '2020-01-23 07:44:47', '2021-01-23 14:14:47'),
 ('8289d520b53997de79990152957108e6458c9cbbd846237b18d74bff14812cd862ddb5f13c7b62a8', 145, 1, NULL, '[]', 1, '2019-06-20 13:05:02', '2019-06-20 13:05:02', '2020-06-20 19:35:02'),
 ('82ca5d4a264c9acc6f97555de920e447babd1fa3cf008857d51aebab3bef2dc6533a945880268e4c', 178, 2, NULL, '[]', 1, '2019-09-04 12:55:26', '2019-09-04 12:55:26', '2020-09-04 19:25:26'),
@@ -1863,18 +1803,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('8697cc2a8cc034d77fb0bf0bc641b072397eba8471385c350ee8060f6ea5a59f3baebf48ce5735d7', 115, 1, NULL, '[]', 1, '2019-05-27 10:14:44', '2019-05-27 10:14:44', '2020-05-27 10:14:44'),
 ('86fb26b77fcd8a1a0bb2ebfd16c086a37605e1d7fa34a38aab089ab188ec729d610f68f96ff4bb31', 223, 1, NULL, '[]', 0, '2020-03-31 12:04:30', '2020-03-31 12:04:30', '2021-03-31 18:34:30'),
 ('872dad7c036aeb946fbe65cf3b9c6398b844fa60f7f1a0ff37f23ef0773dfb3611f9e3abc58babf6', 125, 2, NULL, '[]', 1, '2019-06-02 10:19:17', '2019-06-02 10:19:17', '2020-06-02 10:19:17'),
-('88ffd4fb797710de826e5c1ff3a4427f336214dc4fbbac1a2cce2a7e33c2a99f3bddb69f09a1fdd9', 274, 1, NULL, '[]', 0, '2021-07-06 13:00:18', '2021-07-06 13:00:18', '2022-07-06 19:00:18'),
 ('895eb22c73bfe3f4f9e48b06daf93411844f6ef4a523c289ae57d145c8c7e8d95e6c84c1fe7ad33d', 220, 1, NULL, '[]', 1, '2020-04-05 11:11:02', '2020-04-05 11:11:02', '2021-04-05 17:41:02'),
 ('89c2dafa9937b1c62eb04845ee7cbfdb2262981d30aeb8084a5d3164498bdd639e9b929e1be4e0c2', 214, 1, NULL, '[]', 1, '2020-03-30 05:56:23', '2020-03-30 05:56:23', '2021-03-30 12:26:23'),
 ('89c5fb6530404c5d53145b711037f79c7d75e6c46b410dc65bc264e2e1624f8eee807a109b075c38', 219, 1, NULL, '[]', 1, '2020-03-30 18:35:02', '2020-03-30 18:35:02', '2021-03-31 01:05:02'),
-('89fcffcf39358bbbb646b9ebedd218b515bf597739fb71a4f5f05cac597a662c99357358ada68f9c', 273, 1, NULL, '[]', 0, '2021-07-06 13:37:41', '2021-07-06 13:37:41', '2022-07-06 19:37:41'),
 ('8a37cc0611c6452992b95b94556401e55cc239d96cd03af50b7e5754a30867713ef705101a6ebc69', 124, 2, NULL, '[]', 0, '2020-02-06 10:40:32', '2020-02-06 10:40:32', '2021-02-06 17:10:32'),
 ('8a570bff2f5813e2f00209ba2b4292cfbda319feb2c24daa678e66c13f12181a500e30632e445081', 211, 1, NULL, '[]', 0, '2020-02-11 13:18:43', '2020-02-11 13:18:43', '2021-02-11 19:48:43'),
 ('8a5d397d4279cc204b6823390c0f15e74f90ce5b7dcfdf8883bd6a482022632b17fb1f51848b041f', 208, 1, NULL, '[]', 0, '2020-01-23 09:28:26', '2020-01-23 09:28:26', '2021-01-23 15:58:26'),
 ('8a8dedbd5e1c3eeabf3a581d7aa404a0a6097f1859364d2e9938d28967c77135098a19bb5cfd7399', 178, 2, NULL, '[]', 0, '2020-02-25 11:59:48', '2020-02-25 11:59:48', '2021-02-25 18:29:48'),
 ('8aab2bafdfab292ce8d1b4237fe215c17d771298d82336119b456d034ccd1ca22ae66bf0682da4cc', 137, 2, NULL, '[]', 0, '2019-06-20 05:26:17', '2019-06-20 05:26:17', '2020-06-20 05:26:17'),
 ('8af4924c3b47438b8276a59975fb28ae75d310eb0d3659e371c9ac4dbc8edc9dac588e1aeabd022b', 219, 1, NULL, '[]', 1, '2020-03-31 13:28:57', '2020-03-31 13:28:57', '2021-03-31 19:58:57'),
-('8b0a8760926ce025dc6cf88e8fc2e47ab904bdd80bc88f562dc2d8eee0b784394f4e090ef8a8339e', 274, 1, NULL, '[]', 0, '2021-07-05 12:39:29', '2021-07-05 12:39:29', '2022-07-05 18:39:29'),
 ('8b314eb8b87b9bd490a371bdb3cbd54725926d085ac28bfda2951e32644a78c454ab4d680538da12', 258, 1, NULL, '[]', 1, '2020-04-10 16:49:27', '2020-04-10 16:49:27', '2021-04-10 23:19:27'),
 ('8b86360b141605062e3304f3937ff72939f53851bbb3f520a83188d9d8aa397d1cbdfd432e884274', 259, 1, NULL, '[]', 1, '2020-04-24 17:25:04', '2020-04-24 17:25:04', '2021-04-24 23:25:04'),
 ('8ba5b5476dd07e3888c362b2844e27e5129b1902174b82a2bd6888098922956da8b41c1997cfd54e', 120, 1, NULL, '[]', 1, '2019-06-01 09:14:18', '2019-06-01 09:14:18', '2020-06-01 09:14:18'),
@@ -1910,7 +1847,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('9326a037c3bd3720f4c548d49654618a8bf73497ae00d1ee83b356e6135e865ad17592a2eaadd23b', 245, 1, NULL, '[]', 1, '2020-04-07 13:24:36', '2020-04-07 13:24:36', '2021-04-07 19:54:36'),
 ('9413b42edef5755838573ab70f8d245885c7796eaa6f34c783e9b8906635390e3a6866327b20edce', 127, 2, NULL, '[]', 0, '2019-09-18 08:25:16', '2019-09-18 08:25:16', '2020-09-18 14:55:16'),
 ('942d9e5cbc589e7c40d9b2e71d8907f666f5cf9e5d81d30d46564ea69da6d4306c543a4839e9128e', 196, 2, NULL, '[]', 0, '2019-09-19 07:39:47', '2019-09-19 07:39:47', '2020-09-19 14:09:47'),
-('9461e19222c8358256cb1a883c876bbb292e832ed6c5a445af03cb20684380ba4136cb67598d6b8f', 274, 1, NULL, '[]', 0, '2021-07-06 11:54:21', '2021-07-06 11:54:21', '2022-07-06 17:54:21'),
 ('94b6c83615f6974e509324f975e8fbb899a26f373343262005c7e1735faa80d2d4d2bd9b9466b76f', 112, 1, NULL, '[]', 0, '2019-05-31 16:50:07', '2019-05-31 16:50:07', '2020-05-31 16:50:07'),
 ('94d412f4b47c1521fe6e5d20062d560e5068c2689b1b314880b91bb5dae325ef5819062315ba765f', 128, 1, NULL, '[]', 0, '2019-06-20 11:36:58', '2019-06-20 11:36:58', '2020-06-20 11:36:58'),
 ('94d88a16e79258479ef77f8444e2865054652632928183c9eaf5368bc726cd65c70545f6a11d69fa', 219, 1, NULL, '[]', 0, '2020-04-04 06:48:54', '2020-04-04 06:48:54', '2021-04-04 13:18:54'),
@@ -1924,7 +1860,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('979fec9c989c8778edf8c7c6f7054d1877e4b2739b60bbd4d58aabcde225bf4fa255d5d29e4b2cc0', 178, 2, NULL, '[]', 0, '2019-07-16 12:34:44', '2019-07-16 12:34:44', '2020-07-16 19:04:44'),
 ('988f0daf5284c3aa643035b6667aec1df9982b525d87d04081b9d962aad356d3400e0a0b0d5b6fd5', 124, 2, NULL, '[]', 1, '2019-06-19 10:24:39', '2019-06-19 10:24:39', '2020-06-19 10:24:39'),
 ('9893ecb3d17fda6fe4f8b26f1406344dd68b50ad124f7eedaa9b2c9383f263337634feed402ff3cb', 1, 1, NULL, '[]', 1, '2019-05-26 08:44:00', '2019-05-26 08:44:00', '2020-05-26 08:44:00'),
-('9895461fe83c697e5c13376d10b92494dc3fc6040a43e591d8bd34e7d2d058117993c6f181186913', 273, 1, NULL, '[]', 0, '2021-07-07 07:17:51', '2021-07-07 07:17:51', '2022-07-07 13:17:51'),
 ('98ad0bf7b790c0b32eb3ed9f95e7ddab9bec4e676cb4ff26cb8f3581a933ec459d300ee0333a79f0', 112, 1, NULL, '[]', 0, '2019-06-01 09:21:31', '2019-06-01 09:21:31', '2020-06-01 09:21:31'),
 ('99401e949e7f4951ca2d8ab322ee2d9ff0ad53c82ab2ca06ec805ef994d762f3c60a7bee1b5d0047', 227, 1, NULL, '[]', 0, '2020-04-04 17:23:36', '2020-04-04 17:23:36', '2021-04-04 23:53:36'),
 ('996beb8b9eb30850aa00fb01c6b9ee20ddee3091d408f7c7257b12d01da0557e9bcd1f36cdd14a01', 128, 1, NULL, '[]', 0, '2019-06-19 14:03:27', '2019-06-19 14:03:27', '2020-06-19 14:03:27'),
@@ -1935,7 +1870,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('9afa77b9628125fe15470fd3b844d2b6505846cb8380cb79971adf34c7fd00a0fd877670e8b9006e', 264, 1, NULL, '[]', 0, '2020-04-12 06:49:48', '2020-04-12 06:49:48', '2021-04-12 12:49:48'),
 ('9b12b370f3d74bc2d8d8936ca82207a769c9d81e965f2850e3e8b05087bc4cc08d276a04cf1f91a2', 212, 2, NULL, '[]', 0, '2020-02-12 09:53:21', '2020-02-12 09:53:21', '2021-02-12 16:23:21'),
 ('9b2d238284aca46916b117abacb25bc929d7fd8dbd7e525efd44a02bb0159f6ca4bb7589f4ba7ee2', 1, 1, NULL, '[]', 0, '2019-05-08 09:18:24', '2019-05-08 09:18:24', '2020-05-08 09:18:24'),
-('9b33b6addbc5e6ef9a186089fe5809fce0b5c867f5a60f2d0834e5f00f924105df0e0472f4b148b1', 273, 1, NULL, '[]', 0, '2021-07-06 08:46:31', '2021-07-06 08:46:31', '2022-07-06 14:46:31'),
 ('9b42bd64d59447fe553baf2e259d0956aa2929c2c47641de6fbb793fbfbd5160156035420cfe0514', 166, 2, NULL, '[]', 1, '2020-01-23 08:23:06', '2020-01-23 08:23:06', '2021-01-23 14:53:06'),
 ('9b45a978b05bcfed6477ed69feaad88c15242ed568b4ca2731d8bd3f42ebc93fc1b9df9727606bb7', 107, 1, NULL, '[]', 0, '2019-05-09 06:24:31', '2019-05-09 06:24:31', '2020-05-09 06:24:31'),
 ('9b54c9a1470b7f37a95769c3a7471cd5ac1d5e3eb7d75a8141112c30972eb1809a2243b9c080ec7f', 125, 2, NULL, '[]', 0, '2019-06-20 11:01:05', '2019-06-20 11:01:05', '2020-06-20 11:01:05'),
@@ -1943,7 +1877,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('9b8b2b8e81ea0f6f1fde0b266cbf4c85324a388393b2d11725fe6a105f76969c7cf28636dde9f2cc', 178, 2, NULL, '[]', 0, '2020-01-04 07:35:16', '2020-01-04 07:35:16', '2021-01-04 14:05:16'),
 ('9c2a54431cb3204d6f266c496e0e3af79a55a6e990f91ef6da61680c85aef272f3aab3d764f043da', 208, 1, NULL, '[]', 1, '2020-03-09 06:52:53', '2020-03-09 06:52:53', '2021-03-09 13:22:53'),
 ('9cad4aa97409eebde1cdaa6cda53bda26e1392b67f19a92375e126ff7fd4ae62fbea8ce17ae6f446', 1, 1, NULL, '[]', 1, '2019-05-30 10:27:19', '2019-05-30 10:27:19', '2020-05-30 10:27:19'),
-('9de6ac3b3536051413d6744f11cf2d57596c0b0c61cd79659563024e72202fb47721125c51d35442', 274, 1, NULL, '[]', 0, '2021-07-06 10:06:27', '2021-07-06 10:06:27', '2022-07-06 16:06:27'),
 ('9dec88f9504fe12223cd05a2cecc6a049d2f7f40e72dec6aeac513e01ec58b57bcb8ad6105e06d61', 261, 1, NULL, '[]', 0, '2020-04-11 05:24:19', '2020-04-11 05:24:19', '2021-04-11 11:54:19'),
 ('9e6391520c30973835e4f243a4449a05c5f5650f187e546cc45c47e1a9a6de790c80607d0c933b3e', 214, 1, NULL, '[]', 1, '2020-03-24 10:15:11', '2020-03-24 10:15:11', '2021-03-24 16:45:11'),
 ('9ec5eec3bda0c378c7ef4b67e1ca01313e0093bc0fd58e14c277f0d8b20dfa1a253d7d8539b9c9f3', 125, 2, NULL, '[]', 1, '2019-06-24 16:12:55', '2019-06-24 16:12:55', '2020-06-24 22:42:55'),
@@ -1952,7 +1885,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('a03e893d0e33cd43f6d12a0eb369729d879074d722c0fd7abaf0d60ac2823c757e863b719235a64c', 220, 1, NULL, '[]', 1, '2020-04-05 07:58:37', '2020-04-05 07:58:37', '2021-04-05 14:28:37'),
 ('a059349c34c24ac017bf1e299b82a339e3778c7d331d952cf330d86a4d08cf4746428208e3b0b0b9', 107, 1, NULL, '[]', 0, '2019-05-07 11:04:22', '2019-05-07 11:04:22', '2020-05-07 11:04:22'),
 ('a11edbd999820a92d059d8f3ccd5ca0feea709cd86e4495700e7d41511a140a6786baabc393d5e17', 218, 1, NULL, '[]', 1, '2020-03-30 06:09:24', '2020-03-30 06:09:24', '2021-03-30 12:39:24'),
-('a19aafb43be95369ef4baa4c916a0314f5e1c4df71c356299af95c63f5cae8b5e1effd97614b3d79', 274, 1, NULL, '[]', 0, '2021-07-06 09:08:47', '2021-07-06 09:08:47', '2022-07-06 15:08:47'),
 ('a19f461054b3ad93fe7ea7c35d817fcf03e5cca776dba712dd424387e966bac0eb19da37c48e6c02', 150, 1, NULL, '[]', 1, '2019-06-22 08:14:55', '2019-06-22 08:14:55', '2020-06-22 14:44:55'),
 ('a1d36f2a44ea6fbf06c5267044db7396c96a82efa3c723ebb8027c95ca1dbdcd24ae2f4cb9ea0be0', 178, 2, NULL, '[]', 0, '2019-10-02 11:34:27', '2019-10-02 11:34:27', '2020-10-02 18:04:27'),
 ('a1d6891bed238db97ebd9258212ea951f795312625338c53e2b48f73a8dc4272091c1482675233da', 223, 1, NULL, '[]', 0, '2020-03-31 15:36:20', '2020-03-31 15:36:20', '2021-03-31 22:06:20'),
@@ -1961,8 +1893,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('a266f573c54374023ddf4a759dd688f21d10e251e4aece264284e31b028fc5a84a3c5d56babbafd7', 181, 1, NULL, '[]', 0, '2019-07-04 07:09:06', '2019-07-04 07:09:06', '2020-07-04 13:39:06'),
 ('a26fec7b327084e18cea78e5164e9e315ceee1243c319d9f5a27e76b0b411f928cf21744110c1bfb', 227, 1, NULL, '[]', 0, '2020-04-04 06:29:17', '2020-04-04 06:29:17', '2021-04-04 12:59:17'),
 ('a2d2bc1cd94f7335ed4c85aaf9175afc93ca012ab7df57a0a8abc15a9b4b82e0ec69f7d9f8877f33', 248, 1, NULL, '[]', 0, '2020-04-07 19:33:07', '2020-04-07 19:33:07', '2021-04-08 02:03:07'),
-('a2ef2c2c8522a8a9c86329eebcc0249cf2abf66320e2285e5372fa689380a230770178bde329e5e5', 273, 1, NULL, '[]', 1, '2021-07-06 09:03:29', '2021-07-06 09:03:29', '2022-07-06 15:03:29'),
-('a329a6074b9273e42dbfc6ea474876c1ea65674f7bed24bdceb5334ff3de5faefa74204dd54c3eff', 274, 1, NULL, '[]', 0, '2021-07-06 07:35:18', '2021-07-06 07:35:18', '2022-07-06 13:35:18'),
+('a34025206df18b99c118d380976c61d31d0090843397e6ef5e1cceb991927cb45e084f0a2bf7194c', 225, 1, NULL, '[]', 0, '2021-07-04 05:40:58', '2021-07-04 05:40:58', '2022-07-04 11:40:58'),
 ('a3627a19cc54b0ed3930c494d7728e032c4d9a97c25a90aafb50ed1887c438faeff8a4d689c63cf5', 208, 1, NULL, '[]', 1, '2020-03-09 06:44:22', '2020-03-09 06:44:22', '2021-03-09 13:14:22'),
 ('a398c1bcd332aa3bd42cb07af15dfa32c8be97bdf1d8f2c0360be52b7fbf0c69478664dad38fc25e', 139, 2, NULL, '[]', 0, '2019-10-31 11:33:35', '2019-10-31 11:33:35', '2020-10-31 18:03:35'),
 ('a4273266d091dad9398218595657b81b12cb346c09c580191704e658693f89b51e6b9c525ec733d5', 272, 1, NULL, '[]', 0, '2020-04-26 10:38:08', '2020-04-26 10:38:08', '2021-04-26 16:38:08'),
@@ -1975,12 +1906,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('a5b932288f41064a9dce61a1c974a1e3606a67547ddcd9d9fb44da56be5648e06afb868e3be06ad3', 1, 1, NULL, '[]', 0, '2019-06-19 05:50:29', '2019-06-19 05:50:29', '2020-06-19 05:50:29'),
 ('a5e19e1e692f5919a7ac9f0ccf9c50679f152691a2c1f320f8b133baa92b91fe43f15aeb5ac2eac6', 1, 1, NULL, '[]', 0, '2019-05-30 18:20:47', '2019-05-30 18:20:47', '2020-05-30 18:20:47'),
 ('a5f5473e75834ff3c397723ddac47af5e3b89e9c6fbcd898331e7f9f6ff7d984b0b6932ac3feec57', 125, 1, NULL, '[]', 0, '2019-06-22 10:42:33', '2019-06-22 10:42:33', '2020-06-22 17:12:33'),
-('a68bb7598cf582a512b366e4253aa0605b51ba2d29165d36d5fcda5c127409ee212ec8b226918a37', 274, 1, NULL, '[]', 0, '2021-07-06 13:02:46', '2021-07-06 13:02:46', '2022-07-06 19:02:46'),
 ('a707bddcd39d03289d89b4bd5a6231babe7d7039911aed5ddc08cd9ecd0ec797c9badcd6c3cfa2c0', 109, 1, NULL, '[]', 1, '2019-05-08 09:37:34', '2019-05-08 09:37:34', '2020-05-08 09:37:34'),
 ('a7a487e208a03a57c34d2e161deea220dec0aa345fcd1a5bf8500e6bf55b88347d998a4f984380c5', 217, 1, NULL, '[]', 0, '2020-03-29 19:54:01', '2020-03-29 19:54:01', '2021-03-30 02:24:01'),
 ('a81c6df48061e1323b01d64a92fee84fdad9e1f93a7034f9dfea90c835733e30609906ab6405d90d', 108, 1, NULL, '[]', 1, '2019-05-07 11:06:56', '2019-05-07 11:06:56', '2020-05-07 11:06:56'),
 ('a82246a7c08c3b0774c30b672305b254180d6c2435dbb01495b127b5fcc2a2eea7998219e44eb4a0', 1, 1, NULL, '[]', 0, '2019-05-28 10:04:34', '2019-05-28 10:04:34', '2020-05-28 10:04:34'),
-('a891a437577e253fb3ff9f3d31147b24d3b7b22cbe0501182a909a782bb0343a794558b96f2b9462', 273, 1, NULL, '[]', 0, '2021-07-06 07:48:24', '2021-07-06 07:48:24', '2022-07-06 13:48:24'),
 ('a92ce10a97da7684db4f48b85dc677f902e0c66e345ba976986af20ac04bd660f2ae0803dee215a4', 129, 1, NULL, '[]', 0, '2019-06-16 11:03:24', '2019-06-16 11:03:24', '2020-06-16 11:03:24'),
 ('a96623518d54647de407bb12adc1d076ec2b5bb55ff3c1dd02708fd7368f35c77c7e610dee0fd14d', 189, 2, NULL, '[]', 0, '2020-03-11 14:47:12', '2020-03-11 14:47:12', '2021-03-11 21:17:12'),
 ('a9999e6469ad78dbd9a386905ebd7437192b155762e203a8bab0289c4b70a6365cec8de7a470c5b6', 1, 1, NULL, '[]', 0, '2019-05-31 16:51:34', '2019-05-31 16:51:34', '2020-05-31 16:51:34'),
@@ -2006,19 +1935,14 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('aeba2a92c50e0c49802000f2ee2a2272e065316857c9f07ea0277a1aec2ef06ce5e140b370bbb0c2', 263, 1, NULL, '[]', 1, '2020-04-14 13:16:20', '2020-04-14 13:16:20', '2021-04-14 19:16:20'),
 ('aed611e1853c426f60f359bad4739339e4087a579682472dd4066986381de67eab9e344a63ee95c5', 1, 1, NULL, '[]', 0, '2019-09-25 09:14:29', '2019-09-25 09:14:29', '2020-09-25 15:44:29'),
 ('af2927c7a7d070aa6845069622fe1f3951b0242ae80eab5d7d5c3a770750c49dba41bb30931151a2', 127, 2, NULL, '[]', 0, '2019-09-06 03:18:14', '2019-09-06 03:18:14', '2020-09-06 09:48:14'),
-('af56a8b38854342f30699b0bc1b4718b9898439fd716b87ed00839bf166ad075492512c9095cc1aa', 273, 1, NULL, '[]', 0, '2021-07-05 17:33:21', '2021-07-05 17:33:21', '2022-07-05 23:33:21'),
 ('af591661777655809606b2c41ef3ac01be0ab7378524957942ab41e22cbe0e4600000c25e4a3bd74', 166, 2, NULL, '[]', 1, '2020-01-23 07:49:09', '2020-01-23 07:49:09', '2021-01-23 14:19:09'),
 ('af997d4929cd92d4803c29a57f4655c6c042d6361bdb73357a7fa6c0ed3c5f860582e882d056c2e9', 125, 2, NULL, '[]', 0, '2019-06-02 10:04:41', '2019-06-02 10:04:41', '2020-06-02 10:04:41'),
 ('aff8306b7541f860700df196e76d4b9c838a5505c5c277a8ff1799923941468e877754e4b4f0f4f8', 125, 2, NULL, '[]', 0, '2019-09-08 10:50:21', '2019-09-08 10:50:21', '2020-09-08 17:20:21'),
 ('b015bf76df5e4ec9b2fc9121c8a1c0a9af4a1fe7fb4a65b213435afb7c63d72406d9fd4c7383661b', 3, 1, NULL, '[]', 0, '2019-02-01 23:12:41', '2019-02-01 23:12:41', '2020-02-02 05:12:41'),
 ('b048eb99c5fded86741128fa1daaf5c34528aa82ad44f21591d4cdfa0ffdedaef0e472e0cf6b5fb5', 255, 1, NULL, '[]', 0, '2020-04-10 10:03:41', '2020-04-10 10:03:41', '2021-04-10 16:33:41'),
-('b06ce59fb3478f75937fdab61843126e5c09f6bf078f985cb86a2fd075739137bf2653411be589f8', 274, 1, NULL, '[]', 0, '2021-07-06 09:33:12', '2021-07-06 09:33:12', '2022-07-06 15:33:12'),
-('b07a3b7d6c2cefc3dea0817a20fb17aaa31d485cfc896cca5557f12a3cf83595f15dc50ca43d163b', 166, 2, NULL, '[]', 0, '2019-09-08 10:51:19', '2019-09-08 10:51:19', '2020-09-08 17:21:19');
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('b07a3b7d6c2cefc3dea0817a20fb17aaa31d485cfc896cca5557f12a3cf83595f15dc50ca43d163b', 166, 2, NULL, '[]', 0, '2019-09-08 10:51:19', '2019-09-08 10:51:19', '2020-09-08 17:21:19'),
 ('b106e36914442dd4aef2fb49a9de38b7f28f866726e33ff53334462a0b59204f7a45ef4a67966bfc', 178, 2, NULL, '[]', 1, '2019-08-18 10:20:52', '2019-08-18 10:20:52', '2020-08-18 16:50:52'),
 ('b135a637b74f5cea6b866d601a65e277d4adbe1a803fa8f7d5d96524fd8feadc6dee992f0ccfb0d8', 267, 1, NULL, '[]', 0, '2020-04-25 05:55:45', '2020-04-25 05:55:45', '2021-04-25 11:55:45'),
-('b14f2a735534d13d91d6d85aca8ca11831369afd79bb3c6d442b8e73c4e4c1933ddec66d446a9c3a', 273, 1, NULL, '[]', 0, '2021-07-08 07:24:59', '2021-07-08 07:24:59', '2022-07-08 13:24:59'),
-('b16803a0bac2ea3ddd210a58fde444065df26dbbc68a1146e89bef4c8b34c8683b1d1aa4c826e019', 273, 1, NULL, '[]', 0, '2021-07-07 08:15:53', '2021-07-07 08:15:53', '2022-07-07 14:15:53'),
 ('b19f415056c665477ca095c01e07f1dff2de52840db974397c3ca21907b2429403dbd68604328b46', 118, 2, NULL, '[]', 1, '2019-05-30 06:16:38', '2019-05-30 06:16:38', '2020-05-30 06:16:38'),
 ('b1ffe3063bc0a427b44de5291863b11759267db74cf898ed9374c937bb167730cc7601a01fdb5db7', 220, 1, NULL, '[]', 1, '2020-04-07 12:34:02', '2020-04-07 12:34:02', '2021-04-07 19:04:02'),
 ('b223d3845891f56fdd4a2c79e8e349ce84c4ee9f3516c5fcab49b31ca18cf614343426f974f30dc2', 112, 1, NULL, '[]', 0, '2019-08-17 11:19:09', '2019-08-17 11:19:09', '2020-08-17 17:49:09'),
@@ -2031,7 +1955,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('b433b68363bc59555e171e429979229791f2ecccba734ed0fe82d777dc28ac6c1f24f8a83a5c380e', 260, 1, NULL, '[]', 1, '2020-04-14 19:24:37', '2020-04-14 19:24:37', '2021-04-15 01:24:37'),
 ('b43cd9590112a8f6dbc9582ac9105dc7129cae84f3257ca80b4129ce31efa724403266603bd784c2', 236, 1, NULL, '[]', 0, '2020-04-08 08:03:12', '2020-04-08 08:03:12', '2021-04-08 14:33:12'),
 ('b4d058e3d321b44c0a0abcee1da65dd4554133706b49bb58da9ed6b75efa8816ce62b97db7f3beba', 219, 1, NULL, '[]', 1, '2020-03-30 17:40:30', '2020-03-30 17:40:30', '2021-03-31 00:10:30'),
-('b4df4d22b180b93c80aa1b909ee53d082e47769ec5c441d7382edb5a5cd0c35069920be7e1b8e3ed', 259, 1, NULL, '[]', 0, '2021-07-05 09:46:40', '2021-07-05 09:46:40', '2022-07-05 15:46:40'),
 ('b4f365105ea75f243b4af196b3dc9f38339c9849ddf2b4b8691b496ea6af1a5434d17697ee59e92e', 266, 1, NULL, '[]', 0, '2020-04-14 15:50:50', '2020-04-14 15:50:50', '2021-04-14 21:50:50'),
 ('b4fa358b0cc01d52177d853fd38ef5c10da99cef861b376583a2a6ff85a0474d5e9812d221627a95', 143, 1, NULL, '[]', 0, '2019-06-20 11:21:50', '2019-06-20 11:21:50', '2020-06-20 11:21:50'),
 ('b4feb3289a0550a3ad6a88016d2854e3b60c5098c608fa62e228931eacafedeee2c9e0551b017aee', 1, 1, NULL, '[]', 0, '2019-05-23 10:37:30', '2019-05-23 10:37:30', '2020-05-23 10:37:30'),
@@ -2039,12 +1962,11 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('b5a5ecbb7f213b7262ef15e6a6211f3030e1d926a2034601930194809b68c6c254c1a91f631ebafa', 225, 1, NULL, '[]', 1, '2020-04-02 11:53:56', '2020-04-02 11:53:56', '2021-04-02 18:23:56'),
 ('b5c5fc8aff65e1dabc89858dd5e814d10bbdafcd133b56d8c6c291adb10ff28804ed5c1b1401b471', 112, 1, NULL, '[]', 1, '2020-01-25 09:10:08', '2020-01-25 09:10:08', '2021-01-25 15:40:08'),
 ('b5d6da0ec6e77752a12657b07d021928974d4d5bf0f6c6cd9bafa05ae5264179a139d10851e08fdd', 261, 1, NULL, '[]', 0, '2020-04-24 10:43:16', '2020-04-24 10:43:16', '2021-04-24 16:43:16'),
-('b5e85f42f851eaab5f3faabed46ba86ae1d055b699145558ba7e5ced857d522e9d05bbd901977bac', 273, 1, NULL, '[]', 0, '2021-07-06 09:03:52', '2021-07-06 09:03:52', '2022-07-06 15:03:52'),
 ('b6a4a035b6e0c175af547284dd9a15fc5250e29c9a93093c852d5956153764742fef3b4b90b22b8d', 255, 1, NULL, '[]', 0, '2020-04-22 13:47:53', '2020-04-22 13:47:53', '2021-04-22 19:47:53'),
 ('b7346b66d5f3c3bf67d38846816986bf1339f0b97ba81303f7edd8dab00a8e2f5b466d64e977fa19', 243, 1, NULL, '[]', 1, '2020-04-07 12:51:19', '2020-04-07 12:51:19', '2021-04-07 19:21:19'),
-('b781bb75a61b0315070462c0058d5eb26ac62d02e51418f349cac694021887c345ae172c398d7072', 274, 1, NULL, '[]', 0, '2021-07-06 10:20:42', '2021-07-06 10:20:42', '2022-07-06 16:20:42'),
 ('b83edf7e430a9b55ff7632903973fc10d503de9e06842281e3ffce01f54b8fdd129f3827e2adf509', 1, 1, NULL, '[]', 0, '2019-05-29 21:26:31', '2019-05-29 21:26:31', '2020-05-29 21:26:31'),
 ('b874f43a36e049f19791dbb416b8e8995e69891f1951c38a036434a5a333990be18e1120ad6989a7', 255, 1, NULL, '[]', 0, '2020-04-10 17:17:44', '2020-04-10 17:17:44', '2021-04-10 23:47:44'),
+('b8df7f0f698dba4637e4818f3d99d729488d0470caf9fe52f152dc6f08be2d72298389845c9698c1', 11, 1, NULL, '[]', 0, '2021-07-05 12:55:14', '2021-07-05 12:55:14', '2022-07-05 18:55:14'),
 ('b93e9cea9b9b854db57d9d200f83b68feba39689232060d119bcc96b71fae27d771693d6e6fa9929', 1, 1, NULL, '[]', 0, '2019-06-17 05:48:31', '2019-06-17 05:48:31', '2020-06-17 05:48:31'),
 ('b948cfe6ea5d648a9afd8af19393bd3d1e38056ee56c107bb6e6b341f85946dffafae8807dc285c4', 220, 1, NULL, '[]', 1, '2020-04-05 09:46:51', '2020-04-05 09:46:51', '2021-04-05 16:16:51'),
 ('b97481486cc160ff03852fca0d6f963e21fa1a92db94c8958a14903c59050506ec87db8eac11a0bc', 178, 2, NULL, '[]', 0, '2019-09-19 12:32:56', '2019-09-19 12:32:56', '2020-09-19 19:02:56'),
@@ -2067,7 +1989,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('be3d02788b986d4ff50064422611e977936f764dccd9169b0ae33e477deaec2ea36403722dbb1f9e', 112, 1, NULL, '[]', 0, '2019-05-30 06:37:21', '2019-05-30 06:37:21', '2020-05-30 06:37:21'),
 ('be8eabea2d7e1aa5163da2849638a772a532ce9a393fe996c9e635bdfd66894838f8fbd30e2f6a8d', 178, 2, NULL, '[]', 0, '2019-09-04 13:17:20', '2019-09-04 13:17:20', '2020-09-04 19:47:20'),
 ('bebd69aaef0e6e4864a1341ad77e0fd3674023115f875b15da308bd59510819713812152b43f9798', 237, 1, NULL, '[]', 0, '2020-04-07 03:22:39', '2020-04-07 03:22:39', '2021-04-07 09:52:39'),
-('bed959de8d18b27b5c319cc2c9142a21da7626cb0eebdfee71747c3fe0a4c68367618acffb8b632e', 121, 2, NULL, '[]', 0, '2019-06-19 14:01:28', '2019-06-19 14:01:28', '2020-06-19 14:01:28'),
+('bed959de8d18b27b5c319cc2c9142a21da7626cb0eebdfee71747c3fe0a4c68367618acffb8b632e', 121, 2, NULL, '[]', 0, '2019-06-19 14:01:28', '2019-06-19 14:01:28', '2020-06-19 14:01:28');
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 ('bef0dc11041f7d3749978e10800a5359e2a9fc51cc88e8eec7b6028c672951e897e035fea9a3e354', 172, 1, NULL, '[]', 1, '2019-06-23 13:30:02', '2019-06-23 13:30:02', '2020-06-23 20:00:02'),
 ('bf5b46c3e982b727be2737cb44737f87ca1e55a612f35858ec05ad1b9f9e618b0617ea7f02a1c830', 211, 1, NULL, '[]', 0, '2020-02-12 06:25:30', '2020-02-12 06:25:30', '2021-02-12 12:55:30'),
 ('bf9fc4d240a179c92fc4bb26baa900c78b102b35c193b572907c4739d151a6bc182810947f023b8a', 214, 1, NULL, '[]', 1, '2020-04-05 04:55:55', '2020-04-05 04:55:55', '2021-04-05 11:25:55'),
@@ -2105,10 +2028,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('cba00f1d1b62e55799d87a30af5e325d516551e6a8feea88dbdce9a9f7f1a75c9463b086bdfa2856', 118, 2, NULL, '[]', 1, '2019-05-30 08:13:39', '2019-05-30 08:13:39', '2020-05-30 08:13:39'),
 ('cbc2f52f5beaffbce9cf4c86ee5e17405b067bbc72e4e9c8dd962e481d8cf28ae08737f622fe4d59', 190, 1, NULL, '[]', 0, '2019-07-18 06:09:50', '2019-07-18 06:09:50', '2020-07-18 12:39:50'),
 ('cc1de8af70c9d1e7cc784c6fc142b191756c5c829f3760346f4420353aa5d158baf0189a7282c4ee', 6, 1, NULL, '[]', 0, '2019-02-01 23:35:21', '2019-02-01 23:35:21', '2020-02-02 05:35:21'),
-('cc972fafaa2dc2ad679582338f57f6de4a615bdd16db02a1ac61bb9cac9430003244d99f29067eb1', 273, 1, NULL, '[]', 0, '2021-07-02 20:52:07', '2021-07-02 20:52:07', '2022-07-03 02:52:07'),
 ('ccfdbf37df36d13612aa11b0621320ffa10e4d36090a850c169a731f3ee702c59833742e2fd8a842', 208, 1, NULL, '[]', 1, '2020-03-09 06:05:46', '2020-03-09 06:05:46', '2021-03-09 12:35:46'),
 ('cd6de3b98e94b5328b58873505ca7056b00b100ffaac908a06fba1ba35310894ca4af25ab994aa19', 126, 2, NULL, '[]', 1, '2019-06-02 09:46:56', '2019-06-02 09:46:56', '2020-06-02 09:46:56'),
-('cd95ff4a8b99a4bdd5c17aba025b0232a5eb68156e7b30bda2b6c78ee9e753b08c615ff7b28b8c46', 273, 1, NULL, '[]', 1, '2021-07-06 09:05:29', '2021-07-06 09:05:29', '2022-07-06 15:05:29'),
 ('ce3106d65bc4b82167cb3e14daf552caf6ba90afe51b516e68b77241a9005248c3e715403e9a1dfc', 118, 2, NULL, '[]', 1, '2019-05-29 11:06:02', '2019-05-29 11:06:02', '2020-05-29 11:06:02'),
 ('ce7c8dc1dfd1855b365e40ddd4c6adb86165d5eb8668cc6ff1f46928f33e1fa44db97fd9eb691663', 140, 1, NULL, '[]', 0, '2019-06-20 07:22:26', '2019-06-20 07:22:26', '2020-06-20 07:22:26'),
 ('ce804be07dd8202e69fc90ca3043ec2d2f83ac842bafc3676a3af203c7e014970d9480bbb73c6711', 208, 1, NULL, '[]', 0, '2020-03-11 06:34:11', '2020-03-11 06:34:11', '2021-03-11 13:04:11'),
@@ -2120,10 +2041,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('d0a968e08fcf09d8d1521181dee54829f171238e56ff57459a403541aa68d355b90c73475a17c127', 255, 1, NULL, '[]', 0, '2020-04-12 17:42:26', '2020-04-12 17:42:26', '2021-04-12 23:42:26'),
 ('d0ade50c9d11e51b5ad04c85cde8db93b8123fc74f3bdc848ca9db345147c26bc081b521edda6dff', 220, 1, NULL, '[]', 0, '2020-04-05 09:58:22', '2020-04-05 09:58:22', '2021-04-05 16:28:22'),
 ('d0b9f27f6c3f3645ecde3d173004b3b0aa6898b1a02adc630f6b644bb752b4596755792a78cbdc1f', 112, 1, NULL, '[]', 0, '2019-09-04 11:01:16', '2019-09-04 11:01:16', '2020-09-04 17:31:16'),
-('d0e68e64ae5863e6262ccc7c45c507cd56712ad9a9ad07da32df87b3f8745d131725316668c1abd9', 274, 1, NULL, '[]', 0, '2021-07-06 09:55:52', '2021-07-06 09:55:52', '2022-07-06 15:55:52'),
 ('d18b2d3acf96a60e3e4a1ed770f498b6e154e745a6d9cf5c8a2402856ec5f3a311ee01895c9ad279', 198, 1, NULL, '[]', 0, '2019-09-19 11:08:39', '2019-09-19 11:08:39', '2020-09-19 17:38:39'),
 ('d1c2c3de531e6472531748a456caf468b579f8e2cc532d38af8c8892b486b1976d98926288d4f0ca', 259, 1, NULL, '[]', 1, '2020-04-11 10:14:53', '2020-04-11 10:14:53', '2021-04-11 16:44:53'),
-('d2e9028f3338937597e3bca646877e1d135317a6863a3cf03d438ad7b40a5f493b4ea82344b34023', 274, 1, NULL, '[]', 0, '2021-07-06 11:46:57', '2021-07-06 11:46:57', '2022-07-06 17:46:57'),
 ('d37da526a043c724c5e891a1c5d9271f828e10d1471ee60b417257f64d3d58b50af4cb50098f1c33', 222, 1, NULL, '[]', 0, '2020-04-07 05:42:20', '2020-04-07 05:42:20', '2021-04-07 12:12:20'),
 ('d39553de480f9044639875b70dc68f345e5f32ff7d3b302e979e341416e6d1b2f10b6ed66c8424af', 268, 1, NULL, '[]', 0, '2020-04-16 09:45:38', '2020-04-16 09:45:38', '2021-04-16 15:45:38'),
 ('d39ea8109a5a96de3d7e19b3c1f7be9781e1593b5892c86ac91013067e09e61fc6a04ea5faf60879', 208, 1, NULL, '[]', 1, '2019-12-26 11:33:18', '2019-12-26 11:33:18', '2020-12-26 18:03:18'),
@@ -2134,22 +2053,18 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('d3f84f19d4a5dd3e6e3b3080ae24e6db841b0a85e381814fe93408fae075770e7efe5a2641de636c', 124, 2, NULL, '[]', 0, '2019-06-23 07:07:29', '2019-06-23 07:07:29', '2020-06-23 13:37:29'),
 ('d47996e8ac2c7177d97727169d3f27f617854929d6f28752ca81da0961615b43453ef15f40e1047e', 178, 2, NULL, '[]', 0, '2019-07-09 17:40:48', '2019-07-09 17:40:48', '2020-07-10 00:10:48'),
 ('d49c384624a93c9a071f6e5e9f631a1e3e789116fbe33290422dc9de7017e98b01527d266bc352b4', 257, 1, NULL, '[]', 1, '2020-04-15 16:01:03', '2020-04-15 16:01:03', '2021-04-15 22:01:03'),
-('d509640478b30c0768951a64f460a8f5b9d323582406f614aa0e4ff0cc5a8f27599a212047589771', 259, 1, NULL, '[]', 0, '2021-07-05 09:34:32', '2021-07-05 09:34:32', '2022-07-05 15:34:32'),
 ('d521a7aa4867f1b2bc2eb9e7245238573d8fd18f33dda219190a8aa8f2624869eaec45304a32646a', 125, 2, NULL, '[]', 0, '2019-06-02 10:21:25', '2019-06-02 10:21:25', '2020-06-02 10:21:25'),
 ('d57e8e91b97f4c164f6c448f90aecaf3892f4d8856f7e9945f6a135477da97c16e8e05891c3fe350', 212, 2, NULL, '[]', 0, '2020-03-15 11:24:48', '2020-03-15 11:24:48', '2021-03-15 17:54:48'),
 ('d5c66a2cfc544d3aa6ccfe176388c9609f6b858d682d4018197730318d52a01188331224bfac2f6b', 214, 1, NULL, '[]', 1, '2020-04-05 04:53:57', '2020-04-05 04:53:57', '2021-04-05 11:23:57'),
 ('d608eba7bf7418b8a9ba06a682d35442e9b6c52449f8f1afba19be3913f6ad438c156ed56efbcf37', 1, 1, NULL, '[]', 0, '2019-05-29 10:20:41', '2019-05-29 10:20:41', '2020-05-29 10:20:41'),
 ('d6201b98f979463ca94db967f619691f9d6411d392ce143b662dae66f5d502fee16827662e4a7a9e', 178, 2, NULL, '[]', 0, '2019-09-07 13:10:44', '2019-09-07 13:10:44', '2020-09-07 19:40:44'),
-('d625a5a41c01fab0f029967a0aa4acb8e6447216722d1c501bf0156f1f2c16bf8301679ed4ba1a06', 273, 1, NULL, '[]', 0, '2021-07-07 07:56:01', '2021-07-07 07:56:01', '2022-07-07 13:56:01'),
 ('d68ba8df1adece1bdf30fa68b6ed4871e90a0520e71819c4f2395d9e3f226043750a1ee13dc231c7', 178, 2, NULL, '[]', 0, '2019-09-04 13:02:58', '2019-09-04 13:02:58', '2020-09-04 19:32:58'),
 ('d68e21bad9bef3b3a0e407be0d1bf84a2756a1df8ec37dfc22ad7b707a0b891932cc420523670e08', 230, 1, NULL, '[]', 0, '2020-04-04 08:54:03', '2020-04-04 08:54:03', '2021-04-04 15:24:03'),
 ('d717c825fbc7eac2473592085072bdc86fde178e48a964baacf5dce8bf33ad8c8db083270e208e2b', 7, 1, NULL, '[]', 0, '2019-02-02 00:55:26', '2019-02-02 00:55:26', '2020-02-02 06:55:26'),
 ('d7b9c8e4f4a1849cc605b706119eeace73ab6dbe379913f270299a080aa0383e502738d3543ea8d5', 112, 1, NULL, '[]', 0, '2020-02-20 11:13:47', '2020-02-20 11:13:47', '2021-02-20 17:43:47'),
 ('d7d5da68a4d2e4df57c590f30b9b71770642dcf061025cfbd824e3a56c0468cedda31e66319b77bd', 269, 1, NULL, '[]', 1, '2020-04-18 09:34:13', '2020-04-18 09:34:13', '2021-04-18 15:34:13'),
-('d815b1414b024da5b2b03b5cfb765ab37e8f95197d6bae4ee24a845290dad1e43016f8ffa1e5bf3b', 273, 1, NULL, '[]', 0, '2021-07-03 01:13:48', '2021-07-03 01:13:48', '2022-07-03 07:13:48'),
 ('d881e49bbd74fe16531cd289116ebc9f2e62d17a2abd0487015f539087142aa944c0b7e8c634bc29', 259, 1, NULL, '[]', 0, '2020-04-11 20:27:45', '2020-04-11 20:27:45', '2021-04-12 02:57:45'),
 ('d8b43208afd61c8af5a5ca00a8132ab1fba126a3a47f1644527e249c1c59f597e8be065f0149a70a', 210, 1, NULL, '[]', 0, '2020-01-05 06:29:02', '2020-01-05 06:29:02', '2021-01-05 12:59:02'),
-('d8f549cd8de3ad3ec9d651bcf6dde584da3c5bbfbf679bca4d9d2d6c1c208abcd2a4f1997506126f', 274, 1, NULL, '[]', 0, '2021-07-06 09:48:10', '2021-07-06 09:48:10', '2022-07-06 15:48:10'),
 ('d8fbe9051a37d0819d38cb01d78b12561ab5abf26c929dcdb151b54cd50b8cc38dd11912ec8ece66', 214, 1, NULL, '[]', 1, '2020-04-05 14:02:53', '2020-04-05 14:02:53', '2021-04-05 20:32:53'),
 ('d9349e3382fb4be4b27bc63b9981677d7d92b44d64bea657186068475811f3b2ad2324019c1088f4', 262, 1, NULL, '[]', 1, '2020-04-20 09:11:51', '2020-04-20 09:11:51', '2021-04-20 15:11:51'),
 ('d9f25860ddd20466ff1f9de8b71f7980251882008e14a2877ae4c4663381cbd6a247c0723b8f3bd1', 121, 2, NULL, '[]', 0, '2019-06-02 07:35:06', '2019-06-02 07:35:06', '2020-06-02 07:35:06'),
@@ -2157,7 +2072,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('da18bc929cb0a2f68cf569cd85a51d5a3753cef03d2db4a8d2d637f0cb9c65159ef4ee32c151ad99', 241, 1, NULL, '[]', 0, '2020-04-07 12:32:45', '2020-04-07 12:32:45', '2021-04-07 19:02:45'),
 ('da51871bd1182602dd5deea64375e9457ae78b5d0a5c5bc0b0d23423d189988bc1850d6e81fabb2f', 147, 2, NULL, '[]', 0, '2019-06-22 06:05:12', '2019-06-22 06:05:12', '2020-06-22 12:35:12'),
 ('da675fe78555898b5d0a410a37e2bbbca8e76cd59ba3d63af884ce454f3b1777677ee2fb0b3467f4', 124, 2, NULL, '[]', 1, '2019-09-26 07:08:20', '2019-09-26 07:08:20', '2020-09-26 13:38:20'),
-('daaff46fd523f2b8cfa35d9102dfc0033adecd96e547d825918cba2d4c4557fb39106e3b08b46338', 274, 1, NULL, '[]', 0, '2021-07-09 13:55:11', '2021-07-09 13:55:11', '2022-07-09 19:55:11'),
 ('dadafd3da077e12b42d25f76120e59d896b3bc3d894ff96d7f082441e3fb3582b426468410ca8bd8', 219, 1, NULL, '[]', 1, '2020-03-31 15:45:52', '2020-03-31 15:45:52', '2021-03-31 22:15:52'),
 ('dafd110f9d4fb317bcb7ffc78dcd1984693fabd7a676fee67c2abb912c0ecc847be1a67b1e21c9c9', 1, 1, NULL, '[]', 0, '2020-02-10 08:29:19', '2020-02-10 08:29:19', '2021-02-10 14:59:19'),
 ('db2b32765cc4e185864f71bace7d9d63c01ac2f2d5a5892f20182bff3ff41c7ac32d075172550f02', 220, 1, NULL, '[]', 1, '2020-04-05 11:27:34', '2020-04-05 11:27:34', '2021-04-05 17:57:34'),
@@ -2181,7 +2095,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('e1749a5c9cd89cf0740fc561a5ccb8c89f277a04f35ae83e6b78c61d5b304c358d4ba3dc2ffa80c2', 208, 1, NULL, '[]', 1, '2020-02-25 07:01:42', '2020-02-25 07:01:42', '2021-02-25 13:31:42'),
 ('e1a54227481316d07aa3aa48339909b6c2367b15c9a0a253099fa56495bc9d9e4a3a568f5cbbb733', 176, 1, NULL, '[]', 0, '2019-06-23 13:58:00', '2019-06-23 13:58:00', '2020-06-23 20:28:00'),
 ('e233dd98bf9b950f74bd157948dbc2d10f985fac443d00b81c59617cd8b759f3360acd1ee99df2e9', 7, 1, NULL, '[]', 0, '2019-02-02 00:56:38', '2019-02-02 00:56:38', '2020-02-02 06:56:38'),
-('e26be651645692149f82d2c5af4166b7e21e85ad10401305e12df37f357361211e6de59b028170cf', 273, 1, NULL, '[]', 0, '2021-07-09 16:31:24', '2021-07-09 16:31:24', '2022-07-09 22:31:24'),
 ('e2a42a51d3770f19ed1e70c78fb76086176773c9df2452efd09d5be1095d7fa238c8f591bd3cb3a6', 254, 1, NULL, '[]', 1, '2020-04-10 17:10:44', '2020-04-10 17:10:44', '2021-04-10 23:40:44'),
 ('e2cdf2905768586ee2afc43a86cc655cdcfdb143345e9be3c4e9e06139a2e75bbf6e52c54006b3fd', 166, 2, NULL, '[]', 1, '2019-09-07 05:22:05', '2019-09-07 05:22:05', '2020-09-07 11:52:05'),
 ('e35bb5b64141debaa14d2f1e8bdffa7bac58ba9f8ef33eb32afd9bb5119140b8bd0cc1386ec2b1b2', 178, 2, NULL, '[]', 0, '2019-08-29 12:41:33', '2019-08-29 12:41:33', '2020-08-29 19:11:33'),
@@ -2238,13 +2151,11 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('ee23c5a12ccf56c42ac80485cbbe90e7e5c8fe7abb295756a7b2970040f96c24c93de247331d81b1', 235, 1, NULL, '[]', 1, '2020-04-06 11:07:56', '2020-04-06 11:07:56', '2021-04-06 17:37:56'),
 ('ee403f205a0db2f7662c8be4829c270e68625be7f810f151b4b624d31a9903de96e48bd53e37114c', 267, 1, NULL, '[]', 0, '2020-04-22 15:02:24', '2020-04-22 15:02:24', '2021-04-22 21:02:24'),
 ('ee67a60e53de861624a57eccb0a7beb7d24bd67c9868527bfedc532ebf4a1f594ba8d0a2b86fafad', 11, 1, NULL, '[]', 0, '2019-08-02 03:15:53', '2019-08-02 03:15:53', '2020-08-02 09:45:53'),
-('ee85566fad99461b12e3af8ca140a7149cafc6da7de09a73d5d8ea916b2a5c2439d89f2541c37825', 274, 1, NULL, '[]', 0, '2021-07-06 12:57:42', '2021-07-06 12:57:42', '2022-07-06 18:57:42'),
 ('ee8fc8d58a8732c77cab94ffd3d4b2c4ece2cd4b8a2eaddde616ef735a295e3100b43fc85fcf4d91', 217, 1, NULL, '[]', 0, '2020-03-29 19:44:50', '2020-03-29 19:44:50', '2021-03-30 02:14:50'),
 ('ef2801d52afe70cff6baff5dc726c9552758f1739218e3660c8f55ecf0beeef8d9aa7e062a2532b3', 107, 1, NULL, '[]', 1, '2019-05-08 08:13:01', '2019-05-08 08:13:01', '2020-05-08 08:13:01'),
 ('f054e23dd6b1329faa5e2102636ffd3bfe26bd9fef74dbd9981a549f8c7275305df53ddc10d109e5', 217, 1, NULL, '[]', 0, '2020-03-29 18:32:26', '2020-03-29 18:32:26', '2021-03-30 01:02:26'),
 ('f063c5b2d2a9378f71ed9762f366bec784818c083e48c6a49beae7fb47755486f8868ecf2998bdfd', 106, 1, NULL, '[]', 0, '2020-01-27 07:35:57', '2020-01-27 07:35:57', '2021-01-27 14:05:57'),
 ('f0e192dcd802a95dcae4251abf291fdb4e482dd1b3fbfa8e7dfff2c2b8c89b6d8c21670b8739b536', 164, 1, NULL, '[]', 1, '2019-06-22 13:27:51', '2019-06-22 13:27:51', '2020-06-22 19:57:51'),
-('f0e39355f5d4e1dcfd37c01572fbe979e9dd2053d248a625fed9fdee26aaca4da0f178b69e0c21a6', 273, 1, NULL, '[]', 0, '2021-07-08 07:48:43', '2021-07-08 07:48:43', '2022-07-08 13:48:43'),
 ('f104b4ef99f7dd28258c083f2671fc03becff925f951e8f4aee3219ec5d9ee7b53b7b13f546c9ac3', 263, 1, NULL, '[]', 0, '2020-04-22 14:09:24', '2020-04-22 14:09:24', '2021-04-22 20:09:24'),
 ('f1578886d5cd6ce2e51ea8bb47932476d881b8263b9d94d8c5c1e8fc550d12d4920bf7b30fb6f954', 112, 1, NULL, '[]', 0, '2019-05-27 11:00:37', '2019-05-27 11:00:37', '2020-05-27 11:00:37'),
 ('f19916ba4e57acfee36f3008280baa745a188ba87ac3d7c347fb2d8b7805000e879cf2b8bcde2694', 128, 1, NULL, '[]', 0, '2019-06-12 10:50:52', '2019-06-12 10:50:52', '2020-06-12 10:50:52'),
@@ -2259,7 +2170,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('f47460f86df202fc691eef1e6ac5d33aa07fadb976b4e5215eaf30bcadf4ce53da62f0d134234a86', 112, 1, NULL, '[]', 0, '2019-06-01 08:08:00', '2019-06-01 08:08:00', '2020-06-01 08:08:00'),
 ('f4ad134b125968501f665b10e490cf56fcfbf83942754a7f73bd08a7b0cf5185ce5d127e107fab30', 125, 1, NULL, '[]', 1, '2019-06-22 10:05:20', '2019-06-22 10:05:20', '2020-06-22 16:35:20'),
 ('f4da6f44240e92cfca2461bc4c5ad9801a250fdcd734d84247b1c1c12e14b962ebffbabac5dd15eb', 118, 2, NULL, '[]', 1, '2019-05-29 10:58:26', '2019-05-29 10:58:26', '2020-05-29 10:58:26'),
-('f50442df568624f31f588518574b17b1f7854193b2887386eba11210e23fe20cae42997fc0b8c186', 274, 1, NULL, '[]', 0, '2021-07-06 09:06:59', '2021-07-06 09:06:59', '2022-07-06 15:06:59'),
 ('f505ba347830969fd9d44518ac9ba037cfa0279e0dab284482be057de93a39c000d3960a54b079f1', 152, 1, NULL, '[]', 0, '2019-08-09 08:37:26', '2019-08-09 08:37:26', '2020-08-09 15:07:26'),
 ('f549464feb0528d2dfea907e2aadc174b2d59096a2d3c1fc620e709dc03e552ee286926966a6086e', 7, 1, NULL, '[]', 0, '2019-02-02 00:55:01', '2019-02-02 00:55:01', '2020-02-02 06:55:01'),
 ('f5528386bc8a65bc9f8bb5186ceb72cee8a33823b3e43f9d7aa374dbffc2380691eb30275726e70e', 112, 1, NULL, '[]', 0, '2020-01-27 07:50:16', '2020-01-27 07:50:16', '2021-01-27 14:20:16'),
@@ -2268,12 +2178,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('f60fdc3e73cd60a5e6673c46beb9b1839900ef0edfa2377c4b7d45df64f456a6c8ad6bee707c31e8', 163, 1, NULL, '[]', 1, '2019-06-22 13:23:19', '2019-06-22 13:23:19', '2020-06-22 19:53:19'),
 ('f6446e338bcdebfafb328f6cfd1056eae20ada8be0647f21b593c015a1993c5ed5d6fe67f0426116', 214, 1, NULL, '[]', 1, '2020-03-23 09:43:16', '2020-03-23 09:43:16', '2021-03-23 16:13:16'),
 ('f684897075806ed8b4b324f6fe995f05d235afa0cbc6157a936275fd2a296987e6f56d1cd377b3b2', 124, 2, NULL, '[]', 1, '2019-06-17 09:26:03', '2019-06-17 09:26:03', '2020-06-17 09:26:03'),
-('f68cdad98cb922a48cd61fc2fc67546a8e3cf60bf64d2a63ed98ba819d7aa51c2cc53b149b019f29', 274, 1, NULL, '[]', 0, '2021-07-06 10:21:28', '2021-07-06 10:21:28', '2022-07-06 16:21:28'),
 ('f6a4ff614409508ca82bb612d8dc6b377a92c09f0f42f558fb794c28a2e0c2e071ff549a29951f43', 231, 1, NULL, '[]', 1, '2020-04-04 18:01:57', '2020-04-04 18:01:57', '2021-04-05 00:31:57'),
 ('f6e3709568cde666624dec19d55e1110cdd0b2de83533bd1a2d11e141db6e8f769352c9e2716e536', 107, 1, NULL, '[]', 1, '2019-05-08 08:06:37', '2019-05-08 08:06:37', '2020-05-08 08:06:37'),
 ('f6f0f112ec7fcff68da18439801a24bd5461cd0c9990e8fe6a2ee932f85d8428fa8dba261487de7f', 178, 2, NULL, '[]', 0, '2019-10-28 11:17:32', '2019-10-28 11:17:32', '2020-10-28 17:47:32'),
 ('f701af9732ef512f26a90bf17840f6245a2e039ae2da59e680b4bb326d2cb3cc34183b6dde871e3e', 254, 1, NULL, '[]', 1, '2020-04-10 16:22:27', '2020-04-10 16:22:27', '2021-04-10 22:52:27'),
-('f770285ea35d571482f1252b45939cc4ed7291611a066823070ca2c1cfbb2ae5cc29050119d653e9', 273, 1, NULL, '[]', 0, '2021-07-07 08:10:35', '2021-07-07 08:10:35', '2022-07-07 14:10:35'),
 ('f7cf1d8cb265469257c13e7cfee2f4dcf57de21af744e1758c74647a2e92c3665164bb6ec346c479', 1, 1, NULL, '[]', 0, '2019-05-31 12:07:05', '2019-05-31 12:07:05', '2020-05-31 12:07:05'),
 ('f7f27e3aa788ab64b8ee149d7ff76bfbae1151e39fe560496462085b89aad2e3594abab8763913e6', 125, 2, NULL, '[]', 1, '2019-06-02 09:18:49', '2019-06-02 09:18:49', '2020-06-02 09:18:49'),
 ('f8970efa0489e689389b33d6cda432d17c49fcb3394dbc320f4804b689943d34350f47eb6d9ea572', 7, 1, NULL, '[]', 0, '2019-05-08 09:00:41', '2019-05-08 09:00:41', '2020-05-08 09:00:41'),
@@ -2283,11 +2191,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('f998953c02133710533c7d70e62374f308586b681f130c483a8acb4757e4454c2ddb57f18f9ba7bd', 216, 1, NULL, '[]', 1, '2020-03-24 10:07:51', '2020-03-24 10:07:51', '2021-03-24 16:37:51'),
 ('f9c011a6147e819907627d6dabdde8e9dabeb275862f792101775918aed1aaf50f3a81653924162c', 222, 1, NULL, '[]', 0, '2020-03-31 17:50:06', '2020-03-31 17:50:06', '2021-04-01 00:20:06'),
 ('fa0e4636fe15afb614f21683e62301ca12a4867436b75309e8890576f8a6ef2ce23416a114d98335', 233, 1, NULL, '[]', 0, '2020-04-05 12:04:03', '2020-04-05 12:04:03', '2021-04-05 18:34:03'),
-('fa1d3f31c76892aafb5603c2a9155afac294c6160e3c7b9733887390051bc06ade19cd360a24f1ef', 11, 1, NULL, '[]', 1, '2021-07-05 12:11:11', '2021-07-05 12:11:11', '2022-07-05 18:11:11'),
 ('fa56d5575bdd1606054fe13be10463a9446a4a2f995479e53c72224164343b1bdc92feebaad178f7', 112, 1, NULL, '[]', 0, '2019-05-30 07:23:52', '2019-05-30 07:23:52', '2020-05-30 07:23:52'),
-('fa706a15214d2f2b3485ea6e211ef713c2231b77fc7080f13a1ba1046c4b9d2ae41a3a4be8620ef2', 273, 1, NULL, '[]', 0, '2021-07-09 13:41:31', '2021-07-09 13:41:31', '2022-07-09 19:41:31'),
-('fad5e7041071985f12b6e2a0730632c4022d5258052829b1690f5106105c923d28004243b5891de3', 273, 1, NULL, '[]', 0, '2021-07-09 14:20:13', '2021-07-09 14:20:13', '2022-07-09 20:20:13'),
-('fb070f7e27524e650dc54bd54b6c8487fba2813764518d697232c44c3c346eeec635746a8f8f44fb', 274, 1, NULL, '[]', 0, '2021-07-06 13:30:49', '2021-07-06 13:30:49', '2022-07-06 19:30:49'),
 ('fb0902476d59816b5f94103edcf59bb4c7cabb0d5795dc05fac1795035c1280cdccaec28f00574a1', 208, 1, NULL, '[]', 1, '2020-02-08 15:46:50', '2020-02-08 15:46:50', '2021-02-08 22:16:50'),
 ('fb7d736a53a43eefc8ae83c8b0c9d7606f8b864317d0f110eb067bd11532fb429fff2dc472986f1f', 124, 2, NULL, '[]', 0, '2019-09-08 09:33:55', '2019-09-08 09:33:55', '2020-09-08 16:03:55'),
 ('fba37d64c6575bd1e054097826f5778079c0cb0b3d2d669e26ac9a13a5b6d63f3c9a9a421a120dfc', 255, 1, NULL, '[]', 0, '2020-04-26 08:18:54', '2020-04-26 08:18:54', '2021-04-26 14:18:54'),
@@ -2297,8 +2201,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('fc4a15b4424fd04d144a161caa8303ea97172f3b62021077bea724e77f824558cbee9d186766d21d', 225, 1, NULL, '[]', 1, '2020-04-05 04:48:53', '2020-04-05 04:48:53', '2021-04-05 11:18:53'),
 ('fc8a1bcc057152c88836f2213c00028424c1dbee25f2d3d02d4e7151830a13334d661970375bb832', 112, 1, NULL, '[]', 0, '2019-05-30 06:43:49', '2019-05-30 06:43:49', '2020-05-30 06:43:49'),
 ('fc98fef783664c9ccaaa8a5e18f94dc34e6f5d6458007879e5f4f19aa89c4f4b875fa7ddf61f4951', 107, 1, NULL, '[]', 0, '2019-05-08 10:12:46', '2019-05-08 10:12:46', '2020-05-08 10:12:46'),
-('fcd5438f07ba6f03b8ff6514cfea25b57958364cfebfe623610071bbbc5f494dc346649c7138ab7c', 255, 1, NULL, '[]', 1, '2020-04-22 06:59:31', '2020-04-22 06:59:31', '2021-04-22 12:59:31');
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('fcd5438f07ba6f03b8ff6514cfea25b57958364cfebfe623610071bbbc5f494dc346649c7138ab7c', 255, 1, NULL, '[]', 1, '2020-04-22 06:59:31', '2020-04-22 06:59:31', '2021-04-22 12:59:31'),
 ('fce1f6a084f30ebe7eaaf08233acf61da4cd8779354c7b033d8b126327d47b96d5e6f2a32551a845', 219, 1, NULL, '[]', 1, '2020-03-30 20:47:46', '2020-03-30 20:47:46', '2021-03-31 03:17:46'),
 ('fd172d89ff1161645a512fa1329eb110b943efea01209ad7bfe49699dd02bbb4879ee3109e076e6a', 178, 2, NULL, '[]', 0, '2019-07-17 14:22:07', '2019-07-17 14:22:07', '2020-07-17 20:52:07'),
 ('fd8a5348c3001bafe0a7e8442b662d12b0fd287b0a25c9bc2e538dfc9df1a2eb1df57d3e0fc23fc6', 1, 1, NULL, '[]', 0, '2019-05-30 10:45:13', '2019-05-30 10:45:13', '2020-05-30 10:45:13'),
@@ -2318,7 +2221,7 @@ CREATE TABLE `oauth_auth_codes` (
   `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2695,13 +2598,13 @@ CREATE TABLE `posts` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `category_id` int(10) UNSIGNED DEFAULT NULL,
   `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '1=photo;2=video;3=live',
-  `post_text` text COLLATE utf8mb4_unicode_ci,
+  `post_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reference_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `thumbnail_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `file_path` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `location` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT '1' COMMENT '1=active; 2=block',
-  `log_message` text COLLATE utf8mb4_unicode_ci,
+  `status` int(11) DEFAULT 1 COMMENT '1=active; 2=block',
+  `log_message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `latitude` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `longitudes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -2715,8 +2618,9 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`id`, `user_id`, `category_id`, `type`, `post_text`, `reference_url`, `thumbnail_url`, `file_path`, `location`, `status`, `log_message`, `latitude`, `longitudes`, `created_at`, `updated_at`) VALUES
 (73, 225, 1, '1', 'test1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984607_document0.jpeg', NULL, 'assets/post_resource/225/1585984607_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-04 07:16:47', '2020-04-04 07:16:47'),
 (74, 225, 2, '2', 'test2', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984679193BB680-ED01-49F7-A9D4-84582268AD38.mp4', NULL, 'assets/post_resource/225/1585984679193BB680-ED01-49F7-A9D4-84582268AD38.mp4', NULL, 1, NULL, NULL, NULL, '2020-04-04 07:17:59', '2020-04-06 04:34:17'),
-(75, 225, 4, '1', 'asdf', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984752_document0.jpeg', NULL, 'assets/post_resource/225/1585984752_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-04 07:19:12', '2020-04-04 07:19:12'),
+(75, 225, 9, '1', 'asdf', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984752_document0.jpeg', NULL, 'assets/post_resource/225/1585984752_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-04 07:19:12', '2020-04-04 07:19:12'),
 (76, 225, 3, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984985_document0.jpeg', NULL, 'assets/post_resource/225/1585984985_document0.jpeg', 'Rd No. 3, Dhaka 1216, Bangladesh', 1, NULL, '23.822159118893605', '90.36664590239525', '2020-04-04 07:23:05', '2020-04-04 07:23:06'),
+(95, 225, 3, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586086339_document0.jpeg', NULL, 'assets/post_resource/225/1586086339_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-05 11:32:19', '2020-04-05 11:32:20'),
 (96, 225, 3, '2', 'test video', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586094681B8D51CC2-DA72-43DB-9861-94BE9ADD37BD.mp4', NULL, 'assets/post_resource/225/1586094681B8D51CC2-DA72-43DB-9861-94BE9ADD37BD.mp4', NULL, 1, NULL, NULL, NULL, '2020-04-05 13:51:21', '2020-04-05 13:51:22'),
 (97, 225, 1, '2', 'test vid 2', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/158609511866EC5CFC-800B-4BB2-86F2-97EE5AB6E607.mp4', NULL, 'assets/post_resource/225/158609511866EC5CFC-800B-4BB2-86F2-97EE5AB6E607.mp4', NULL, 1, NULL, NULL, NULL, '2020-04-05 13:58:38', '2020-04-05 13:58:39'),
 (98, 225, 2, '2', 'test vid 3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/158609532920A5A368-ACBE-407D-BDA9-C336F587E72A.mp4', NULL, 'assets/post_resource/225/158609532920A5A368-ACBE-407D-BDA9-C336F587E72A.mp4', NULL, 1, NULL, NULL, NULL, '2020-04-05 14:02:09', '2020-04-05 14:02:09'),
@@ -2729,7 +2633,7 @@ INSERT INTO `posts` (`id`, `user_id`, `category_id`, `type`, `post_text`, `refer
 (116, 255, 2, '1', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586515113_document0.jpeg', NULL, 'assets/post_resource/255/1586515113_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-10 10:38:33', '2020-04-10 10:38:34'),
 (117, 255, 2, '1', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586515368_document0.jpeg', NULL, 'assets/post_resource/255/1586515368_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-10 10:42:48', '2020-04-10 10:42:49'),
 (118, 256, 2, '1', 'Test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/256/1586515731picture_1586515690.jpg', NULL, 'assets/post_resource/256/1586515731picture_1586515690.jpg', 'Mountain View', 1, NULL, '37.421998333333335', '-122.08400000000002', '2020-04-10 10:48:51', '2020-04-10 10:48:52'),
-(119, 255, 4, '1', 'education', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586523840_document0.jpeg', NULL, 'assets/post_resource/255/1586523840_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-10 13:04:00', '2020-04-10 13:04:01'),
+(119, 255, 9, '1', 'education', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586523840_document0.jpeg', NULL, 'assets/post_resource/255/1586523840_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-10 13:04:00', '2020-04-10 13:04:01'),
 (120, 257, 1, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/257/15865264060008b640-ec15-4bf6-a846-91a923ae83f4.png', NULL, 'assets/post_resource/257/15865264060008b640-ec15-4bf6-a846-91a923ae83f4.png', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-10 13:46:46', '2020-04-10 13:46:46'),
 (121, 257, 1, '2', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/257/1586533816video.mp4', NULL, 'assets/post_resource/257/1586533816video.mp4', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-10 15:50:16', '2020-04-10 15:50:16'),
 (122, 257, 2, '2', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/257/158653401194af4214-aeb3-482d-bc0e-f7e677017d09.mp4', NULL, 'assets/post_resource/257/158653401194af4214-aeb3-482d-bc0e-f7e677017d09.mp4', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-10 15:53:31', '2020-04-10 15:53:32'),
@@ -2738,7 +2642,7 @@ INSERT INTO `posts` (`id`, `user_id`, `category_id`, `type`, `post_text`, `refer
 (128, 254, 2, '1', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586537879_document0.jpeg', NULL, 'assets/post_resource/254/1586537879_document0.jpeg', 'Khilbarir Tek Rd, Dhaka 1212, Bangladesh', 1, NULL, '23.791576045598678', '90.42711161077021', '2020-04-10 16:57:59', '2020-04-10 16:57:59'),
 (129, 254, 2, '2', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586538726trim.4F1A648E-83F3-4D35-85D1-AD4D75EC4272.MOV', NULL, 'assets/post_resource/254/1586538726trim.4F1A648E-83F3-4D35-85D1-AD4D75EC4272.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-10 17:12:06', '2020-04-10 17:12:07'),
 (130, 254, 3, '2', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586538809trim.791D0FFE-FEB9-4F78-8DAD-FB12A464299D.MOV', NULL, 'assets/post_resource/254/1586538809trim.791D0FFE-FEB9-4F78-8DAD-FB12A464299D.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-10 17:13:29', '2020-04-10 17:13:30'),
-(131, 254, 4, '2', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586538855trim.AB21BC0C-1BC3-4693-840E-2E32B2343FCE.MOV', NULL, 'assets/post_resource/254/1586538855trim.AB21BC0C-1BC3-4693-840E-2E32B2343FCE.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-10 17:14:15', '2020-04-10 17:14:15'),
+(131, 254, 9, '2', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586538855trim.AB21BC0C-1BC3-4693-840E-2E32B2343FCE.MOV', NULL, 'assets/post_resource/254/1586538855trim.AB21BC0C-1BC3-4693-840E-2E32B2343FCE.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-10 17:14:15', '2020-04-10 17:14:15'),
 (132, 254, 1, '1', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586538911_document0.jpeg', NULL, 'assets/post_resource/254/1586538911_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-10 17:15:11', '2020-04-10 17:15:12'),
 (133, 225, 1, '2', 'test gallery vid 2', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586539056trim.8834925A-DD31-4F7B-915B-0F848F3603E8.MOV', NULL, 'assets/post_resource/225/1586539056trim.8834925A-DD31-4F7B-915B-0F848F3603E8.MOV', '67 Jonaki Rd, ঢাকা, বাংলাদেশ', 1, NULL, '23.795003084728723', '90.36281134933233', '2020-04-10 17:17:36', '2020-04-10 17:17:36'),
 (134, 259, 1, '1', 'kayboad', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/259/1586581580picture_1586581412.jpg', NULL, 'assets/post_resource/259/1586581580picture_1586581412.jpg', 'Dhaka', 1, NULL, '23.790957874322526', '90.42814426124096', '2020-04-11 05:06:20', '2020-04-11 05:06:22'),
@@ -2748,43 +2652,53 @@ INSERT INTO `posts` (`id`, `user_id`, `category_id`, `type`, `post_text`, `refer
 (139, 257, 1, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/257/1586606757picture_1586606725.jpg', NULL, 'assets/post_resource/257/1586606757picture_1586606725.jpg', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-11 12:05:57', '2020-04-11 12:05:57'),
 (140, 257, 1, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/257/1586606757picture_1586606725.jpg', NULL, 'assets/post_resource/257/1586606757picture_1586606725.jpg', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-11 12:05:57', '2020-04-11 12:05:57'),
 (141, 256, 2, '1', 'test health', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/256/1586625488picture_1586625457.jpg', NULL, 'assets/post_resource/256/1586625488picture_1586625457.jpg', 'Mountain View', 1, NULL, '37.421998333333335', '-122.08400000000002', '2020-04-11 17:18:08', '2020-04-11 17:18:08'),
-(142, 256, 4, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/256/1586636193picture_1586636092.jpg', NULL, 'assets/post_resource/256/1586636193picture_1586636092.jpg', 'Mountain View', 1, NULL, '37.421998333333335', '-122.08400000000002', '2020-04-11 20:16:33', '2020-04-11 20:16:33'),
+(142, 256, 9, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/256/1586636193picture_1586636092.jpg', NULL, 'assets/post_resource/256/1586636193picture_1586636092.jpg', 'Mountain View', 1, NULL, '37.421998333333335', '-122.08400000000002', '2020-04-11 20:16:33', '2020-04-11 20:16:33'),
 (143, 259, 3, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/259/1586638634picture_1586638621.jpg', NULL, 'assets/post_resource/259/1586638634picture_1586638621.jpg', 'Mountain View', 1, NULL, '37.421998333333335', '-122.08400000000002', '2020-04-11 20:57:14', '2020-04-11 20:57:14'),
 (144, 254, 1, '2', 'test tag', 'https://party-app.s3-us-west-2.amazonaws.com/assets/post_resource/254/1586674835trim.6A7F1421-DCFC-41C2-A621-3C11877B36BC.MOV', NULL, 'assets/post_resource/254/1586674835trim.6A7F1421-DCFC-41C2-A621-3C11877B36BC.MOV', 'Khilbarir Tek Rd, Dhaka 1212, Bangladesh', 1, NULL, '23.791499963138754', '90.42711362242699', '2020-04-12 07:00:35', '2020-04-12 07:00:36'),
 (149, 260, 2, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/260/158671355328035474-44ca-4daf-ad29-1aa64cff51f9.png', NULL, 'assets/post_resource/260/158671355328035474-44ca-4daf-ad29-1aa64cff51f9.png', 'ঢাকা', 1, NULL, '23.7915946', '90.4270779', '2020-04-12 17:45:53', '2020-04-12 17:45:54'),
-(151, 258, 10, '1', 'Hi Breanda, posted this to test the app.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1586843427_document0.jpeg', NULL, 'assets/post_resource/258/1586843427_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-14 05:50:27', '2020-04-14 05:50:28'),
-(152, 258, 11, '1', 'hi this is a test post', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1586846511_document0.jpeg', NULL, 'assets/post_resource/258/1586846511_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-14 06:41:51', '2020-04-14 06:41:51'),
-(153, 265, 13, '1', 'puppy', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/265/1586847049_document0.jpeg', NULL, 'assets/post_resource/265/1586847049_document0.jpeg', '3005 Triumph Dr, Alameda, CA 94501, USA', 1, NULL, '37.782235277471436', '-122.26493898779154', '2020-04-14 06:50:49', '2020-04-14 06:50:49'),
+(151, 258, 9, '1', 'Hi Breanda, posted this to test the app.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1586843427_document0.jpeg', NULL, 'assets/post_resource/258/1586843427_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-14 05:50:27', '2020-04-14 05:50:28'),
+(152, 258, 10, '1', 'hi this is a test post', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1586846511_document0.jpeg', NULL, 'assets/post_resource/258/1586846511_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-04-14 06:41:51', '2020-04-14 06:41:51'),
+(153, 265, 12, '1', 'puppy', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/265/1586847049_document0.jpeg', NULL, 'assets/post_resource/265/1586847049_document0.jpeg', '3005 Triumph Dr, Alameda, CA 94501, USA', 1, NULL, '37.782235277471436', '-122.26493898779154', '2020-04-14 06:50:49', '2020-04-14 06:50:49'),
 (155, 255, 1, '2', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586894325trim.34532EE4-1F44-4C8F-B4B5-EB15B8392071.MOV', NULL, 'assets/post_resource/255/1586894325trim.34532EE4-1F44-4C8F-B4B5-EB15B8392071.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-14 19:58:45', '2020-04-14 19:58:45'),
-(156, 268, 14, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/268/1587022314569036fc-b288-45bd-8e28-439a204e22f5.png', NULL, 'assets/post_resource/268/1587022314569036fc-b288-45bd-8e28-439a204e22f5.png', 'Dhaka', 1, NULL, '23.7426951', '90.3847528', '2020-04-16 07:31:54', '2020-04-16 07:31:55'),
+(156, 268, 13, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/268/1587022314569036fc-b288-45bd-8e28-439a204e22f5.png', NULL, 'assets/post_resource/268/1587022314569036fc-b288-45bd-8e28-439a204e22f5.png', 'Dhaka', 1, NULL, '23.7426951', '90.3847528', '2020-04-16 07:31:54', '2020-04-16 07:31:55'),
 (159, 262, 2, '1', NULL, 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/262/158737746172a1d33f-552b-4dee-a067-e00dd73dff59.png', NULL, 'assets/post_resource/262/158737746172a1d33f-552b-4dee-a067-e00dd73dff59.png', 'Dhaka', 1, NULL, '23.79188166666667', '90.42484833333334', '2020-04-20 10:11:01', '2020-04-20 10:11:01'),
 (162, 267, 3, '1', 'gggh', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/267/1587405033c62cdadc-ce8d-4aed-a559-359ff9c882a1.png', NULL, 'assets/post_resource/267/1587405033c62cdadc-ce8d-4aed-a559-359ff9c882a1.png', 'Dhaka', 1, NULL, '23.79196434', '90.4270292', '2020-04-20 17:50:33', '2020-04-20 17:50:34'),
 (163, 255, 2, '1', 'gggghhhhh', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587452296picture_1587452230.jpg', NULL, 'assets/post_resource/255/1587452296picture_1587452230.jpg', 'ঢাকা', 1, NULL, '23.791644151633893', '90.4271424561739', '2020-04-21 06:58:16', '2020-04-21 06:58:17'),
 (164, 255, 3, '2', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587452442c44790d2-9efc-40b5-a542-7e67e75714d4.mp4', NULL, 'assets/post_resource/255/1587452442c44790d2-9efc-40b5-a542-7e67e75714d4.mp4', 'Dhaka', 1, NULL, '23.790142742740453', '90.42702544480562', '2020-04-21 07:00:42', '2020-04-21 07:00:43'),
 (166, 261, 2, '2', 'Ultimate Dj Machine', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/261/1587533854asparagus-tasty-vegetable-260nw-1096709429.webp', NULL, 'assets/post_resource/261/1587533854asparagus-tasty-vegetable-260nw-1096709429.webp', 'Confidence Mall Hall', 1, NULL, '24.1746', '89.5957', '2020-04-22 05:37:34', '2020-04-22 05:37:34'),
-(168, 225, 13, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1587536037_document0.jpeg', NULL, 'assets/post_resource/225/1587536037_document0.jpeg', 'Begum Rokeya Avenue, Dhaka 1216, Bangladesh', 1, NULL, '23.807591025230042', '90.36788877099752', '2020-04-22 06:13:57', '2020-04-22 06:13:57'),
+(168, 225, 12, '1', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1587536037_document0.jpeg', NULL, 'assets/post_resource/225/1587536037_document0.jpeg', 'Begum Rokeya Avenue, Dhaka 1216, Bangladesh', 1, NULL, '23.807591025230042', '90.36788877099752', '2020-04-22 06:13:57', '2020-04-22 06:13:57'),
 (169, 255, 2, '1', 'ffff', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587556396_document0.jpeg', NULL, 'assets/post_resource/255/1587556396_document0.jpeg', 'Khilbarir Tek Rd, Dhaka 1212, Bangladesh', 1, NULL, '23.79163065314327', '90.42699024081232', '2020-04-22 11:53:16', '2020-04-22 11:53:16'),
 (170, 255, 3, '1', 'ggvvv', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587556871c908cc3c-feea-4063-bb7a-773ccf638802.png', NULL, 'assets/post_resource/255/1587556871c908cc3c-feea-4063-bb7a-773ccf638802.png', 'Dhaka', 1, NULL, '23.791853684842753', '90.42707439512016', '2020-04-22 12:01:11', '2020-04-22 12:01:12'),
 (184, 261, 2, '2', 'Ultimate Dj Machine', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/261/1587618492Smallshorttestvideo(1).mp4', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/261/2611587618492thumb.jpg', 'assets/post_resource/261/1587618492Smallshorttestvideo(1).mp4', 'Confidence Mall Hall', 1, NULL, '24.1746', '89.5957', '2020-04-23 05:08:12', '2020-04-23 05:08:12'),
 (185, 255, 3, '2', 'fun video', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/158763121191e1ade5-f788-45af-87b4-aab080731dcc.mp4', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551587631211thumb.jpg', 'assets/post_resource/255/158763121191e1ade5-f788-45af-87b4-aab080731dcc.mp4', 'ঢাকা জেলা, ঢাকা, ঢাকা বিভাগ, Bangladesh, 1212', 1, NULL, '23.7916356', '90.4270452', '2020-04-23 08:40:11', '2020-04-23 08:40:12'),
-(186, 255, 13, '2', 'coxexbazar', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587631339c3db0e03-14c9-4039-a1ad-e6393b33bc28.mp4', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551587631340thumb.jpg', 'assets/post_resource/255/1587631339c3db0e03-14c9-4039-a1ad-e6393b33bc28.mp4', 'ঢাকা জেলা, ঢাকা, ঢাকা বিভাগ, Bangladesh, 1212', 1, NULL, '23.791642', '90.4270379', '2020-04-23 08:42:19', '2020-04-23 08:42:22'),
+(186, 255, 12, '2', 'coxexbazar', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587631339c3db0e03-14c9-4039-a1ad-e6393b33bc28.mp4', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551587631340thumb.jpg', 'assets/post_resource/255/1587631339c3db0e03-14c9-4039-a1ad-e6393b33bc28.mp4', 'ঢাকা জেলা, ঢাকা, ঢাকা বিভাগ, Bangladesh, 1212', 1, NULL, '23.791642', '90.4270379', '2020-04-23 08:42:19', '2020-04-23 08:42:22'),
 (187, 267, 1, '2', 'sanitizer', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/267/1587633240trim.4AEC50D3-E6D4-45E3-895D-7A0EF3A5E0A2.MOV', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/267/2671587633240thumb.jpg', 'assets/post_resource/267/1587633240trim.4AEC50D3-E6D4-45E3-895D-7A0EF3A5E0A2.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-23 09:14:00', '2020-04-23 09:14:01'),
 (188, 267, 1, '1', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/267/1587635396_document0.jpeg', NULL, 'assets/post_resource/267/1587635396_document0.jpeg', 'Khilbarir Tek Rd, Dhaka 1212, Bangladesh', 1, NULL, '23.791572057406317', '90.42714178562164', '2020-04-23 09:49:56', '2020-04-23 09:49:57'),
 (191, 255, 2, '1', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Go', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587889253_document0.jpeg', NULL, 'assets/post_resource/255/1587889253_document0.jpeg', 'Gazi Ln, Dhaka 1212, Bangladesh', 1, NULL, '23.791453945500248', '90.42713675647973', '2020-04-26 08:20:53', '2020-04-26 08:20:54'),
 (192, 255, 3, '2', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Go', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587889367trim.0C5A067C-77D4-46DD-A014-2B16B581DCFB.MOV', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551587889368thumb.jpg', 'assets/post_resource/255/1587889367trim.0C5A067C-77D4-46DD-A014-2B16B581DCFB.MOV', NULL, 1, NULL, NULL, NULL, '2020-04-26 08:22:47', '2020-04-26 08:22:50'),
-(193, 255, 14, '2', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441712trim.7DFFA3AF-DFC5-4D02-94EB-325C81EA20ED.MOV', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551588441713thumb.jpg', 'assets/post_resource/255/1588441712trim.7DFFA3AF-DFC5-4D02-94EB-325C81EA20ED.MOV', NULL, 1, NULL, NULL, NULL, '2020-05-02 17:48:32', '2020-05-02 17:48:34'),
+(193, 255, 13, '2', 'test', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441712trim.7DFFA3AF-DFC5-4D02-94EB-325C81EA20ED.MOV', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/2551588441713thumb.jpg', 'assets/post_resource/255/1588441712trim.7DFFA3AF-DFC5-4D02-94EB-325C81EA20ED.MOV', NULL, 1, NULL, NULL, NULL, '2020-05-02 17:48:32', '2020-05-02 17:48:34'),
 (194, 255, 1, '1', 'games', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441782_document0.jpeg', NULL, 'assets/post_resource/255/1588441782_document0.jpeg', NULL, 1, NULL, NULL, NULL, '2020-05-02 17:49:42', '2020-05-02 17:49:42'),
-(195, 273, 12, '1', 'Test post', 'assets/post_resource/273/1625416661a1f0488b-247a-4026-ab8c-d5e026ef246d.png', NULL, 'assets/post_resource/273/1625416661a1f0488b-247a-4026-ab8c-d5e026ef246d.png', '1174, Los Angeles, California, United States, 90001', 1, NULL, '33.985805', '-118.25411166666666', '2021-07-04 16:37:41', '2021-07-04 16:37:41'),
-(197, 273, 10, '2', 'Video for new singer, great fun!', 'assets/post_resource/273/1625469634091c38ed-ad2e-4a71-8750-ad2973a2bb80.mp4', NULL, 'assets/post_resource/273/1625469634091c38ed-ad2e-4a71-8750-ad2973a2bb80.mp4', '1174 E 59th Pl, Los Angeles, CA 90001, USA', 1, NULL, '33.985813803882785', '-118.25411181896924', '2021-07-05 07:20:34', '2021-07-05 07:20:47'),
-(198, 273, 10, '1', 'you make me happy', 'assets/post_resource/273/16254774051a94f59e-ea79-4d9e-b4a5-7f720b2fd535.png', NULL, 'assets/post_resource/273/16254774051a94f59e-ea79-4d9e-b4a5-7f720b2fd535.png', 'Lal Wa Sarjangal, Afghanistan', 1, NULL, '34.79750598105505', '66.39720305800437', '2021-07-05 09:30:05', '2021-07-05 09:30:05'),
-(199, 259, 10, '1', 'you make me happy', 'assets/post_resource/259/1625478439negz.jpg', NULL, 'assets/post_resource/259/1625478439negz.jpg', 'Lal Wa Sarjangal, Afghanistan', 1, NULL, '34.79750598105505', '66.39720305800437', '2021-07-05 09:47:19', '2021-07-05 09:47:19'),
-(200, 259, 10, '1', 'you make me happy', 'assets/post_resource/259/1625478577negz.jpg', NULL, 'assets/post_resource/259/1625478577negz.jpg', 'Lal Wa Sarjangal, Afghanistan', 1, NULL, '34.79750598105505', '66.39720305800437', '2021-07-05 09:49:37', '2021-07-05 09:49:37'),
-(201, 259, 10, '1', 'you make me happy', 'assets/post_resource/259/1625478609negz.jpg', NULL, 'assets/post_resource/259/1625478609negz.jpg', 'Lal Wa Sarjangal, Afghanistan', 1, NULL, '34.79750598105505', '66.39720305800437', '2021-07-05 09:50:09', '2021-07-05 09:50:09'),
-(202, 274, 2, '2', 'test', 'assets/post_resource/274/1625497636nok.MP4', NULL, 'assets/post_resource/274/1625497636nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-05 15:07:16', '2021-07-05 15:07:16'),
-(204, 274, 2, '2', 'test', 'assets/post_resource/274/1625539297nok.MP4', NULL, 'assets/post_resource/274/1625539297nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 02:41:37', '2021-07-06 02:41:38'),
-(240, 274, 1, '2', 'test', 'assets/post_resource/274/1625574437nok.MP4', NULL, 'assets/post_resource/274/1625574437nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 12:27:17', '2021-07-06 12:27:19'),
-(241, 274, 1, '2', 'test', 'assets/post_resource/274/1625574931nok.MP4', NULL, 'assets/post_resource/274/1625574931nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 12:35:31', '2021-07-06 12:35:31'),
-(242, 274, 1, '2', 'test', 'assets/post_resource/274/1625585222nok.MP4', 'assets/post_resource/274/2741625585222thumb.jpg', 'assets/post_resource/274/1625585222nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 15:27:02', '2021-07-06 15:27:03');
+(195, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:18:22', '2021-07-04 07:18:22'),
+(196, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:19:10', '2021-07-04 07:19:10'),
+(197, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:21:58', '2021-07-04 07:21:58'),
+(198, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:23:01', '2021-07-04 07:23:01'),
+(199, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:27:18', '2021-07-04 07:27:18'),
+(200, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:27:53', '2021-07-04 07:27:53'),
+(201, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:28:06', '2021-07-04 07:28:06'),
+(202, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:28:38', '2021-07-04 07:28:38'),
+(203, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 07:51:03', '2021-07-04 07:51:03'),
+(204, 225, NULL, '1', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2021-07-04 12:54:16', '2021-07-04 12:54:16'),
+(205, 225, NULL, '1', NULL, 'assets/post_resource/225/1625403286image.png', NULL, 'assets/post_resource/225/1625403286image.png', NULL, 1, NULL, NULL, NULL, '2021-07-04 12:54:46', '2021-07-04 12:54:46'),
+(206, 225, NULL, '1', NULL, 'assets/post_resource/225/1625404532ImagefromiOS.jpg', NULL, 'assets/post_resource/225/1625404532ImagefromiOS.jpg', NULL, 1, NULL, NULL, NULL, '2021-07-04 13:15:32', '2021-07-04 13:15:32'),
+(207, 225, NULL, '2', NULL, 'assets/post_resource/225/1625466055file_example_MOV_640_800kB.mov', 'assets/post_resource/225/2251625466055thumb.jpg', 'assets/post_resource/225/1625466055file_example_MOV_640_800kB.mov', NULL, 1, NULL, NULL, NULL, '2021-07-05 06:20:55', '2021-07-05 06:20:56'),
+(208, 225, NULL, '2', NULL, 'assets/post_resource/225/1625466563file_example_MOV_640_800kB.mov', 'assets/post_resource/225/2251625466563thumb.jpg', 'assets/post_resource/225/1625466563file_example_MOV_640_800kB.mov', NULL, 1, NULL, NULL, NULL, '2021-07-05 06:29:23', '2021-07-05 06:29:32'),
+(209, 225, NULL, '2', NULL, 'assets/post_resource/225/1625466611file_example_MOV_640_800kB.mov', 'assets/post_resource/225/2251625466611thumb.jpg', 'assets/post_resource/225/1625466611file_example_MOV_640_800kB.mov', NULL, 1, NULL, NULL, NULL, '2021-07-05 06:30:11', '2021-07-05 06:30:12'),
+(210, 225, NULL, '2', NULL, 'assets/post_resource/225/1625472169nok.MP4', 'assets/post_resource/225/2251625472169thumb.jpg', 'assets/post_resource/225/1625472169nok.MP4', NULL, 1, NULL, NULL, NULL, '2021-07-05 08:02:49', '2021-07-05 08:02:53'),
+(211, 11, 2, '2', 'test', 'assets/post_resource/11/1625497694nok.MP4', 'assets/post_resource/11/111625497694thumb.jpg', 'assets/post_resource/11/1625497694nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-05 15:08:14', '2021-07-05 15:08:18'),
+(212, 11, 1, '2', 'test', NULL, NULL, NULL, 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 07:56:31', '2021-07-06 07:56:31'),
+(213, 11, 1, '2', 'test', 'assets/post_resource/11/1625558228nok.MP4', 'assets/post_resource/11/111625558228thumb.jpg', 'assets/post_resource/11/1625558228nok.MP4', 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 07:57:08', '2021-07-06 07:57:37'),
+(214, 11, 1, '2', 'test', NULL, NULL, NULL, 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 09:06:19', '2021-07-06 09:06:19'),
+(215, 11, 1, '2', 'test', NULL, NULL, NULL, 'US', 1, NULL, '12.345345', '24.345537', '2021-07-06 09:06:51', '2021-07-06 09:06:51');
 
 -- --------------------------------------------------------
 
@@ -2796,8 +2710,8 @@ CREATE TABLE `posts_categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2813,13 +2727,11 @@ INSERT INTO `posts_categories` (`id`, `name`, `deleted_at`, `created_at`, `updat
 (6, 'Showbiz2', '2020-04-06 12:10:50', '2020-04-06 11:54:41', '2020-04-06 12:10:50'),
 (7, 'Testing', '2020-04-06 12:46:48', '2020-04-06 12:46:43', '2020-04-06 12:46:48'),
 (8, 'levenderr', '2020-04-06 13:39:47', '2020-04-06 13:39:30', '2020-04-06 13:39:47'),
-(9, 'Acting', NULL, '2020-04-14 05:42:51', '2021-07-09 14:54:50'),
-(10, 'Singing', NULL, '2020-04-14 05:43:08', '2021-07-09 14:55:05'),
-(11, 'Dancing', NULL, '2020-04-14 05:43:31', '2021-07-09 14:55:13'),
-(12, 'Poems', NULL, '2020-04-14 05:44:05', '2021-07-09 14:55:27'),
-(13, 'Comedy', NULL, '2020-04-14 05:44:36', '2021-07-09 14:55:47'),
-(14, 'Instruments', NULL, '2021-07-09 14:51:00', '2021-07-09 14:56:12'),
-(15, 'Concerts', NULL, '2021-07-09 14:51:20', '2021-07-09 14:51:20');
+(9, 'Singer', NULL, '2020-04-14 05:42:51', '2020-04-14 05:42:51'),
+(10, 'Dancer', NULL, '2020-04-14 05:43:08', '2020-04-14 05:43:08'),
+(11, 'Poems', NULL, '2020-04-14 05:43:31', '2020-04-14 05:43:31'),
+(12, 'Comedy', NULL, '2020-04-14 05:44:05', '2020-04-14 05:44:05'),
+(13, 'Instruments', NULL, '2020-04-14 05:44:36', '2020-04-14 05:44:36');
 
 -- --------------------------------------------------------
 
@@ -2831,9 +2743,9 @@ CREATE TABLE `post_comments` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `post_id` int(10) UNSIGNED NOT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `comment_file` varchar(120) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parent_id` int(11) DEFAULT '0',
+  `parent_id` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2846,6 +2758,7 @@ INSERT INTO `post_comments` (`id`, `user_id`, `post_id`, `comment`, `comment_fil
 (123, 257, 116, NULL, 'assets/comments_images/1586520135picture_1586520100.jpg', 0, '2020-04-10 12:02:15', '2020-04-10 12:02:15'),
 (124, 257, 117, NULL, 'assets/comments_images/1586520282picture_1586520273.jpg', 0, '2020-04-10 12:04:42', '2020-04-10 12:04:42'),
 (125, 257, 117, NULL, 'assets/comments_images/1586520635picture_1586520631.jpg', 124, '2020-04-10 12:10:35', '2020-04-10 12:10:35'),
+(126, 255, 116, NULL, 'assets/comments_images/1586523038swift_file2.jpeg', 0, '2020-04-10 12:50:38', '2020-04-10 12:50:38'),
 (128, 254, 128, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', NULL, 0, '2020-04-10 17:11:05', '2020-04-10 17:11:05'),
 (129, 258, 116, 'test', NULL, 123, '2020-04-10 18:15:31', '2020-04-10 18:15:31'),
 (133, 255, 131, 'hi', NULL, 0, '2020-04-11 05:50:47', '2020-04-11 05:50:47'),
@@ -2858,6 +2771,8 @@ INSERT INTO `post_comments` (`id`, `user_id`, `post_id`, `comment`, `comment_fil
 (140, 259, 132, 'hello', NULL, 0, '2020-04-11 10:28:21', '2020-04-11 10:28:21'),
 (143, 256, 136, 'hi', NULL, 0, '2020-04-11 13:26:21', '2020-04-11 13:26:21'),
 (144, 263, 133, 'hy', NULL, 0, '2020-04-11 14:46:51', '2020-04-11 14:46:51'),
+(145, 263, 95, 'test', NULL, 0, '2020-04-11 14:47:33', '2020-04-11 14:47:33'),
+(146, 263, 95, 'test', NULL, 145, '2020-04-11 14:47:44', '2020-04-11 14:47:44'),
 (150, 259, 142, 'hi', NULL, 0, '2020-04-11 20:43:25', '2020-04-11 20:43:25'),
 (151, 254, 144, 'hi', NULL, 0, '2020-04-12 07:00:51', '2020-04-12 07:00:51'),
 (153, 255, 149, 'hi', NULL, 0, '2020-04-12 17:46:48', '2020-04-12 17:46:48'),
@@ -2910,9 +2825,7 @@ INSERT INTO `post_comments` (`id`, `user_id`, `post_id`, `comment`, `comment_fil
 (276, 265, 164, 'k', NULL, 0, '2020-05-03 00:01:52', '2020-05-03 00:01:52'),
 (277, 265, 151, 'kk', NULL, 0, '2020-05-03 00:08:12', '2020-05-03 00:08:12'),
 (278, 265, 152, 'nice', NULL, 0, '2020-05-03 00:09:58', '2020-05-03 00:09:58'),
-(279, 265, 127, 'kk', NULL, 0, '2020-05-03 00:10:34', '2020-05-03 00:10:34'),
-(280, 273, 193, 'hey can\'t sse video, what\'s wrong?', NULL, 270, '2021-07-02 21:33:11', '2021-07-02 21:33:11'),
-(284, 273, 242, 'Hi today will be a test to see if you make it to work on the house I will be there in a few minutes', NULL, 0, '2021-07-07 07:18:49', '2021-07-07 07:18:49');
+(279, 265, 127, 'kk', NULL, 0, '2020-05-03 00:10:34', '2020-05-03 00:10:34');
 
 -- --------------------------------------------------------
 
@@ -2938,6 +2851,9 @@ CREATE TABLE `post_files` (
 INSERT INTO `post_files` (`id`, `post_id`, `type`, `reference_url`, `thumbnail_url`, `file_path`, `created_at`, `updated_at`) VALUES
 (46, 75, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984752_document1.jpeg', NULL, 'assets/post_resource/225/1585984752_document1.jpeg', '2020-04-04 07:19:12', '2020-04-04 07:19:12'),
 (47, 76, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1585984985_document1.jpeg', NULL, 'assets/post_resource/225/1585984985_document1.jpeg', '2020-04-04 07:23:06', '2020-04-04 07:23:06'),
+(57, 95, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586086340_document1.jpeg', NULL, 'assets/post_resource/225/1586086340_document1.jpeg', '2020-04-05 11:32:20', '2020-04-05 11:32:20'),
+(58, 95, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586086340_document2.jpeg', NULL, 'assets/post_resource/225/1586086340_document2.jpeg', '2020-04-05 11:32:20', '2020-04-05 11:32:20'),
+(59, 95, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/225/1586086340_document3.jpeg', NULL, 'assets/post_resource/225/1586086340_document3.jpeg', '2020-04-05 11:32:20', '2020-04-05 11:32:20'),
 (62, 110, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586513906_document1.jpeg', NULL, 'assets/post_resource/255/1586513906_document1.jpeg', '2020-04-10 10:18:26', '2020-04-10 10:18:26'),
 (63, 110, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586513906_document2.jpeg', NULL, 'assets/post_resource/255/1586513906_document2.jpeg', '2020-04-10 10:18:26', '2020-04-10 10:18:26'),
 (64, 110, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1586513906_document3.jpeg', NULL, 'assets/post_resource/255/1586513906_document3.jpeg', '2020-04-10 10:18:26', '2020-04-10 10:18:26'),
@@ -2978,7 +2894,8 @@ INSERT INTO `post_files` (`id`, `post_id`, `type`, `reference_url`, `thumbnail_u
 (99, 188, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/267/1587635397_document1.jpeg', NULL, 'assets/post_resource/267/1587635397_document1.jpeg', '2020-04-23 09:49:57', '2020-04-23 09:49:57'),
 (102, 191, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1587889254_document1.jpeg', NULL, 'assets/post_resource/255/1587889254_document1.jpeg', '2020-04-26 08:20:54', '2020-04-26 08:20:54'),
 (103, 194, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441782_document1.jpeg', NULL, 'assets/post_resource/255/1588441782_document1.jpeg', '2020-05-02 17:49:42', '2020-05-02 17:49:42'),
-(104, 194, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441782_document2.jpeg', NULL, 'assets/post_resource/255/1588441782_document2.jpeg', '2020-05-02 17:49:42', '2020-05-02 17:49:42');
+(104, 194, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/1588441782_document2.jpeg', NULL, 'assets/post_resource/255/1588441782_document2.jpeg', '2020-05-02 17:49:42', '2020-05-02 17:49:42'),
+(105, 206, '1', 'assets/post_resource/225/1625404532image.png', NULL, 'assets/post_resource/225/1625404532image.png', '2021-07-04 13:15:32', '2021-07-04 13:15:32');
 
 -- --------------------------------------------------------
 
@@ -3021,12 +2938,14 @@ INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`
 (203, 260, 136, '2020-04-12 17:44:16', '2020-04-12 17:44:16'),
 (204, 255, 149, '2020-04-12 17:46:16', '2020-04-12 17:46:16'),
 (205, 263, 133, '2020-04-12 18:28:41', '2020-04-12 18:28:41'),
+(206, 263, 95, '2020-04-12 18:29:41', '2020-04-12 18:29:41'),
 (207, 263, 75, '2020-04-12 18:29:46', '2020-04-12 18:29:46'),
 (208, 263, 73, '2020-04-12 18:29:50', '2020-04-12 18:29:50'),
 (213, 265, 151, '2020-04-14 06:25:07', '2020-04-14 06:25:07'),
 (214, 265, 149, '2020-04-14 06:46:10', '2020-04-14 06:46:10'),
 (218, 255, 155, '2020-04-14 20:01:40', '2020-04-14 20:01:40'),
 (220, 269, 135, '2020-04-18 09:44:52', '2020-04-18 09:44:52'),
+(224, 225, 95, '2020-04-20 15:32:58', '2020-04-20 15:32:58'),
 (227, 255, 163, '2020-04-21 07:03:33', '2020-04-21 07:03:33'),
 (228, 255, 164, '2020-04-21 07:03:35', '2020-04-21 07:03:35'),
 (230, 225, 74, '2020-04-21 12:14:35', '2020-04-21 12:14:35'),
@@ -3057,9 +2976,7 @@ INSERT INTO `post_likes` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`
 (277, 265, 185, '2020-05-03 00:27:49', '2020-05-03 00:27:49'),
 (278, 265, 170, '2020-05-03 00:27:54', '2020-05-03 00:27:54'),
 (279, 265, 169, '2020-05-03 00:27:59', '2020-05-03 00:27:59'),
-(280, 265, 194, '2020-05-03 00:59:48', '2020-05-03 00:59:48'),
-(281, 274, 110, '2021-07-05 13:52:07', '2021-07-05 13:52:07'),
-(282, 273, 242, '2021-07-07 07:18:59', '2021-07-07 07:18:59');
+(280, 265, 194, '2020-05-03 00:59:48', '2020-05-03 00:59:48');
 
 -- --------------------------------------------------------
 
@@ -3116,7 +3033,7 @@ INSERT INTO `post_tags` (`id`, `user_id`, `post_id`, `created_at`, `updated_at`)
 CREATE TABLE `privacy_policies` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3168,7 +3085,6 @@ INSERT INTO `reports` (`id`, `post_id`, `user_id`, `created_at`, `updated_at`) V
 (15, 143, 259, '2020-04-19 18:31:59', '2020-04-19 18:31:59'),
 (18, 162, 255, '2020-04-20 17:59:11', '2020-04-20 17:59:11'),
 (19, 139, 225, '2020-04-21 12:29:58', '2020-04-21 12:29:58'),
-(20, 140, 225, '2020-04-21 14:38:55', '2020-04-21 14:38:55'),
 (21, 162, 225, '2020-04-21 15:44:20', '2020-04-21 15:44:20');
 
 -- --------------------------------------------------------
@@ -3285,15 +3201,64 @@ INSERT INTO `stories` (`id`, `user_id`, `title`, `type`, `status`, `reference_ur
 (88, 255, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/255/15874529322efd1f53-eb91-4616-9a75-e6f622651d1e.png', NULL, 'assets/post_resource/255/15874529322efd1f53-eb91-4616-9a75-e6f622651d1e.png', NULL, '2020-04-21 07:08:52', '2020-04-22 07:08:55'),
 (89, 261, NULL, '2', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/261/1587618598Smallshorttestvideo.mp4', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/261/2611587618598thumb.jpg', 'assets/post_resource/261/1587618598Smallshorttestvideo.mp4', NULL, '2020-04-23 05:09:58', '2020-04-24 05:10:01'),
 (90, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450004_document0.jpeg', NULL, 'assets/post_resource/258/1588450004_document0.jpeg', NULL, '2020-05-02 20:06:44', '2020-05-03 20:06:47'),
-(91, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450034_document0.jpeg', NULL, 'assets/post_resource/258/1588450034_document0.jpeg', NULL, '2020-05-02 20:07:14', '2020-05-03 20:07:14'),
-(92, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450095_document0.jpeg', NULL, 'assets/post_resource/258/1588450095_document0.jpeg', NULL, '2020-05-02 20:08:15', '2020-05-03 20:08:17'),
-(93, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450178_document0.jpeg', NULL, 'assets/post_resource/258/1588450178_document0.jpeg', NULL, '2020-05-02 20:09:38', '2020-05-03 20:09:41'),
-(94, 273, NULL, '1', '1', NULL, NULL, NULL, NULL, '2021-07-02 21:17:12', '2021-07-02 21:17:12'),
-(95, 273, NULL, '1', '1', NULL, NULL, NULL, NULL, '2021-07-02 21:20:03', '2021-07-02 21:20:03'),
-(96, 273, NULL, '1', '1', 'assets/post_resource/273/1625416580d159a5ca-2b13-452c-9267-27e5914f674e.png', NULL, 'assets/post_resource/273/1625416580d159a5ca-2b13-452c-9267-27e5914f674e.png', NULL, '2021-07-04 16:36:20', '2021-07-04 16:36:20'),
-(97, 273, NULL, '1', '1', 'assets/post_resource/273/1625469403picture_1625469398.jpg', NULL, 'assets/post_resource/273/1625469403picture_1625469398.jpg', NULL, '2021-07-05 07:16:43', '2021-07-05 07:16:43'),
-(98, 274, NULL, '1', '1', 'assets/post_resource/274/1625500530thumb_1.jpg', NULL, 'assets/post_resource/274/1625500530thumb_1.jpg', NULL, '2021-07-05 15:55:30', '2021-07-05 15:55:30'),
-(99, 274, NULL, '2', '1', 'assets/post_resource/274/1625586337nok.MP4', 'assets/post_resource/274/2741625586341thumb.jpg', 'assets/post_resource/274/1625586337nok.MP4', NULL, '2021-07-06 15:45:37', '2021-07-06 15:45:43');
+(91, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450034_document0.jpeg', NULL, 'assets/post_resource/254/1588450178_showofff.jpg', NULL, '2020-05-02 20:07:14', '2020-05-03 20:07:14'),
+(92, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450095_document0.jpeg', NULL, 'assets/post_resource/254/1588450178_showofff.jpg', NULL, '2020-05-02 20:08:15', '2020-05-03 20:08:17'),
+(93, 258, NULL, '1', '3', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450178_document0.jpeg', NULL, 'assets/post_resource/254/1588450178_showofff.jpg', NULL, '2020-05-02 20:09:38', '2020-05-03 20:09:41'),
+(94, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:26:37', '2021-07-04 13:26:37'),
+(95, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:27:55', '2021-07-04 13:27:55'),
+(96, 225, NULL, '1', '1', 'assets/post_resource/225/1625405512IMG_4176.PNG', NULL, 'assets/post_resource/225/1625405512IMG_4176.PNG', NULL, '2021-07-04 13:31:51', '2021-07-04 13:31:52'),
+(97, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:32:57', '2021-07-04 13:32:57'),
+(98, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:33:07', '2021-07-04 13:33:07'),
+(99, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:33:15', '2021-07-04 13:33:15'),
+(100, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:33:20', '2021-07-04 13:33:20'),
+(101, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 13:35:24', '2021-07-04 13:35:24'),
+(102, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 14:08:19', '2021-07-04 14:08:19'),
+(103, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 14:08:34', '2021-07-04 14:08:34'),
+(104, 225, NULL, '2', '1', 'assets/post_resource/225/1625407728nok.MP4', NULL, 'assets/post_resource/225/1625407728nok.MP4', NULL, '2021-07-04 14:08:48', '2021-07-04 14:08:49'),
+(105, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 14:09:28', '2021-07-04 14:09:28'),
+(106, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 14:09:37', '2021-07-04 14:09:37'),
+(107, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-04 14:09:42', '2021-07-04 14:09:42'),
+(108, 225, NULL, '2', '1', 'assets/post_resource/225/1625407891nok.MP4', NULL, 'assets/post_resource/225/1625407891nok.MP4', NULL, '2021-07-04 14:11:31', '2021-07-04 14:11:31'),
+(109, 225, NULL, '2', '1', 'assets/post_resource/225/1625407956nok.MP4', NULL, 'assets/post_resource/225/1625407956nok.MP4', NULL, '2021-07-04 14:12:36', '2021-07-04 14:12:36'),
+(110, 225, NULL, '2', '1', 'assets/post_resource/225/1625407978nok.MP4', NULL, 'assets/post_resource/225/1625407978nok.MP4', NULL, '2021-07-04 14:12:58', '2021-07-04 14:12:58'),
+(111, 225, NULL, '2', '1', 'assets/post_resource/225/1625408392nok.MP4', NULL, 'assets/post_resource/225/1625408392nok.MP4', NULL, '2021-07-04 14:19:52', '2021-07-04 14:19:52'),
+(112, 225, NULL, '2', '1', 'assets/post_resource/225/1625408419nok.MP4', NULL, 'assets/post_resource/225/1625408419nok.MP4', NULL, '2021-07-04 14:20:19', '2021-07-04 14:20:19'),
+(113, 225, NULL, '1', '1', 'assets/post_resource/225/1625442101image(2).png', NULL, 'assets/post_resource/225/1625442101image(2).png', NULL, '2021-07-04 23:41:40', '2021-07-04 23:41:41'),
+(114, 225, NULL, '1', '1', 'assets/post_resource/225/1625442197image(2).png', NULL, 'assets/post_resource/225/1625442197image(2).png', NULL, '2021-07-04 23:43:17', '2021-07-04 23:43:17'),
+(115, 225, NULL, '2', '1', 'assets/post_resource/225/1625446433nok.MP4', NULL, 'assets/post_resource/225/1625446433nok.MP4', NULL, '2021-07-05 00:53:53', '2021-07-05 00:53:54'),
+(116, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 00:56:09', '2021-07-05 00:56:09'),
+(117, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 00:56:48', '2021-07-05 00:56:48'),
+(118, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 01:15:12', '2021-07-05 01:15:12'),
+(119, 225, NULL, '2', '1', 'assets/post_resource/225/1625447739file_example_MOV_640_800kB.mov', NULL, 'assets/post_resource/225/1625447739file_example_MOV_640_800kB.mov', NULL, '2021-07-05 01:15:39', '2021-07-05 01:15:39'),
+(120, 225, NULL, '2', '1', 'assets/post_resource/225/1625448651file_example_MOV_640_800kB.mov', NULL, 'assets/post_resource/225/1625448651file_example_MOV_640_800kB.mov', NULL, '2021-07-05 01:30:51', '2021-07-05 01:30:52'),
+(121, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 01:32:34', '2021-07-05 01:32:34'),
+(122, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 01:59:59', '2021-07-05 01:59:59'),
+(123, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 04:59:11', '2021-07-05 04:59:11'),
+(124, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:03:01', '2021-07-05 05:03:01'),
+(125, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:18:21', '2021-07-05 05:18:21'),
+(126, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:46:11', '2021-07-05 05:46:11'),
+(127, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:48:06', '2021-07-05 05:48:06'),
+(128, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:48:15', '2021-07-05 05:48:15'),
+(129, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:49:50', '2021-07-05 05:49:50'),
+(130, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:50:21', '2021-07-05 05:50:21'),
+(131, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 05:50:58', '2021-07-05 05:50:58'),
+(132, 225, NULL, '2', '1', 'assets/post_resource/225/1625464351nok.MP4', 'assets/post_resource/225/2251625464351thumb.jpg', 'assets/post_resource/225/1625464351nok.MP4', NULL, '2021-07-05 05:52:31', '2021-07-05 05:52:32'),
+(133, 225, NULL, '2', '1', 'assets/post_resource/225/1625464387nok.MP4', 'assets/post_resource/225/2251625464387thumb.jpg', 'assets/post_resource/225/1625464387nok.MP4', NULL, '2021-07-05 05:53:07', '2021-07-05 05:53:08'),
+(134, 225, NULL, '2', '1', 'assets/post_resource/225/1625464888nok.MP4', 'assets/post_resource/225/2251625464888thumb.jpg', 'assets/post_resource/225/1625464888nok.MP4', NULL, '2021-07-05 06:01:28', '2021-07-05 06:01:29'),
+(135, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:03:18', '2021-07-05 06:03:18'),
+(136, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:03:47', '2021-07-05 06:03:47'),
+(137, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:04:09', '2021-07-05 06:04:09'),
+(138, 225, NULL, '2', '1', 'assets/post_resource/225/1625465128nok.MP4', 'assets/post_resource/225/2251625465128thumb.jpg', 'assets/post_resource/225/1625465128nok.MP4', NULL, '2021-07-05 06:05:28', '2021-07-05 06:05:29'),
+(139, 225, NULL, '2', '1', 'assets/post_resource/225/1625465150nok.MP4', 'assets/post_resource/225/2251625465150thumb.jpg', 'assets/post_resource/225/1625465150nok.MP4', NULL, '2021-07-05 06:05:49', '2021-07-05 06:05:51'),
+(140, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:09:28', '2021-07-05 06:09:28'),
+(141, 225, NULL, '2', '1', 'assets/post_resource/225/1625465421nok.MP4', 'assets/post_resource/225/2251625465421thumb.jpg', 'assets/post_resource/225/1625465421nok.MP4', NULL, '2021-07-05 06:10:21', '2021-07-05 06:10:22'),
+(142, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:11:17', '2021-07-05 06:11:17'),
+(143, 225, NULL, '2', '1', 'assets/post_resource/225/1625465493nok.MP4', 'assets/post_resource/225/2251625465493thumb.jpg', 'assets/post_resource/225/1625465493nok.MP4', NULL, '2021-07-05 06:11:33', '2021-07-05 06:11:34'),
+(144, 225, NULL, '2', '1', NULL, NULL, NULL, NULL, '2021-07-05 06:11:45', '2021-07-05 06:11:45'),
+(145, 225, NULL, '2', '1', 'assets/post_resource/225/1625465844nok.MP4', 'assets/post_resource/225/2251625465844thumb.jpg', 'assets/post_resource/225/1625465844nok.MP4', NULL, '2021-07-05 06:17:24', '2021-07-05 06:17:25'),
+(146, 225, NULL, '2', '1', 'assets/post_resource/225/1625465866nok.MP4', 'assets/post_resource/225/2251625465866thumb.jpg', 'assets/post_resource/225/1625465866nok.MP4', NULL, '2021-07-05 06:17:45', '2021-07-05 06:17:47'),
+(147, 225, NULL, '2', '1', 'assets/post_resource/225/1625465888file_example_MOV_640_800kB.mov', 'assets/post_resource/225/2251625465888thumb.jpg', 'assets/post_resource/225/1625465888file_example_MOV_640_800kB.mov', NULL, '2021-07-05 06:18:08', '2021-07-05 06:18:09'),
+(148, 11, NULL, '1', '1', 'assets/post_resource/11/1625498331thumb_1.jpg', NULL, 'assets/post_resource/11/1625498331thumb_1.jpg', NULL, '2021-07-05 15:18:51', '2021-07-05 15:18:51');
 
 -- --------------------------------------------------------
 
@@ -3317,7 +3282,8 @@ CREATE TABLE `story_files` (
 --
 
 INSERT INTO `story_files` (`id`, `story_id`, `type`, `reference_url`, `thumbnail_url`, `file_path`, `created_at`, `updated_at`) VALUES
-(3, 93, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450178_document1.jpeg', NULL, 'assets/post_resource/258/1588450178_document1.jpeg', '2020-05-02 20:09:39', '2020-05-02 20:09:39');
+(3, 93, '1', 'https://plx-world.s3-us-west-2.amazonaws.com/assets/post_resource/258/1588450178_document1.jpeg', NULL, 'assets/post_resource/254/1588450178_showofff.jpeg', '2020-05-02 20:09:39', '2020-05-02 20:09:39'),
+(4, 96, '1', 'assets/post_resource/225/1625405512IMG_4177.PNG', NULL, 'assets/post_resource/225/1625405512IMG_4177.PNG', '2021-07-04 13:31:52', '2021-07-04 13:31:52');
 
 -- --------------------------------------------------------
 
@@ -3328,7 +3294,7 @@ INSERT INTO `story_files` (`id`, `story_id`, `type`, `reference_url`, `thumbnail
 CREATE TABLE `terms_conditions` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3342,14 +3308,14 @@ CREATE TABLE `terms_conditions` (
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `facebook_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role_type` int(11) DEFAULT '1' COMMENT '1=user;2=role_based',
+  `role_type` int(11) DEFAULT 1 COMMENT '1=user;2=role_based',
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `about_me` longtext COLLATE utf8mb4_unicode_ci,
+  `about_me` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gender` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bio` text COLLATE utf8mb4_unicode_ci,
+  `bio` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3358,7 +3324,7 @@ CREATE TABLE `users` (
   `latitude` varchar(120) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `longitude` varchar(120) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT '1' COMMENT '1=active;2=block',
+  `status` int(11) DEFAULT 1 COMMENT '1=active;2=block',
   `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_login_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -3370,14 +3336,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `facebook_id`, `role_type`, `name`, `email`, `about_me`, `username`, `gender`, `phone`, `bio`, `date_of_birth`, `image_url`, `password`, `owner_name`, `location`, `latitude`, `longitude`, `remember_token`, `status`, `token`, `last_login_at`, `created_at`, `updated_at`) VALUES
-(11, NULL, 2, 'admin', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$oZOpthv8Z4w7gSRm2twM0.5qYaL7x6PoH3SjFXzUlWcB3skeUovWK', NULL, NULL, NULL, NULL, 'JuGI9LhW6g63IaAlZ7yXbPnIjG3knheBJPOa5NQJ12rKGYwPd3YktDx64JVA', 1, NULL, '2021-07-09 20:10:17', NULL, '2021-07-09 14:10:17'),
-(225, NULL, 1, 'test', 'aa1@bb.com', 'hi this is test', 'aa', NULL, NULL, NULL, NULL, 'assets/users_image/225/1586014577swift_file2.jpeg', '$2y$10$lyc2SAm.eiQz5fg3WHd9Juo7ar6jVO2j.O7NqGHB89QhJhH.0SCES', NULL, '15 Rd No 1, ঢাকা 1216, বাংলাদেশ', '23.82207017244581', '90.36358684301376', 'mZDc9BmhtY16Ch6PNvkndEdNAHOLFqDH5HBiogWVYeTH94yiAoxM77ABiHsZ', 1, NULL, '2021-07-09 20:00:43', '2020-03-31 17:56:16', '2021-07-09 14:00:43'),
-(254, NULL, 1, NULL, 'shamimpdfbd@gmail.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting', 'thowhid', NULL, NULL, NULL, NULL, 'assets/users_image/254/158653583883bc5ee4-c721-4cad-9af7-dddd8f293397.png', '$2y$10$iRyRUP0jG1FZiq.lo5D3qOv1fs/0MocHBo9aJNwZ3iPJFZKuWeuhe', NULL, 'dhaka', NULL, NULL, NULL, 1, NULL, '2020-04-12 12:59:46', '2020-04-10 09:49:12', '2020-04-12 06:59:46'),
-(255, NULL, 1, NULL, 'benjamin.lucer0105@gmail.com', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by', 'Thowhidur', NULL, NULL, NULL, NULL, 'assets/users_image/255/1586539133swift_file2.jpeg', '$2y$10$lG1.hQEDJq29hMHkjIxjK.FH7Y7rF08xX3jJ6uAhlyQdq9czA3rHu', NULL, 'Dhaka', NULL, NULL, NULL, 1, '5444', '2020-05-02 23:47:07', '2020-04-10 10:03:41', '2020-05-02 17:47:07'),
+(11, NULL, 2, 'admin', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$oZOpthv8Z4w7gSRm2twM0.5qYaL7x6PoH3SjFXzUlWcB3skeUovWK', NULL, NULL, NULL, NULL, 'ZBOjhPGK3RPfNjcQ0Ly3TbnOcPJS57XDzvuUoABYIUMi13cwGWcZEhqqOB5c', 1, NULL, '2021-07-09 20:04:08', NULL, '2021-07-09 14:04:08'),
+(225, NULL, 1, 'test', 'aa1@bb.com', 'hi this is test', 'aa', NULL, NULL, NULL, NULL, 'assets/users_image/225/1586014577swift_file2.jpeg', '$2y$10$lyc2SAm.eiQz5fg3WHd9Juo7ar6jVO2j.O7NqGHB89QhJhH.0SCES', NULL, '15 Rd No 1, ঢাকা 1216, বাংলাদেশ', '23.82207017244581', '90.36358684301376', 'scDDjzQBSWxqNe4C4pRoCoaDQS1NSTGNcmu3SRFbxM2Phz0gMAvbQ6fLxero', 1, NULL, '2021-07-04 13:17:44', '2020-03-31 17:56:16', '2021-07-04 07:17:44'),
+(254, NULL, 1, NULL, 'benjamin.lucer0105@gmail.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting', 'thowhid', NULL, NULL, NULL, NULL, 'assets/users_image/254/158653583883bc5ee4-c721-4cad-9af7-dddd8f293397.png', '$2y$10$iRyRUP0jG1FZiq.lo5D3qOv1fs/0MocHBo9aJNwZ3iPJFZKuWeuhe', NULL, 'dhaka', NULL, NULL, NULL, 1, NULL, '2020-04-12 12:59:46', '2020-04-10 09:49:12', '2020-04-12 06:59:46'),
+(255, NULL, 1, NULL, 'thowhid@parallaxlogic.com', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by', 'Thowhidur', NULL, NULL, NULL, NULL, 'assets/users_image/255/1586539133swift_file2.jpeg', '$2y$10$lG1.hQEDJq29hMHkjIxjK.FH7Y7rF08xX3jJ6uAhlyQdq9czA3rHu', NULL, 'Dhaka', NULL, NULL, NULL, 1, '5444', '2020-05-02 23:47:07', '2020-04-10 10:03:41', '2020-05-02 17:47:07'),
 (256, NULL, 1, NULL, 'palash6@gmail.com', NULL, 'palash', NULL, NULL, NULL, NULL, 'assets/users_image/256/1586515033picture_1586515026.jpg', '$2y$10$hn6kdaL1X66lC8COEUSaWOpuDFEE.9Hb46vPerBK9jC4lHYbXaah2', NULL, 'Bangladesh', NULL, NULL, NULL, 1, NULL, '2020-04-10 16:59:27', '2020-04-10 10:25:02', '2020-04-11 20:26:20'),
 (257, NULL, 1, NULL, 'rayhan@gmail.com', NULL, 'rayhan', NULL, NULL, NULL, NULL, 'assets/users_image/257/1586859151picture_1586859148.jpg', '$2y$10$VxeM7ICDXpSlKdAtd/Qk0Ohsn6GqHAqXlct/zCCdPQHOYDuW7zBJK', NULL, 'Dhaka', NULL, NULL, NULL, 1, '1535', '2020-04-21 00:12:26', '2020-04-10 11:50:59', '2020-04-21 17:16:44'),
 (258, NULL, 1, NULL, 'auatusher@parallaxlogic.com', 'test', 'tusher5', NULL, NULL, NULL, NULL, 'assets/users_image/258/1586542362swift_file2.jpeg', '$2y$10$lmIz2fDnljlCOG/QXF8OhusVRa8qgoKfkzetoYKLSXlXqSBZX4o9y', NULL, 'test', NULL, NULL, NULL, 1, NULL, '2020-05-03 02:01:31', '2020-04-10 16:49:27', '2020-05-02 20:01:31'),
-(259, NULL, 1, NULL, 'faysal@gmail.com', 'test', 'faysal', NULL, NULL, NULL, NULL, 'assets/users_image/259/1586966579picture_1586966575.jpg', '$2y$10$YE6Csnh445KZw4aTu3fCneVFykPFdUPceTTOhnQqa6D4qKpy.uAzi', NULL, 'Dhaka', NULL, NULL, NULL, 1, NULL, '2021-07-05 16:28:45', '2020-04-11 04:34:13', '2021-07-05 10:28:45'),
+(259, NULL, 1, NULL, 'faysal@gmail.com', 'test', 'faysal', NULL, NULL, NULL, NULL, 'assets/users_image/259/1586966579picture_1586966575.jpg', '$2y$10$YE6Csnh445KZw4aTu3fCneVFykPFdUPceTTOhnQqa6D4qKpy.uAzi', NULL, 'Dhaka', NULL, NULL, NULL, 1, NULL, '2020-05-09 15:11:21', '2020-04-11 04:34:13', '2020-05-09 09:11:21'),
 (260, NULL, 1, NULL, 'tuba@gmail.com', NULL, 'tuba', NULL, NULL, NULL, NULL, 'assets/users_image/260/1586604890b97386bb-dce0-4bb5-9d9b-34b6dbc2aaeb.png', '$2y$10$CtIejxKCWF.e1iL3zHD5F.sdCpg3P9550xI3uHLUpAFEPRbFuAvya', NULL, 'dhaka', NULL, NULL, NULL, 1, NULL, '2020-04-15 01:24:37', '2020-04-11 04:58:32', '2020-04-14 19:24:37'),
 (261, NULL, 1, NULL, 'samsul@parallaxlogic.com', 'This is for testing', 'devaccount', NULL, NULL, NULL, NULL, 'assets/users_image/261/1586665881fp_wmg_brawlstars.png', '$2y$10$GSEUxFcHHt8cOUapyNcd0OVcDRYaE/M0exESxpC8HlCnJcDk06pQC', NULL, 'California', '36.7783', '119.4179', NULL, 1, '7447', '2020-05-02 15:47:32', '2020-04-11 05:24:19', '2020-05-02 09:47:32'),
 (262, NULL, 1, NULL, 'roy@gmail.com', NULL, 'roy', NULL, NULL, NULL, NULL, 'assets/users_image/262/1586623009picture_1586622998.jpg', '$2y$10$4RkhIILZAO4kOSGTZi/aru6E4fql2J0u71ePCFpbZtBpyUoT1iSRa', NULL, 'dhaka', NULL, NULL, NULL, 1, NULL, '2020-04-20 18:29:45', '2020-04-11 12:07:06', '2020-04-20 12:29:45'),
@@ -3389,9 +3355,7 @@ INSERT INTO `users` (`id`, `facebook_id`, `role_type`, `name`, `email`, `about_m
 (269, NULL, 1, NULL, 'palash@gmail.com', NULL, 'palash', NULL, NULL, NULL, NULL, NULL, '$2y$10$O2wV/BZyl4G89jjFFrJ/ve58vHqC2LbxG2G8E89srONVFGkV9g4P.', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2020-04-18 15:34:13', '2020-04-18 09:34:13', '2020-04-18 09:34:13'),
 (270, NULL, 1, NULL, 'palash1@gmail.com', NULL, 'palash1', NULL, NULL, NULL, NULL, NULL, '$2y$10$k04qnD/SBcrGUzRD/blmcOtMstlPkOTjaXsy9VQDA8iP4JOJmvUt2', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2020-04-18 16:30:24', '2020-04-18 10:30:24', '2020-04-18 10:30:24'),
 (271, NULL, 1, NULL, 'testaa@aa.com', NULL, 'testaa', NULL, NULL, NULL, NULL, NULL, '$2y$10$19STZ4GhTX4EBDyp2k5SmOX9UwgcYNr0W1d3kiK1b8gE4IMa.121y', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2020-04-21 22:02:28', '2020-04-21 16:02:28', '2020-04-21 16:02:28'),
-(272, NULL, 1, NULL, 'mom@gmail.com', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator', 'momtahina', NULL, NULL, NULL, NULL, 'assets/users_image/272/158789004732283574-ee03-487e-b8e0-475ffac25f6c.png', '$2y$10$xIiaUYpRFH7IspukQXuuL.UAfvXtYGvqxMUdbA1cHZ7YhyYz3Ckje', NULL, 'kustia', NULL, NULL, NULL, 1, NULL, '2020-04-26 16:38:08', '2020-04-26 08:30:40', '2020-04-26 10:38:08'),
-(273, NULL, 1, NULL, 'dev20131030@gmail.com', 'at Home', 'dev20131030', NULL, NULL, NULL, NULL, 'assets/users_image/273/1625260407d20882ff-666f-4a2d-950b-4e5e0a76919d.png', '$2y$10$DX34nQPBnqsd4mnHhZM2cecnEQ0le.cE.uezqU2dCYwQ.a3Z99y8S', NULL, 'Washington', NULL, NULL, NULL, 1, NULL, '2021-07-09 22:31:24', '2021-07-02 18:01:42', '2021-07-09 16:31:24'),
-(274, NULL, 1, NULL, 'john.graham010594@gmail.com', 'software engineer', 'John graham', NULL, NULL, NULL, NULL, NULL, '$2y$10$I4HAd3ingO9tdyfwKNdT6evDPDvBaqwIAxa1ZZZEOAPhHc7IieMe6', NULL, 'Earth', NULL, NULL, NULL, 1, NULL, '2021-07-09 19:55:11', '2021-07-05 12:19:01', '2021-07-09 13:55:11');
+(272, NULL, 1, NULL, 'mom@gmail.com', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator', 'momtahina', NULL, NULL, NULL, NULL, 'assets/users_image/272/158789004732283574-ee03-487e-b8e0-475ffac25f6c.png', '$2y$10$xIiaUYpRFH7IspukQXuuL.UAfvXtYGvqxMUdbA1cHZ7YhyYz3Ckje', NULL, 'kustia', NULL, NULL, NULL, 1, NULL, '2020-04-26 16:38:08', '2020-04-26 08:30:40', '2020-04-26 10:38:08');
 
 --
 -- Indexes for dumped tables
@@ -3689,25 +3653,25 @@ ALTER TABLE `banner_managements`
 -- AUTO_INCREMENT for table `blocked_users`
 --
 ALTER TABLE `blocked_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `channels`
 --
 ALTER TABLE `channels`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `chattings`
 --
 ALTER TABLE `chattings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=399;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
 
 --
 -- AUTO_INCREMENT for table `comment_likes`
 --
 ALTER TABLE `comment_likes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `common_settings`
@@ -3719,13 +3683,13 @@ ALTER TABLE `common_settings`
 -- AUTO_INCREMENT for table `contact_uses`
 --
 ALTER TABLE `contact_uses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `feedbacks`
@@ -3737,19 +3701,19 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT for table `filter_settings`
 --
 ALTER TABLE `filter_settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -3761,7 +3725,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=505;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -3785,31 +3749,31 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `posts_categories`
 --
 ALTER TABLE `posts_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `post_comments`
 --
 ALTER TABLE `post_comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 
 --
 -- AUTO_INCREMENT for table `post_files`
 --
 ALTER TABLE `post_files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `post_likes`
 --
 ALTER TABLE `post_likes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=283;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
 
 --
 -- AUTO_INCREMENT for table `post_tags`
@@ -3845,13 +3809,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `stories`
 --
 ALTER TABLE `stories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `story_files`
 --
 ALTER TABLE `story_files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `terms_conditions`
@@ -3863,7 +3827,7 @@ ALTER TABLE `terms_conditions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 
 --
 -- Constraints for dumped tables
