@@ -94,19 +94,6 @@ class ApiController extends Controller
                 $uploadPath = 'assets/post_resource/' . $user_id . '/'; //upload path in variable
                 $image->move($uploadPath, $imageName); //image move into the directory
 
-                /* if ($request->type == "1") {
-                    $image_resize = Image::make($post_file->getRealPath());
-                    $size = $image_resize->filesize();
-                    if ($size > "2000000") {
-                        Storage::disk('s3')->put($uploadPath . $imageName, $image_resize->stream('jpg', 60), 'public');
-
-                    } else {
-                        Storage::disk('s3')->put($uploadPath . $imageName, $image_resize->stream(), 'public');
-                    }
-                } else {
-                    Storage::disk('s3')->put($uploadPath . $imageName, file_get_contents($image), 'public');
-                } */
-
                 $image_url = $uploadPath . $imageName; //concrete image url
 
                 if ($key == "0") {
@@ -115,13 +102,9 @@ class ApiController extends Controller
 
                     if ($request->type == '2') {
                         try {
-                            //$image_url_temp = '/home/gay4erfxtjdu/public_html/'.$image_url;
                             $tempname = $user_id . time() . 'thumb.jpg';
-                            //$temppath = '/home/gay4erfxtjdu/public_html/tempfiles/' . $tempname;
                             $temppath = public_path('tempfiles/' . $tempname);
-                            //Flavy::thumbnail($image_url_temp, $temppath, 1);
                             Flavy::thumbnail($image_url, $temppath, 1);
-                            /* Storage::disk('s3')->put($uploadPath . $tempname, file_get_contents($temppath), 'public'); */
                             $video_thumb__url = $uploadPath . $tempname;
                             file_put_contents($video_thumb__url,file_get_contents($temppath));
                             $new_post->thumbnail_url = $video_thumb__url;
@@ -383,18 +366,6 @@ class ApiController extends Controller
                 $uploadPath = 'assets/post_resource/' . $user_id . '/'; //upload path in variable
                 $image->move($uploadPath, $imageName); //image move into the directory
                 
-                /* if ($request->type == "1") {
-                    $image_resize = Image::make($story_file->getRealPath());
-                    $size = $image_resize->filesize();
-                    if ($size > "2000000") {
-                        Storage::disk('s3')->put($uploadPath . $imageName, $image_resize->stream('jpg', 60), 'public');
-                    } else {
-                        Storage::disk('s3')->put($uploadPath . $imageName, $image_resize->stream(), 'public');
-                    }
-                } else {
-                    Storage::disk('s3')->put($uploadPath . $imageName, file_get_contents($image), 'public');
-                } */
-
                 $image_url = $uploadPath . $imageName; //concrete image url
 
                 if ($key == "0") {
@@ -403,19 +374,14 @@ class ApiController extends Controller
 
                     if ($request->type == '2') {
                         try {
-                            //$image_url_temp = '/home/gay4erfxtjdu/public_html/'.$image_url;
                             $tempname = $user_id . time() . 'thumb.jpg';
-                            //$temppath = '/home/gay4erfxtjdu/public_html/tempfiles/' . $tempname;
                             $temppath = public_path('tempfiles/' . $tempname);
-                            //Flavy::thumbnail($image_url_temp, $temppath, 1);
                             Flavy::thumbnail($image_url, $temppath, 1);
-                            /* Storage::disk('s3')->put($uploadPath . $tempname, file_get_contents($temppath), 'public'); */
                             $video_thumb__url = $uploadPath . $tempname;
                             file_put_contents($video_thumb__url,file_get_contents($temppath));
                             $new_story->thumbnail_url = $video_thumb__url;
                             unlink($temppath);
                         } catch (CmdException $exception) {
-                            //dd($exception);
                             $response['thumnail'] = "failed for iphone";
                         }
                     }
@@ -629,9 +595,7 @@ class ApiController extends Controller
         /*else{
             $new_posts = $new_posts
                 ->orderBy('created_at','desc')
-
             ;
-
         }*/
 
 
@@ -791,13 +755,8 @@ class ApiController extends Controller
 
             }
 
-            /*
-                        });*/
-
-
             /*    $new_posts = $new_posts
                     ->orderBy('created_at','desc')
-
                 ;*/
         }
 
@@ -1550,19 +1509,13 @@ class ApiController extends Controller
 
                  $new_posts = $new_posts
                      ->whereBetween('created_at', [Carbon::now()->subDay(), Carbon::today()])
-
-                 ;
-
+                ;
              }
 
              if (@$filter->last_forty_eight == "1"){
-
-
-                 $new_posts = $new_posts
+                $new_posts = $new_posts
                      ->whereBetween('created_at', [Carbon::now()->subDays(2), Carbon::today()])
-
-                 ;
-
+                ;
              }*/
 
         if (@$filter->last_twenty_four == "1") {
@@ -1648,7 +1601,6 @@ class ApiController extends Controller
                     $imageName = preg_replace('/\s+/', '', $imageName);
                     $uploadPath = 'assets/post_resource/' . $user_id . '/'; //upload path in variable
                     $image->move($uploadPath, $imageName); //image move into the directory
-                    //Storage::disk('s3')->put($uploadPath . $imageName, file_get_contents($image), 'public');
                     $image_url = $uploadPath . $imageName; //concrete image url
                     $chatting->video = $image_url; // image url upload in database
                     $data->video = $image_url;
