@@ -477,3 +477,7 @@ td > .post-thumb-img {
     vertical-align: middle;
     font-size: .875rem;
 }
+
+.frontpage{
+    background-image: "/assets/background.jpg";
+}

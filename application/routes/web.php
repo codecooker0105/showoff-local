@@ -24,7 +24,7 @@ Route::get('/login', function () {
 Route::get('/timeline/{id}', 'Admin\PostController@webView');
 
 Route::get('/', function () {
-    return redirect('/login');
+    return view('frontpage');
 });
 
 Route::get('/about_us', 'HomeController@about_us');

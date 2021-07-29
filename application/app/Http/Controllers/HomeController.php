@@ -56,7 +56,6 @@ class HomeController extends Controller
         return view('termsandcond')->with($data);
     }
 
-
     public function s3Live(){
         $new_posts=Posts::whereType(3)->get();
         $apiKey='46254272';
